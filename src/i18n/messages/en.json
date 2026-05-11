@@ -1,0 +1,191 @@
+{
+  "common": {
+    "appName": "Meldung",
+    "next": "Next",
+    "back": "Back",
+    "submit": "Submit",
+    "submitting": "Submitting…",
+    "cancel": "Cancel",
+    "save": "Save",
+    "required": "Required",
+    "optional": "Optional",
+    "yes": "Yes",
+    "no": "No",
+    "unknown": "Unknown",
+    "step": "Step {current} of {total}",
+    "startReport": "Start report",
+    "missingFieldsWarning": "Some recommended fields are still empty:",
+    "submitAnyway": "Submit anyway"
+  },
+  "header": {
+    "title": "IT Security Incident Report",
+    "subtitle": "Internal report per information security guidelines",
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "language": "Language"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – IT Security & Data Protection",
+    "privacy": "Privacy Policy",
+    "imprint": "Imprint"
+  },
+  "wizard": {
+    "step": "Step {current} of {total}",
+    "startReport": "Start report",
+    "missingFieldsWarning": "Some recommended fields are still empty:",
+    "submitAnyway": "Submit anyway",
+    "stepOf": "Step {current} of {total}",
+    "progress": "Progress",
+    "reporterInfo": "Reporter Information",
+    "timeline": "Incident Timeline",
+    "classification": "Classification",
+    "description": "Description",
+    "systems": "Affected Systems",
+    "impact": "Impact Assessment",
+    "measures": "Measures Taken",
+    "gdpr": "GDPR Assessment",
+    "summary": "Summary",
+    "stepNavigation": "Step navigation"
+  },
+  "draft": {
+    "found": "A saved draft was found. Would you like to resume?",
+    "resume": "Resume",
+    "discard": "Discard",
+    "autoSaved": "Draft auto-saved"
+  },
+  "confirmation": {
+    "title": "Your incident report has been submitted successfully",
+    "reference": "Reference Number",
+    "downloadPdf": "Download PDF Report",
+    "deliveryStatus": "Delivery Status",
+    "channelSuccess": "{channel}: Delivered",
+    "channelFailed": "{channel}: Failed",
+    "submitAnother": "Submit another report",
+    "errorTitle": "Submission failed",
+    "errorRetry": "Please try again"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Name",
+      "department": "Department / Unit",
+      "role": "Role / Function",
+      "contact": "Contact (Email / Phone)",
+      "reportDate": "Report date & time",
+      "namePlaceholder": "Jane Doe",
+      "departmentPlaceholder": "Faculty III / IT Dept.",
+      "rolePlaceholder": "e.g. IT contact person",
+      "contactPlaceholder": "name@example.com",
+      "invalidEmail": "Please enter a valid email address"
+    },
+    "timeline": {
+      "discoveryDate": "Date & time of discovery",
+      "occurrenceDate": "Date & time of occurrence (if known)",
+      "isResolved": "Is the incident resolved?"
+    },
+    "classification": {
+      "category": "Incident category",
+      "subType": "Sub-type",
+      "selectPlaceholder": "-- Please select --",
+      "undetermined": "Cannot determine / Unknown"
+    },
+    "description": {
+      "description": "Description of the incident",
+      "descriptionPlaceholder": "What happened?",
+      "howDiscovered": "How was the incident discovered?",
+      "attackVector": "Attack vector",
+      "vectors": {
+        "email": "Email",
+        "web": "Web / Browser",
+        "network": "Network",
+        "physical": "Physical access",
+        "social-engineering": "Social Engineering",
+        "supply-chain": "Supply Chain",
+        "insider": "Insider",
+        "unknown": "Unknown",
+        "other": "Other"
+      }
+    },
+    "systems": {
+      "label": "Select affected systems",
+      "other": "Other",
+      "otherPlaceholder": "Please specify"
+    },
+    "impact": {
+      "functional": "Functional Impact",
+      "information": "Information Impact",
+      "recoverability": "Recoverability",
+      "personalData": "Does this incident involve personal data?",
+      "personalDataHint": "An additional step for data protection assessment will be added.",
+      "functionalOptions": {
+        "none": "None - No impact",
+        "low": "Low - Minimal impact",
+        "medium": "Medium - Significant impact",
+        "high": "High - Critical impact"
+      },
+      "informationOptions": {
+        "none": "None",
+        "privacy-breach": "Privacy Breach",
+        "proprietary-breach": "Proprietary Information Breach",
+        "integrity-loss": "Integrity Loss"
+      },
+      "recoverabilityOptions": {
+        "regular": "Regular - existing resources sufficient",
+        "supplemented": "Supplemented - additional resources needed",
+        "extended": "Extended - significant time/resources needed",
+        "not-recoverable": "Not Recoverable"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Measures already taken",
+      "isResolved": "Has the incident been resolved?",
+      "recommendedActions": "Recommended next steps (optional)"
+    },
+    "gdpr": {
+      "infoTitle": "GDPR Art. 33 — Notification obligation",
+      "infoText": "Personal data breaches must be reported to the supervisory authority within 72 hours.",
+      "dataCategories": "Affected data categories",
+      "personCategories": "Affected person categories",
+      "estimatedRecords": "Estimated number of affected records",
+      "dpoContact": "Data Protection Officer contact",
+      "isBreach": "Is this a personal data breach under GDPR?",
+      "dataCategoryOptions": {
+        "nameAddress": "Name & address data",
+        "contactData": "Contact data (email, phone)",
+        "dateOfBirth": "Date of birth / age",
+        "credentials": "Login credentials / passwords",
+        "financialData": "Financial / bank data",
+        "healthData": "Health data",
+        "biometricData": "Biometric data",
+        "locationData": "Location / GPS data",
+        "onlineIdentifiers": "Online identifiers (IP, cookies)",
+        "employmentData": "Employment data",
+        "educationData": "Education / exam data",
+        "socialSecurityId": "Social security / ID numbers",
+        "religiousPolitical": "Religious / political beliefs",
+        "sexualOrientation": "Sexual orientation",
+        "criminalRecords": "Criminal records",
+        "communicationContent": "Communication content",
+        "other": "Other"
+      },
+      "personCategoryOptions": {
+        "students": "Students",
+        "staff": "Staff / Employees",
+        "applicants": "Applicants",
+        "externalPartners": "External partners",
+        "alumni": "Alumni",
+        "minors": "Minors (under 18)",
+        "customers": "Customers / Service users",
+        "patients": "Patients"
+      }
+    },
+    "options": {
+      "yes": "Yes",
+      "no": "No",
+      "unknown": "Unknown / Cannot determine"
+    },
+    "summary": {
+      "missingFields": "The following recommended fields are still empty:",
+      "timestamp": "The report timestamp will be recorded automatically upon submission."
+    }
+  }
+}

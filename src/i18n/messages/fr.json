@@ -1,0 +1,191 @@
+{
+  "common": {
+    "appName": "Meldung",
+    "next": "Suivant",
+    "back": "Retour",
+    "submit": "Envoyer",
+    "submitting": "Envoi en cours…",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "required": "Obligatoire",
+    "optional": "Facultatif",
+    "yes": "Oui",
+    "no": "Non",
+    "unknown": "Inconnu",
+    "step": "Étape {current} sur {total}",
+    "startReport": "Commencer le signalement",
+    "missingFieldsWarning": "Certains champs recommandés sont encore vides :",
+    "submitAnyway": "Envoyer quand même"
+  },
+  "header": {
+    "title": "Signalement d'incident de sécurité informatique",
+    "subtitle": "Rapport interne conformément aux directives de sécurité de l'information",
+    "darkMode": "Mode sombre",
+    "lightMode": "Mode clair",
+    "language": "Langue"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – Sécurité informatique & Protection des données",
+    "privacy": "Politique de confidentialité",
+    "imprint": "Mentions légales"
+  },
+  "wizard": {
+    "step": "Étape {current} sur {total}",
+    "startReport": "Commencer le signalement",
+    "missingFieldsWarning": "Certains champs recommandés sont encore vides :",
+    "submitAnyway": "Envoyer quand même",
+    "stepOf": "Étape {current} sur {total}",
+    "progress": "Progression",
+    "reporterInfo": "Informations sur le déclarant",
+    "timeline": "Chronologie de l'incident",
+    "classification": "Classification",
+    "description": "Description",
+    "systems": "Systèmes affectés",
+    "impact": "Évaluation de l'impact",
+    "measures": "Mesures prises",
+    "gdpr": "Évaluation RGPD",
+    "summary": "Résumé",
+    "stepNavigation": "Navigation par étapes"
+  },
+  "draft": {
+    "found": "Un brouillon enregistré a été trouvé. Souhaitez-vous le reprendre ?",
+    "resume": "Reprendre",
+    "discard": "Supprimer",
+    "autoSaved": "Brouillon enregistré automatiquement"
+  },
+  "confirmation": {
+    "title": "Votre signalement d'incident a été envoyé avec succès",
+    "reference": "Numéro de référence",
+    "downloadPdf": "Télécharger le rapport PDF",
+    "deliveryStatus": "Statut de livraison",
+    "channelSuccess": "{channel} : Livré",
+    "channelFailed": "{channel} : Échec",
+    "submitAnother": "Soumettre un autre signalement",
+    "errorTitle": "Échec de l'envoi",
+    "errorRetry": "Veuillez réessayer"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Nom",
+      "department": "Département / Unité",
+      "role": "Rôle / Fonction",
+      "contact": "Contact (e-mail / téléphone)",
+      "reportDate": "Date et heure du signalement",
+      "namePlaceholder": "Marie Dupont",
+      "departmentPlaceholder": "Faculté III / Service informatique",
+      "rolePlaceholder": "p. ex. référent informatique",
+      "contactPlaceholder": "nom@exemple.fr",
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide"
+    },
+    "timeline": {
+      "discoveryDate": "Date et heure de la découverte",
+      "occurrenceDate": "Date et heure de l'incident (si connue)",
+      "isResolved": "L'incident est-il résolu ?"
+    },
+    "classification": {
+      "category": "Catégorie de l'incident",
+      "subType": "Sous-type",
+      "selectPlaceholder": "-- Veuillez sélectionner --",
+      "undetermined": "Impossible à déterminer / Inconnu"
+    },
+    "description": {
+      "description": "Description de l'incident",
+      "descriptionPlaceholder": "Que s'est-il passé ?",
+      "howDiscovered": "Comment l'incident a-t-il été découvert ?",
+      "attackVector": "Vecteur d'attaque",
+      "vectors": {
+        "email": "E-mail",
+        "web": "Web / Navigateur",
+        "network": "Réseau",
+        "physical": "Accès physique",
+        "social-engineering": "Ingénierie sociale",
+        "supply-chain": "Chaîne d'approvisionnement",
+        "insider": "Menace interne",
+        "unknown": "Inconnu",
+        "other": "Autre"
+      }
+    },
+    "systems": {
+      "label": "Sélectionnez les systèmes affectés",
+      "other": "Autre",
+      "otherPlaceholder": "Veuillez préciser"
+    },
+    "impact": {
+      "functional": "Impact fonctionnel",
+      "information": "Impact sur l'information",
+      "recoverability": "Capacité de récupération",
+      "personalData": "Cet incident implique-t-il des données personnelles ?",
+      "personalDataHint": "Une étape supplémentaire pour l'évaluation de la protection des données sera ajoutée.",
+      "functionalOptions": {
+        "none": "Aucun – Pas d'impact",
+        "low": "Faible – Impact minimal",
+        "medium": "Moyen – Impact significatif",
+        "high": "Élevé – Impact critique"
+      },
+      "informationOptions": {
+        "none": "Aucun",
+        "privacy-breach": "Violation de la vie privée",
+        "proprietary-breach": "Violation d'informations confidentielles",
+        "integrity-loss": "Perte d'intégrité"
+      },
+      "recoverabilityOptions": {
+        "regular": "Normal – ressources existantes suffisantes",
+        "supplemented": "Renforcé – ressources supplémentaires nécessaires",
+        "extended": "Étendu – temps/ressources importants nécessaires",
+        "not-recoverable": "Non récupérable"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Mesures déjà prises",
+      "isResolved": "L'incident a-t-il été résolu ?",
+      "recommendedActions": "Prochaines étapes recommandées (facultatif)"
+    },
+    "gdpr": {
+      "infoTitle": "RGPD Art. 33 — Obligation de notification",
+      "infoText": "Les violations de données personnelles doivent être signalées à l'autorité de contrôle dans un délai de 72 heures.",
+      "dataCategories": "Catégories de données concernées",
+      "personCategories": "Catégories de personnes concernées",
+      "estimatedRecords": "Nombre estimé d'enregistrements affectés",
+      "dpoContact": "Contact du Délégué à la Protection des Données",
+      "isBreach": "S'agit-il d'une violation de données personnelles au sens du RGPD ?",
+      "dataCategoryOptions": {
+        "nameAddress": "Nom et adresse",
+        "contactData": "Données de contact (e-mail, téléphone)",
+        "dateOfBirth": "Date de naissance / âge",
+        "credentials": "Identifiants de connexion / mots de passe",
+        "financialData": "Données financières / bancaires",
+        "healthData": "Données de santé",
+        "biometricData": "Données biométriques",
+        "locationData": "Données de localisation / GPS",
+        "onlineIdentifiers": "Identifiants en ligne (IP, cookies)",
+        "employmentData": "Données professionnelles",
+        "educationData": "Données d'éducation / d'examens",
+        "socialSecurityId": "Numéro de sécurité sociale / pièce d'identité",
+        "religiousPolitical": "Convictions religieuses / politiques",
+        "sexualOrientation": "Orientation sexuelle",
+        "criminalRecords": "Casier judiciaire",
+        "communicationContent": "Contenu de communications",
+        "other": "Autre"
+      },
+      "personCategoryOptions": {
+        "students": "Étudiants",
+        "staff": "Personnel / Employés",
+        "applicants": "Candidats",
+        "externalPartners": "Partenaires externes",
+        "alumni": "Anciens étudiants",
+        "minors": "Mineurs (moins de 18 ans)",
+        "customers": "Clients / Usagers",
+        "patients": "Patients"
+      }
+    },
+    "options": {
+      "yes": "Oui",
+      "no": "Non",
+      "unknown": "Inconnu / Impossible à déterminer"
+    },
+    "summary": {
+      "missingFields": "Les champs recommandés suivants sont encore vides :",
+      "timestamp": "L horodatage sera enregistré automatiquement lors de l envoi."
+    }
+  }
+}

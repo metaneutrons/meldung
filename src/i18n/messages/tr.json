@@ -1,0 +1,191 @@
+{
+  "common": {
+    "appName": "Meldung",
+    "next": "İleri",
+    "back": "Geri",
+    "submit": "Gönder",
+    "submitting": "Gönderiliyor…",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "required": "Zorunlu",
+    "optional": "İsteğe bağlı",
+    "yes": "Evet",
+    "no": "Hayır",
+    "unknown": "Bilinmiyor",
+    "step": "Adım {current} / {total}",
+    "startReport": "Raporu başlat",
+    "missingFieldsWarning": "Bazı önerilen alanlar hâlâ boş:",
+    "submitAnyway": "Yine de gönder"
+  },
+  "header": {
+    "title": "BT Güvenlik Olayı Bildirimi",
+    "subtitle": "Bilgi güvenliği yönergelerine göre dahili bildirim",
+    "darkMode": "Karanlık mod",
+    "lightMode": "Aydınlık mod",
+    "language": "Dil"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – BT Güvenliği ve Veri Koruma",
+    "privacy": "Gizlilik Politikası",
+    "imprint": "Künye"
+  },
+  "wizard": {
+    "step": "Adım {current} / {total}",
+    "startReport": "Raporu başlat",
+    "missingFieldsWarning": "Bazı önerilen alanlar hâlâ boş:",
+    "submitAnyway": "Yine de gönder",
+    "stepOf": "Adım {current} / {total}",
+    "progress": "İlerleme",
+    "reporterInfo": "Bildiren Kişi Bilgileri",
+    "timeline": "Olay Zaman Çizelgesi",
+    "classification": "Sınıflandırma",
+    "description": "Açıklama",
+    "systems": "Etkilenen Sistemler",
+    "impact": "Etki Değerlendirmesi",
+    "measures": "Alınan Önlemler",
+    "gdpr": "KVKK Değerlendirmesi",
+    "summary": "Özet",
+    "stepNavigation": "Adım navigasyonu"
+  },
+  "draft": {
+    "found": "Kaydedilmiş bir taslak bulundu. Devam etmek ister misiniz?",
+    "resume": "Devam et",
+    "discard": "Sil",
+    "autoSaved": "Taslak otomatik kaydedildi"
+  },
+  "confirmation": {
+    "title": "Olay bildiriminiz başarıyla gönderildi",
+    "reference": "Referans Numarası",
+    "downloadPdf": "PDF Raporu İndir",
+    "deliveryStatus": "Teslimat Durumu",
+    "channelSuccess": "{channel}: Teslim edildi",
+    "channelFailed": "{channel}: Başarısız",
+    "submitAnother": "Başka bir bildirim gönder",
+    "errorTitle": "Gönderim başarısız",
+    "errorRetry": "Lütfen tekrar deneyin"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Ad Soyad",
+      "department": "Bölüm / Birim",
+      "role": "Rol / Görev",
+      "contact": "İletişim (E-posta / Telefon)",
+      "reportDate": "Bildirim tarihi ve saati",
+      "namePlaceholder": "Ahmet Yılmaz",
+      "departmentPlaceholder": "Fakülte III / BT Bölümü",
+      "rolePlaceholder": "ör. BT sorumlusu",
+      "contactPlaceholder": "isim@ornek.com",
+      "invalidEmail": "Lütfen geçerli bir e-posta adresi girin"
+    },
+    "timeline": {
+      "discoveryDate": "Keşfedilme tarihi ve saati",
+      "occurrenceDate": "Gerçekleşme tarihi ve saati (biliniyorsa)",
+      "isResolved": "Olay çözüldü mü?"
+    },
+    "classification": {
+      "category": "Olay kategorisi",
+      "subType": "Alt kategori",
+      "selectPlaceholder": "-- Lütfen seçin --",
+      "undetermined": "Belirlenemiyor / Bilinmiyor"
+    },
+    "description": {
+      "description": "Olayın açıklaması",
+      "descriptionPlaceholder": "Ne oldu?",
+      "howDiscovered": "Olay nasıl keşfedildi?",
+      "attackVector": "Saldırı vektörü",
+      "vectors": {
+        "email": "E-posta",
+        "web": "Web / Tarayıcı",
+        "network": "Ağ",
+        "physical": "Fiziksel erişim",
+        "social-engineering": "Sosyal Mühendislik",
+        "supply-chain": "Tedarik Zinciri",
+        "insider": "İç tehdit",
+        "unknown": "Bilinmiyor",
+        "other": "Diğer"
+      }
+    },
+    "systems": {
+      "label": "Etkilenen sistemleri seçin",
+      "other": "Diğer",
+      "otherPlaceholder": "Lütfen belirtin"
+    },
+    "impact": {
+      "functional": "İşlevsel Etki",
+      "information": "Bilgi Etkisi",
+      "recoverability": "Kurtarılabilirlik",
+      "personalData": "Bu olay kişisel verileri içeriyor mu?",
+      "personalDataHint": "Veri koruma değerlendirmesi için ek bir adım eklenecektir.",
+      "functionalOptions": {
+        "none": "Yok – Etki yok",
+        "low": "Düşük – Minimal etki",
+        "medium": "Orta – Önemli etki",
+        "high": "Yüksek – Kritik etki"
+      },
+      "informationOptions": {
+        "none": "Yok",
+        "privacy-breach": "Gizlilik İhlali",
+        "proprietary-breach": "Özel Bilgi İhlali",
+        "integrity-loss": "Bütünlük Kaybı"
+      },
+      "recoverabilityOptions": {
+        "regular": "Normal – mevcut kaynaklar yeterli",
+        "supplemented": "Destekli – ek kaynaklar gerekli",
+        "extended": "Genişletilmiş – önemli zaman/kaynak gerekli",
+        "not-recoverable": "Kurtarılamaz"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Alınmış önlemler",
+      "isResolved": "Olay çözüldü mü?",
+      "recommendedActions": "Önerilen sonraki adımlar (isteğe bağlı)"
+    },
+    "gdpr": {
+      "infoTitle": "KVKK – Bildirim yükümlülüğü",
+      "infoText": "Kişisel veri ihlalleri 72 saat içinde Kişisel Verileri Koruma Kurumu'na bildirilmelidir.",
+      "dataCategories": "Etkilenen veri kategorileri",
+      "personCategories": "Etkilenen kişi kategorileri",
+      "estimatedRecords": "Tahmini etkilenen kayıt sayısı",
+      "dpoContact": "Veri Koruma Görevlisi iletişim bilgisi",
+      "isBreach": "Bu, KVKK kapsamında bir kişisel veri ihlali midir?",
+      "dataCategoryOptions": {
+        "nameAddress": "Ad ve adres bilgileri",
+        "contactData": "İletişim bilgileri (e-posta, telefon)",
+        "dateOfBirth": "Doğum tarihi / yaş",
+        "credentials": "Giriş bilgileri / şifreler",
+        "financialData": "Finansal / banka verileri",
+        "healthData": "Sağlık verileri",
+        "biometricData": "Biyometrik veriler",
+        "locationData": "Konum / GPS verileri",
+        "onlineIdentifiers": "Çevrimiçi tanımlayıcılar (IP, çerezler)",
+        "employmentData": "İstihdam verileri",
+        "educationData": "Eğitim / sınav verileri",
+        "socialSecurityId": "Sosyal güvenlik / kimlik numaraları",
+        "religiousPolitical": "Dini / siyasi inançlar",
+        "sexualOrientation": "Cinsel yönelim",
+        "criminalRecords": "Sabıka kayıtları",
+        "communicationContent": "İletişim içerikleri",
+        "other": "Diğer"
+      },
+      "personCategoryOptions": {
+        "students": "Öğrenciler",
+        "staff": "Personel / Çalışanlar",
+        "applicants": "Başvuru sahipleri",
+        "externalPartners": "Dış ortaklar",
+        "alumni": "Mezunlar",
+        "minors": "Reşit olmayanlar (18 yaş altı)",
+        "customers": "Müşteriler / Hizmet kullanıcıları",
+        "patients": "Hastalar"
+      }
+    },
+    "options": {
+      "yes": "Evet",
+      "no": "Hayır",
+      "unknown": "Bilinmiyor / Belirlenemiyor"
+    },
+    "summary": {
+      "missingFields": "Aşağıdaki önerilen alanlar hâlâ boş:",
+      "timestamp": "Zaman damgası gönderim sırasında otomatik olarak kaydedilecektir."
+    }
+  }
+}

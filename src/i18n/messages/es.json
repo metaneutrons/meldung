@@ -1,0 +1,191 @@
+{
+  "common": {
+    "appName": "Meldung",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "submit": "Enviar",
+    "submitting": "Enviando…",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "required": "Obligatorio",
+    "optional": "Opcional",
+    "yes": "Sí",
+    "no": "No",
+    "unknown": "Desconocido",
+    "step": "Paso {current} de {total}",
+    "startReport": "Iniciar informe",
+    "missingFieldsWarning": "Algunos campos recomendados están vacíos:",
+    "submitAnyway": "Enviar de todos modos"
+  },
+  "header": {
+    "title": "Informe de incidente de seguridad informática",
+    "subtitle": "Informe interno según las directrices de seguridad de la información",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "language": "Idioma"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – Seguridad informática y protección de datos",
+    "privacy": "Política de privacidad",
+    "imprint": "Aviso legal"
+  },
+  "wizard": {
+    "step": "Paso {current} de {total}",
+    "startReport": "Iniciar informe",
+    "missingFieldsWarning": "Algunos campos recomendados están vacíos:",
+    "submitAnyway": "Enviar de todos modos",
+    "stepOf": "Paso {current} de {total}",
+    "progress": "Progreso",
+    "reporterInfo": "Datos del informante",
+    "timeline": "Cronología del incidente",
+    "classification": "Clasificación",
+    "description": "Descripción",
+    "systems": "Sistemas afectados",
+    "impact": "Evaluación del impacto",
+    "measures": "Medidas adoptadas",
+    "gdpr": "Evaluación RGPD",
+    "summary": "Resumen",
+    "stepNavigation": "Navegación por pasos"
+  },
+  "draft": {
+    "found": "Se encontró un borrador guardado. ¿Desea continuar?",
+    "resume": "Continuar",
+    "discard": "Descartar",
+    "autoSaved": "Borrador guardado automáticamente"
+  },
+  "confirmation": {
+    "title": "Su informe de incidente se ha enviado correctamente",
+    "reference": "Número de referencia",
+    "downloadPdf": "Descargar informe PDF",
+    "deliveryStatus": "Estado de entrega",
+    "channelSuccess": "{channel}: Entregado",
+    "channelFailed": "{channel}: Fallido",
+    "submitAnother": "Enviar otro informe",
+    "errorTitle": "Error en el envío",
+    "errorRetry": "Por favor, inténtelo de nuevo"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Nombre",
+      "department": "Departamento / Unidad",
+      "role": "Rol / Función",
+      "contact": "Contacto (correo / teléfono)",
+      "reportDate": "Fecha y hora del informe",
+      "namePlaceholder": "María García",
+      "departmentPlaceholder": "Facultad III / Dpto. TI",
+      "rolePlaceholder": "p. ej. responsable de TI",
+      "contactPlaceholder": "nombre@ejemplo.com",
+      "invalidEmail": "Introduzca una dirección de correo electrónico válida"
+    },
+    "timeline": {
+      "discoveryDate": "Fecha y hora del descubrimiento",
+      "occurrenceDate": "Fecha y hora del suceso (si se conoce)",
+      "isResolved": "¿Se ha resuelto el incidente?"
+    },
+    "classification": {
+      "category": "Categoría del incidente",
+      "subType": "Subcategoría",
+      "selectPlaceholder": "-- Seleccione --",
+      "undetermined": "No determinado / Desconocido"
+    },
+    "description": {
+      "description": "Descripción del incidente",
+      "descriptionPlaceholder": "¿Qué ocurrió?",
+      "howDiscovered": "¿Cómo se descubrió el incidente?",
+      "attackVector": "Vector de ataque",
+      "vectors": {
+        "email": "Correo electrónico",
+        "web": "Web / Navegador",
+        "network": "Red",
+        "physical": "Acceso físico",
+        "social-engineering": "Ingeniería social",
+        "supply-chain": "Cadena de suministro",
+        "insider": "Insider",
+        "unknown": "Desconocido",
+        "other": "Otro"
+      }
+    },
+    "systems": {
+      "label": "Seleccione los sistemas afectados",
+      "other": "Otro",
+      "otherPlaceholder": "Especifique"
+    },
+    "impact": {
+      "functional": "Impacto funcional",
+      "information": "Impacto en la información",
+      "recoverability": "Recuperabilidad",
+      "personalData": "¿Este incidente involucra datos personales?",
+      "personalDataHint": "Se añadirá un paso adicional para la evaluación de protección de datos.",
+      "functionalOptions": {
+        "none": "Ninguno – Sin impacto",
+        "low": "Bajo – Impacto mínimo",
+        "medium": "Medio – Impacto significativo",
+        "high": "Alto – Impacto crítico"
+      },
+      "informationOptions": {
+        "none": "Ninguno",
+        "privacy-breach": "Violación de privacidad",
+        "proprietary-breach": "Violación de información confidencial",
+        "integrity-loss": "Pérdida de integridad"
+      },
+      "recoverabilityOptions": {
+        "regular": "Regular – recursos existentes suficientes",
+        "supplemented": "Complementado – se necesitan recursos adicionales",
+        "extended": "Extendido – se necesita tiempo/recursos significativos",
+        "not-recoverable": "No recuperable"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Medidas ya adoptadas",
+      "isResolved": "¿Se ha resuelto el incidente?",
+      "recommendedActions": "Próximos pasos recomendados (opcional)"
+    },
+    "gdpr": {
+      "infoTitle": "RGPD Art. 33 – Obligación de notificación",
+      "infoText": "Las violaciones de datos personales deben notificarse a la autoridad de control en un plazo de 72 horas.",
+      "dataCategories": "Categorías de datos afectadas",
+      "personCategories": "Categorías de personas afectadas",
+      "estimatedRecords": "Número estimado de registros afectados",
+      "dpoContact": "Contacto del Delegado de Protección de Datos",
+      "isBreach": "¿Se trata de una violación de datos personales según el RGPD?",
+      "dataCategoryOptions": {
+        "nameAddress": "Nombre y dirección",
+        "contactData": "Datos de contacto (correo, teléfono)",
+        "dateOfBirth": "Fecha de nacimiento / edad",
+        "credentials": "Credenciales de acceso / contraseñas",
+        "financialData": "Datos financieros / bancarios",
+        "healthData": "Datos de salud",
+        "biometricData": "Datos biométricos",
+        "locationData": "Datos de ubicación / GPS",
+        "onlineIdentifiers": "Identificadores en línea (IP, cookies)",
+        "employmentData": "Datos laborales",
+        "educationData": "Datos de formación / exámenes",
+        "socialSecurityId": "Números de seguridad social / identificación",
+        "religiousPolitical": "Creencias religiosas / políticas",
+        "sexualOrientation": "Orientación sexual",
+        "criminalRecords": "Antecedentes penales",
+        "communicationContent": "Contenido de comunicaciones",
+        "other": "Otros"
+      },
+      "personCategoryOptions": {
+        "students": "Estudiantes",
+        "staff": "Personal / Empleados",
+        "applicants": "Solicitantes",
+        "externalPartners": "Socios externos",
+        "alumni": "Antiguos alumnos",
+        "minors": "Menores (menores de 18)",
+        "customers": "Clientes / Usuarios del servicio",
+        "patients": "Pacientes"
+      }
+    },
+    "options": {
+      "yes": "Sí",
+      "no": "No",
+      "unknown": "Desconocido / No determinado"
+    },
+    "summary": {
+      "missingFields": "Los siguientes campos recomendados están vacíos:",
+      "timestamp": "La marca de tiempo se registrará automáticamente al enviar."
+    }
+  }
+}

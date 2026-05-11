@@ -1,0 +1,190 @@
+{
+  "common": {
+    "appName": "Meldung",
+    "next": "Weiter",
+    "back": "Zurück",
+    "submit": "Absenden",
+    "submitting": "Wird gesendet…",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "required": "Pflichtfeld",
+    "optional": "Optional",
+    "yes": "Ja",
+    "no": "Nein",
+    "unknown": "Unbekannt",
+    "step": "Schritt {current} von {total}",
+    "startReport": "Meldung starten",
+    "missingFieldsWarning": "Einige empfohlene Felder sind noch leer:",
+    "submitAnyway": "Trotzdem absenden"
+  },
+  "header": {
+    "title": "Meldung eines IT-Sicherheitsvorfalls",
+    "subtitle": "Interne Meldung gemäß Informationssicherheitsrichtlinien",
+    "darkMode": "Dunkelmodus",
+    "lightMode": "Hellmodus",
+    "language": "Sprache"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – IT-Sicherheit & Datenschutz",
+    "privacy": "Datenschutz",
+    "imprint": "Impressum"
+  },
+  "wizard": {
+    "step": "Schritt {current} von {total}",
+    "startReport": "Meldung starten",
+    "missingFieldsWarning": "Einige empfohlene Felder sind noch leer:",
+    "submitAnyway": "Trotzdem absenden",
+    "stepOf": "Schritt {current} von {total}",
+    "progress": "Fortschritt",
+    "reporterInfo": "Angaben zur meldenden Person",
+    "timeline": "Zeitlicher Verlauf",
+    "classification": "Klassifizierung",
+    "description": "Beschreibung",
+    "systems": "Betroffene Systeme",
+    "impact": "Auswirkungen",
+    "measures": "Ergriffene Maßnahmen",
+    "gdpr": "DSGVO-Bewertung",
+    "summary": "Zusammenfassung",
+    "stepNavigation": "Schrittnavigation"
+  },
+  "draft": {
+    "found": "Ein gespeicherter Entwurf wurde gefunden. Möchten Sie fortfahren?",
+    "resume": "Fortfahren",
+    "discard": "Verwerfen",
+    "autoSaved": "Entwurf automatisch gespeichert"
+  },
+  "confirmation": {
+    "title": "Ihr Sicherheitsvorfall wurde erfolgreich gemeldet",
+    "reference": "Referenznummer",
+    "downloadPdf": "PDF-Bericht herunterladen",
+    "deliveryStatus": "Zustellstatus",
+    "channelSuccess": "{channel}: Zugestellt",
+    "channelFailed": "{channel}: Fehlgeschlagen",
+    "submitAnother": "Weitere Meldung erstellen",
+    "errorTitle": "Übermittlung fehlgeschlagen",
+    "errorRetry": "Bitte versuchen Sie es erneut"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Name",
+      "department": "Abteilung / Einrichtung",
+      "role": "Rolle / Funktion",
+      "contact": "Kontakt (E-Mail / Telefon)",
+      "reportDate": "Meldezeitpunkt",
+      "namePlaceholder": "Max Mustermann",
+      "departmentPlaceholder": "Fakultät III / Abt. IT",
+      "rolePlaceholder": "z. B. IT-Ansprechperson",
+      "contactPlaceholder": "name@beispiel.de"
+    },
+    "timeline": {
+      "discoveryDate": "Entdeckungszeitpunkt",
+      "occurrenceDate": "Vermuteter Vorfallszeitpunkt (falls bekannt)",
+      "isResolved": "Ist der Vorfall abgeschlossen?"
+    },
+    "classification": {
+      "category": "Vorfallskategorie",
+      "subType": "Unterkategorie",
+      "selectPlaceholder": "-- Bitte auswählen --",
+      "undetermined": "Nicht bestimmbar / Unbekannt"
+    },
+    "description": {
+      "description": "Beschreibung des Vorfalls",
+      "descriptionPlaceholder": "Was ist passiert?",
+      "howDiscovered": "Wie wurde der Vorfall entdeckt?",
+      "attackVector": "Angriffsvektor",
+      "vectors": {
+        "email": "E-Mail",
+        "web": "Web / Browser",
+        "network": "Netzwerk",
+        "physical": "Physischer Zugang",
+        "social-engineering": "Social Engineering",
+        "supply-chain": "Lieferkette",
+        "insider": "Insider",
+        "unknown": "Unbekannt",
+        "other": "Sonstiges"
+      }
+    },
+    "systems": {
+      "label": "Betroffene Systeme auswählen",
+      "other": "Sonstiges",
+      "otherPlaceholder": "Bitte angeben"
+    },
+    "impact": {
+      "functional": "Funktionale Auswirkung",
+      "information": "Informationsbezogene Auswirkung",
+      "recoverability": "Wiederherstellbarkeit",
+      "personalData": "Sind personenbezogene Daten betroffen?",
+      "personalDataHint": "Ein zusätzlicher Schritt zur Datenschutzbewertung wird hinzugefügt.",
+      "functionalOptions": {
+        "none": "Keine – Kein Einfluss",
+        "low": "Gering – Minimale Auswirkung",
+        "medium": "Mittel – Erhebliche Auswirkung",
+        "high": "Hoch – Kritische Auswirkung"
+      },
+      "informationOptions": {
+        "none": "Keine",
+        "privacy-breach": "Verletzung des Datenschutzes",
+        "proprietary-breach": "Verletzung vertraulicher Informationen",
+        "integrity-loss": "Integritätsverlust"
+      },
+      "recoverabilityOptions": {
+        "regular": "Regulär – vorhandene Ressourcen ausreichend",
+        "supplemented": "Ergänzt – zusätzliche Ressourcen erforderlich",
+        "extended": "Erweitert – erheblicher Zeit-/Ressourcenaufwand",
+        "not-recoverable": "Nicht wiederherstellbar"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Bereits ergriffene Maßnahmen",
+      "isResolved": "Wurde der Vorfall behoben?",
+      "recommendedActions": "Empfohlene nächste Schritte (optional)"
+    },
+    "gdpr": {
+      "infoTitle": "DSGVO Art. 33 – Meldepflicht",
+      "infoText": "Verletzungen des Schutzes personenbezogener Daten müssen der Aufsichtsbehörde innerhalb von 72 Stunden gemeldet werden.",
+      "dataCategories": "Betroffene Datenkategorien",
+      "personCategories": "Betroffene Personenkategorien",
+      "estimatedRecords": "Geschätzte Anzahl betroffener Datensätze",
+      "dpoContact": "Kontakt Datenschutzbeauftragte/r",
+      "isBreach": "Handelt es sich um eine Verletzung personenbezogener Daten gemäß DSGVO?",
+      "dataCategoryOptions": {
+        "nameAddress": "Name & Adressdaten",
+        "contactData": "Kontaktdaten (E-Mail, Telefon)",
+        "dateOfBirth": "Geburtsdatum / Alter",
+        "credentials": "Zugangsdaten / Passwörter",
+        "financialData": "Finanzdaten / Bankdaten",
+        "healthData": "Gesundheitsdaten",
+        "biometricData": "Biometrische Daten",
+        "locationData": "Standortdaten / GPS",
+        "onlineIdentifiers": "Online-Kennungen (IP, Cookies)",
+        "employmentData": "Beschäftigungsdaten",
+        "educationData": "Ausbildungs- / Prüfungsdaten",
+        "socialSecurityId": "Sozialversicherungs- / Ausweisnummern",
+        "religiousPolitical": "Religiöse / politische Überzeugungen",
+        "sexualOrientation": "Sexuelle Orientierung",
+        "criminalRecords": "Strafrechtliche Daten",
+        "communicationContent": "Kommunikationsinhalte",
+        "other": "Sonstige"
+      },
+      "personCategoryOptions": {
+        "students": "Studierende",
+        "staff": "Beschäftigte",
+        "applicants": "Bewerber:innen",
+        "externalPartners": "Externe Partner",
+        "alumni": "Alumni",
+        "minors": "Minderjährige (unter 18)",
+        "customers": "Kund:innen / Nutzende",
+        "patients": "Patient:innen"
+      }
+    },
+    "options": {
+      "yes": "Ja",
+      "no": "Nein",
+      "unknown": "Unbekannt / Nicht bestimmbar"
+    },
+    "summary": {
+      "missingFields": "Folgende empfohlene Angaben fehlen noch:",
+      "timestamp": "Der Meldezeitpunkt wird automatisch beim Absenden erfasst."
+    }
+  }
+}
