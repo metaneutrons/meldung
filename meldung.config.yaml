@@ -1,0 +1,22 @@
+branding:
+  orgName: "Hochschule Hannover"
+  # logoUrl: "/logo.svg"  # Place SVG in public/ folder to enable
+  primaryColor: "#38b449"
+  accentColor: "#333333"
+
+defaultLocale: de
+
+delivery:
+  email:
+    enabled: false
+  znuny:
+    enabled: false
+
+persistence:
+  enabled: false
+  driver: sqlite
+
+auth:
+  enabled: false
+
+referencePrefix: "INC"

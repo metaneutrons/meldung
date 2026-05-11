@@ -1,0 +1,132 @@
+# =============================================================================
+# Meldung — Configuration
+# =============================================================================
+# Copy this file to meldung.config.yaml and adjust to your environment.
+# All sections are documented below.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Branding
+# -----------------------------------------------------------------------------
+# Customize the appearance for your organization.
+# logoUrl: path to SVG/PNG in the public/ folder (optional, omit for text-only)
+branding:
+  orgName: "Hochschule Hannover"
+  # logoUrl: "/logo.svg"
+  primaryColor: "#38b449"
+  accentColor: "#333333"
+
+# -----------------------------------------------------------------------------
+# Locale
+# -----------------------------------------------------------------------------
+# Default language for the UI. Supported: de, en, es, fr, tr, it
+defaultLocale: de
+
+# -----------------------------------------------------------------------------
+# Delivery Channels
+# -----------------------------------------------------------------------------
+# Configure how incident reports are delivered after submission.
+# Both channels can be enabled simultaneously — they run in parallel.
+# If both are disabled, the report is only available as PDF download.
+delivery:
+  # --- Email Channel ---
+  email:
+    enabled: false
+    smtp:
+      host: "smtp.example.com"
+      port: 587
+      secure: true
+      user: "noreply@example.com"
+      pass: "your-smtp-password"
+      from: "IT-Security <it-security@example.com>"
+      recipients:
+        - "cert@example.com"
+        - "dpo@example.com"
+
+  # --- Znuny / OTRS Channel ---
+  znuny:
+    enabled: false
+    config:
+      baseUrl: "https://znuny.example.com/otrs/nph-genericinterface.pl/Webservice/Ticket%20REST%20API"
+      username: "api-user"
+      password: "your-api-password"
+      queue: "IT-Security"
+      priority: "3 normal"
+      state: "new"
+
+      # Mapping mode determines how form data is sent to Znuny:
+      #   "minimal"        — Title + formatted plain text body
+      #   "rich"           — Same as minimal + Dynamic Fields (requires fieldMappings)
+      #   "json-attachment" — Short summary body + full form data as JSON attachment
+      mappingMode: "minimal"
+
+      # Only used with mappingMode "rich":
+      # Maps form field names to Znuny Dynamic Field names.
+      # fieldMappings:
+      #   incidentCategory: "DynamicField_IncidentCategory"
+      #   incidentSubType: "DynamicField_IncidentSubType"
+      #   functionalImpact: "DynamicField_FunctionalImpact"
+      #   informationImpact: "DynamicField_InformationImpact"
+      #   recoverability: "DynamicField_Recoverability"
+      #   personalDataInvolved: "DynamicField_PersonalData"
+      #   isGdprBreach: "DynamicField_GDPRBreach"
+
+# -----------------------------------------------------------------------------
+# Persistence (optional)
+# -----------------------------------------------------------------------------
+# When enabled, submissions are stored locally for audit trail purposes.
+# Driver "sqlite" uses a JSONL file at the given path.
+persistence:
+  enabled: false
+  driver: sqlite
+  connectionString: "./data/meldung.jsonl"
+
+# -----------------------------------------------------------------------------
+# Authentication (optional)
+# -----------------------------------------------------------------------------
+# When enabled, the form requires SSO login before access.
+# Set AUTH_ENABLED=true as environment variable to activate in middleware.
+# Supports any OIDC-compatible provider (Keycloak, Azure AD, Shibboleth via proxy, etc.)
+auth:
+  enabled: false
+  provider: oidc
+  # issuer: "https://idp.example.com/realms/main"
+  # clientId: "meldung"
+  # clientSecret: "your-client-secret"
+
+# -----------------------------------------------------------------------------
+# Reference Number
+# -----------------------------------------------------------------------------
+# Prefix for generated incident reference numbers.
+# Format: {prefix}-{YYYYMMDD}-{4 hex chars}, e.g. INC-20260511-a3f2
+referencePrefix: "INC"
+
+# -----------------------------------------------------------------------------
+# Taxonomy Override (optional)
+# -----------------------------------------------------------------------------
+# Override the default ENISA RSIT incident taxonomy.
+# If omitted, the built-in 9-category ENISA RSIT taxonomy is used.
+# taxonomy:
+#   - value: "malicious-code"
+#     label: "Malicious Code"
+#     entries:
+#       - value: "ransomware"
+#         label: "Ransomware"
+#         description: "Malware that encrypts data and demands ransom"
+#       - value: "trojan"
+#         label: "Trojan"
+#         description: "Malware disguised as legitimate software"
+
+# -----------------------------------------------------------------------------
+# Affected Systems Override (optional)
+# -----------------------------------------------------------------------------
+# Override the default systems checklist shown in step 5.
+# If omitted, a generic default list is used.
+# systems:
+#   - "Campus-Management-System"
+#   - "Lernplattform (Moodle)"
+#   - "E-Mail-System"
+#   - "Forschungsdatenbank"
+#   - "VPN / Netzwerk"
+#   - "Cloud-Dienste"
+#   - "ERP / SAP"
