@@ -1,0 +1,15 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./meldung.config.yaml:/app/meldung.config.yaml:ro
+      - app-data:/app/data
+    environment:
+      - AUTH_ENABLED=false
+      - AUTH_SECRET=change-me-in-production
+    restart: unless-stopped
+
+volumes:
+  app-data:
