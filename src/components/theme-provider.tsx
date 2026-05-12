@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useSyncExternalStore, type ReactNode } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -17,62 +17,57 @@ function setThemeCookie(theme: Theme) {
   document.cookie = `meldung-theme=${theme};path=/;max-age=31536000;SameSite=Lax`;
 }
 
+let listeners: Array<() => void> = [];
+function emitChange() {
+  listeners.forEach((l) => l());
+}
+
+function getThemeSnapshot(): Theme {
+  if (typeof window === 'undefined') return 'light';
+  return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+}
+
+function getServerSnapshot(): Theme {
+  return 'light';
+}
+
+function subscribe(listener: () => void) {
+  listeners.push(listener);
+  return () => {
+    listeners = listeners.filter((l) => l !== listener);
+  };
+}
+
 interface ThemeProviderProps {
   children: ReactNode;
   serverTheme?: Theme;
 }
 
 export function ThemeProvider({ children, serverTheme }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(serverTheme ?? 'light');
-
-  useEffect(() => {
-    // On first mount, reconcile: localStorage is source of truth for user preference
+  // Reconcile on first client render
+  if (typeof window !== 'undefined') {
     const stored = localStorage.getItem('meldung-theme') as Theme | null;
     const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const resolved: Theme = stored ?? (systemDark ? 'dark' : 'light');
+    const current = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 
-    // Only update if different from server-rendered value
-    if (resolved !== (serverTheme ?? 'light')) {
-      setTheme(resolved);
+    if (resolved !== current) {
       document.documentElement.classList.toggle('dark', resolved === 'dark');
+    }
+    if (!stored || stored !== serverTheme) {
       setThemeCookie(resolved);
+      if (!stored) localStorage.setItem('meldung-theme', resolved);
     }
+  }
 
-    // Sync localStorage → cookie for future server renders
-    if (stored && stored !== serverTheme) {
-      setThemeCookie(stored);
-    }
-
-    // If no stored preference, set cookie from system preference
-    if (!stored) {
-      setThemeCookie(resolved);
-      localStorage.setItem('meldung-theme', resolved);
-    }
-
-    // Listen for system changes (only if no explicit user override)
-    if (!stored) {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)');
-      const handler = (e: MediaQueryListEvent) => {
-        const next: Theme = e.matches ? 'dark' : 'light';
-        setTheme(next);
-        document.documentElement.classList.toggle('dark', e.matches);
-        setThemeCookie(next);
-        localStorage.setItem('meldung-theme', next);
-      };
-      mq.addEventListener('change', handler);
-      return () => mq.removeEventListener('change', handler);
-    }
-    return undefined;
-  }, [serverTheme]);
+  const theme = useSyncExternalStore(subscribe, getThemeSnapshot, () => serverTheme ?? getServerSnapshot());
 
   const toggle = useCallback(() => {
-    setTheme((prev) => {
-      const next: Theme = prev === 'dark' ? 'light' : 'dark';
-      document.documentElement.classList.toggle('dark', next === 'dark');
-      localStorage.setItem('meldung-theme', next);
-      setThemeCookie(next);
-      return next;
-    });
+    const next: Theme = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+    document.documentElement.classList.toggle('dark', next === 'dark');
+    localStorage.setItem('meldung-theme', next);
+    setThemeCookie(next);
+    emitChange();
   }, []);
 
   return <ThemeContext value={{ theme, toggle }}>{children}</ThemeContext>;

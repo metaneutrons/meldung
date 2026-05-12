@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useCallback, useEffect, useRef } from 'react';
+import { useMemo, useState, useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Send, Moon, Sun, CheckCircle2 } from 'lucide-react';
@@ -62,11 +62,18 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
     deliveryResults: { success: boolean; channel: string; error?: string }[];
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [mounted, setMounted] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    const state = store.getState();
+    return !(state._savedAt && (state.reporterName || state.description));
+  });
   const stepNavRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { setMounted(true); }, []);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   // Warn before closing if form has unsaved data
   useEffect(() => {
@@ -128,7 +135,8 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
     setSubmitting(true);
     setError(null);
     try {
-      const { _savedAt: _, update: _u, reset: _r, clearDraft: _c, ...formData } = store.getState();
+      const { _savedAt, update, reset, clearDraft, ...formData } = store.getState();
+      void _savedAt; void update; void reset; void clearDraft;
       formData.reportDate = new Date().toISOString();
       const res = await fetch('/api/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
       if (!res.ok) throw new Error(`Server error: ${res.status}`);
@@ -148,13 +156,6 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
     await doSubmit();
   };
 
-  // Skip welcome if there's an existing draft
-  useEffect(() => {
-    const state = store.getState();
-    if (state._savedAt && (state.reporterName || state.description)) {
-      setShowWelcome(false);
-    }
-  }, [store]);
 
   // Confirmation
   if (submitted && result) {
