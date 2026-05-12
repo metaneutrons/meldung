@@ -51,6 +51,10 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
   const pathname = usePathname();
   const store = useFormStore;
   const personalDataInvolved = useFormStore((s) => s.personalDataInvolved);
+  const reporterName = useFormStore((s) => s.reporterName);
+  const email = useFormStore((s) => s.email);
+  const phone = useFormStore((s) => s.phone);
+  const canSubmit = reporterName.trim() !== '' && email.includes('@') && phone.trim() !== '';
 
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -62,6 +66,7 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
     deliveryResults: { success: boolean; channel: string; error?: string }[];
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState(false);
   const [showWelcome, setShowWelcome] = useState(() => {
     if (typeof window === 'undefined') return true;
     const state = store.getState();
@@ -90,7 +95,7 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
 
   const steps: StepDef[] = useMemo(() => {
     const base: StepDef[] = [
-      { id: 'reporter', title: t('reporterInfo'), component: ReporterInfo, validate: () => { const s = store.getState(); return s.reporterName.trim() !== '' && s.contact.trim() !== ''; } },
+      { id: 'reporter', title: t('reporterInfo'), component: ReporterInfo, validate: () => { const s = store.getState(); return s.reporterName.trim() !== '' && s.email.includes('@') && s.phone.trim() !== ''; } },
       { id: 'timeline', title: t('timeline'), component: IncidentTimeline },
       { id: 'classification', title: t('classification'), component: IncidentClassification },
       { id: 'description', title: t('description'), component: IncidentDescription },
@@ -123,7 +128,11 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
   }, [safeStep]);
 
   const goNext = useCallback(() => {
-    if (currentStepDef.validate && !currentStepDef.validate()) return;
+    if (currentStepDef.validate && !currentStepDef.validate()) {
+      setValidationError(true);
+      return;
+    }
+    setValidationError(false);
     if (!isLast) { setDirection(1); setCurrentStep((s) => s + 1); }
   }, [currentStepDef, isLast]);
 
@@ -152,7 +161,7 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
   };
 
   const handleSubmit = async () => {
-    if (currentStepDef.validate && !currentStepDef.validate()) return;
+    if (!canSubmit) return;
     await doSubmit();
   };
 
@@ -301,7 +310,7 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
         </div>
 
         {/* Step card */}
-        <form className="flex-1" aria-label={currentStepDef.title} onSubmit={(e) => { e.preventDefault(); isLast ? handleSubmit() : goNext(); }}>
+        <form className="flex-1" aria-label={currentStepDef.title} onSubmit={(e) => { e.preventDefault(); if (isLast) { if (canSubmit) handleSubmit(); } else { goNext(); } }}>
           <div id={`step-panel-${currentStepDef.id}`} className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-6">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -319,6 +328,9 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
           {error && (
             <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300">{error}</div>
           )}
+          {validationError && (
+            <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/20 dark:text-red-300">{tc('fillRequired')}</div>
+          )}
         </form>
 
         {/* Navigation */}
@@ -330,9 +342,13 @@ export function IncidentForm({ orgName, logoUrl, welcomeContent, footerContent }
           ) : <div />}
 
           {isLast ? (
-            <button type="button" onClick={handleSubmit} disabled={submitting} className={`flex items-center gap-2 rounded-lg bg-[var(--brand-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 active:scale-[0.98] disabled:opacity-50 ${focusRing}`}>
-              {submitting ? tc('submitting') : tc('submit')} <Send className="h-4 w-4" />
-            </button>
+            canSubmit ? (
+              <button type="button" onClick={handleSubmit} disabled={submitting} className={`flex items-center gap-2 rounded-lg bg-[var(--brand-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 active:scale-[0.98] disabled:opacity-50 ${focusRing}`}>
+                {submitting ? tc('submitting') : tc('submit')} <Send className="h-4 w-4" />
+              </button>
+            ) : (
+              <span className="text-sm text-red-500 dark:text-red-400">{tc('fillRequired')}</span>
+            )
           ) : (
             <button type="button" onClick={goNext} className={`flex items-center gap-1.5 rounded-lg bg-[var(--brand-primary)] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:opacity-90 active:scale-[0.98] ${focusRing}`}>
               {tc('next')} <ChevronRight className="h-4 w-4" />

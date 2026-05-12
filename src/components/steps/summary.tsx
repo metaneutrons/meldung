@@ -10,6 +10,11 @@ export function Summary() {
   const tw = useTranslations('wizard');
   const state = useFormStore();
 
+  const required: string[] = [];
+  if (!state.reporterName.trim()) required.push(t('reporter.name'));
+  if (!state.email.trim() || !state.email.includes('@')) required.push(t('reporter.email'));
+  if (!state.phone.trim()) required.push(t('reporter.phone'));
+
   const missing: string[] = [];
   if (!state.discoveryDate) missing.push(tw('timeline'));
   if (!state.incidentCategory) missing.push(tw('classification'));
@@ -21,6 +26,21 @@ export function Summary() {
 
   return (
     <div className="space-y-5">
+      {/* Required fields error */}
+      {required.length > 0 && (
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
+            <div>
+              <p className="text-sm font-medium text-red-800 dark:text-red-200">{t('summary.requiredFields')}</p>
+              <ul className="mt-1 space-y-0.5 text-sm text-red-700 dark:text-red-300" style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
+                {required.map((f) => <li key={f}>{f}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Missing fields warning */}
       {missing.length > 0 && (
         <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
@@ -41,7 +61,8 @@ export function Summary() {
         {state.reporterName && <Row label={t('reporter.name')} value={state.reporterName} />}
         {state.department && <Row label={t('reporter.department')} value={state.department} />}
         {state.role && <Row label={t('reporter.role')} value={state.role} />}
-        {state.contact && <Row label={t('reporter.contact')} value={state.contact} />}
+        {state.email && <Row label={t('reporter.email')} value={state.email} />}
+        {state.phone && <Row label={t('reporter.phone')} value={state.phone} />}
         {state.discoveryDate && <Row label={t('timeline.discoveryDate')} value={formatDate(state.discoveryDate)} />}
         {state.occurrenceDate && <Row label={t('timeline.occurrenceDate')} value={formatDate(state.occurrenceDate)} />}
         {category && <Row label={t('classification.category')} value={category.label} />}
