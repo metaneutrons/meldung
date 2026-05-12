@@ -8,7 +8,8 @@ export interface FormState {
   reporterName: string;
   department: string;
   role: string;
-  contact: string;
+  email: string;
+  phone: string;
   reportDate: string;
 
   // Step 2: Timeline
@@ -60,7 +61,8 @@ const initialState: Omit<FormState, 'update' | 'reset' | 'clearDraft'> = {
   reporterName: '',
   department: '',
   role: '',
-  contact: '',
+  email: '',
+  phone: '',
   reportDate: '',
   discoveryDate: '',
   occurrenceDate: '',

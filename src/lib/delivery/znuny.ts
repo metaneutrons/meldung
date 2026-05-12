@@ -24,7 +24,8 @@ function formatPlainTextBody(data: FormData, referenceNumber: string): string {
     `Name: ${data.reporterName}`,
     `Department: ${data.department}`,
     `Role: ${data.role}`,
-    `Contact: ${data.contact}`,
+    `Email: ${data.email}`,
+    `Phone: ${data.phone}`,
     '',
     '--- Timeline ---',
     `Discovery: ${data.discoveryDate}`,
@@ -85,7 +86,7 @@ function buildPayload(ctx: DeliveryContext, config: ZnunyConfig) {
     Queue: config.queue,
     State: config.state,
     Priority: config.priority,
-    CustomerUser: ctx.data.contact || ctx.data.reporterName,
+    CustomerUser: ctx.data.email || ctx.data.reporterName,
   };
 
   const baseArticle = {

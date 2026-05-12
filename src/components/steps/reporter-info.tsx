@@ -6,7 +6,7 @@ import { useFormStore } from '@/lib/store/form-store';
 
 export function ReporterInfo() {
   const t = useTranslations('steps');
-  const { reporterName, department, role, contact, update } = useFormStore();
+  const { reporterName, department, role, email, phone, update } = useFormStore();
 
   const onChange = (field: string) => (e: ChangeEvent<HTMLInputElement>) => {
     update({ [field]: e.target.value });
@@ -15,9 +15,10 @@ export function ReporterInfo() {
   return (
     <div className="space-y-4">
       <Field label={`${t('reporter.name')} *`} value={reporterName} onChange={onChange('reporterName')} placeholder={t('reporter.namePlaceholder')} />
-      <Field label={`${t('reporter.department')} *`} value={department} onChange={onChange('department')} placeholder={t('reporter.departmentPlaceholder')} />
+      <Field label={`${t('reporter.email')} *`} value={email} onChange={onChange('email')} placeholder={t('reporter.emailPlaceholder')} type="email" error={email.length > 0 && !email.includes('@') ? t('reporter.invalidEmail') : undefined} />
+      <Field label={`${t('reporter.phone')} *`} value={phone} onChange={onChange('phone')} placeholder={t('reporter.phonePlaceholder')} type="tel" />
+      <Field label={t('reporter.department')} value={department} onChange={onChange('department')} placeholder={t('reporter.departmentPlaceholder')} />
       <Field label={t('reporter.role')} value={role} onChange={onChange('role')} placeholder={t('reporter.rolePlaceholder')} />
-      <Field label={`${t('reporter.contact')} *`} value={contact} onChange={onChange('contact')} placeholder={t('reporter.contactPlaceholder')} type="email" error={contact.length > 0 && !contact.includes('@') ? t('reporter.invalidEmail') : undefined} />
     </div>
   );
 }

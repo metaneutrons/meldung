@@ -70,7 +70,8 @@ export function IncidentReport({ data, referenceNumber, orgName, generatedAt }: 
           <Field label="Name" value={data.reporterName} />
           <Field label="Department" value={data.department} />
           <Field label="Role" value={data.role} />
-          <Field label="Contact" value={data.contact} />
+          <Field label="Email" value={data.email} />
+          <Field label="Phone" value={data.phone} />
           <Field label="Report Date" value={data.reportDate} />
         </Section>
 

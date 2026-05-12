@@ -21,6 +21,15 @@ function looksLikeEmail(value: string): boolean {
 export async function POST(request: Request) {
   try {
     const data = (await request.json()) as FormData;
+
+    // Server-side validation: require name, valid email, and phone
+    if (!data.reporterName?.trim() || !data.email?.trim() || !looksLikeEmail(data.email) || !data.phone?.trim()) {
+      return NextResponse.json(
+        { error: 'Reporter name, valid email address, and phone number are required.' },
+        { status: 422 },
+      );
+    }
+
     const config = getConfig();
     const referenceNumber = generateReferenceNumber(config.referencePrefix);
     const pdfBuffer = await generatePdf(data, referenceNumber);
@@ -31,8 +40,8 @@ export async function POST(request: Request) {
     if (config.delivery.email.enabled && config.delivery.email.smtp) {
       const smtp = config.delivery.email.smtp;
       deliveryPromises.push(deliverEmail(ctx, smtp));
-      if (looksLikeEmail(data.contact)) {
-        deliveryPromises.push(sendConfirmationEmail(ctx, smtp, data.contact));
+      if (looksLikeEmail(data.email)) {
+        deliveryPromises.push(sendConfirmationEmail(ctx, smtp, data.email));
       }
     }
 
