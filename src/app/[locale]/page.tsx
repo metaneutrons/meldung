@@ -16,10 +16,14 @@ function loadWelcomeContent(locale: string): string {
   return '# IT Security Incident Report\n\nPlease fill out the form to report an incident.';
 }
 
-function loadFooterContent(): string {
-  const footerPath = resolve(process.cwd(), 'content/footer.md');
-  if (existsSync(footerPath)) {
-    return readFileSync(footerPath, 'utf-8');
+function loadFooterContent(locale: string): string {
+  const localePath = resolve(process.cwd(), `content/footer.${locale}.md`);
+  if (existsSync(localePath)) {
+    return readFileSync(localePath, 'utf-8');
+  }
+  const defaultPath = resolve(process.cwd(), 'content/footer.md');
+  if (existsSync(defaultPath)) {
+    return readFileSync(defaultPath, 'utf-8');
   }
   return '';
 }
@@ -28,7 +32,7 @@ export default async function HomePage() {
   const config = getConfig();
   const locale = await getLocale();
   const welcomeContent = loadWelcomeContent(locale);
-  const footerContent = loadFooterContent();
+  const footerContent = loadFooterContent(locale);
 
   return (
     <div className="relative flex min-h-screen flex-col">
