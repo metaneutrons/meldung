@@ -15,7 +15,8 @@
     "step": "Étape {current} sur {total}",
     "startReport": "Commencer le signalement",
     "missingFieldsWarning": "Certains champs recommandés sont encore vides :",
-    "submitAnyway": "Envoyer quand même"
+    "submitAnyway": "Envoyer quand même",
+    "fillRequired": "Veuillez remplir les champs obligatoires (*)."
   },
   "header": {
     "title": "Signalement d'incident de sécurité informatique",
@@ -75,7 +76,11 @@
       "departmentPlaceholder": "Faculté III / Service informatique",
       "rolePlaceholder": "p. ex. référent informatique",
       "contactPlaceholder": "nom@exemple.fr",
-      "invalidEmail": "Veuillez saisir une adresse e-mail valide"
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "nom@exemple.fr",
+      "phone": "Téléphone",
+      "phonePlaceholder": "+49 511 9296-0"
     },
     "timeline": {
       "discoveryDate": "Date et heure de la découverte",
@@ -185,7 +190,8 @@
     },
     "summary": {
       "missingFields": "Les champs recommandés suivants sont encore vides :",
-      "timestamp": "L horodatage sera enregistré automatiquement lors de l envoi."
+      "timestamp": "L horodatage sera enregistré automatiquement lors de l envoi.",
+      "requiredFields": "Les champs obligatoires suivants doivent être remplis :"
     }
   }
 }

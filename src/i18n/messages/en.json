@@ -15,7 +15,8 @@
     "step": "Step {current} of {total}",
     "startReport": "Start report",
     "missingFieldsWarning": "Some recommended fields are still empty:",
-    "submitAnyway": "Submit anyway"
+    "submitAnyway": "Submit anyway",
+    "fillRequired": "Please fill in the required fields (*)."
   },
   "header": {
     "title": "IT Security Incident Report",
@@ -75,7 +76,11 @@
       "departmentPlaceholder": "Faculty III / IT Dept.",
       "rolePlaceholder": "e.g. IT contact person",
       "contactPlaceholder": "name@example.com",
-      "invalidEmail": "Please enter a valid email address"
+      "invalidEmail": "Please enter a valid email address",
+      "email": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "phone": "Phone number",
+      "phonePlaceholder": "+49 511 9296-0"
     },
     "timeline": {
       "discoveryDate": "Date & time of discovery",
@@ -185,7 +190,8 @@
     },
     "summary": {
       "missingFields": "The following recommended fields are still empty:",
-      "timestamp": "The report timestamp will be recorded automatically upon submission."
+      "timestamp": "The report timestamp will be recorded automatically upon submission.",
+      "requiredFields": "The following required fields must be filled in:"
     }
   }
 }

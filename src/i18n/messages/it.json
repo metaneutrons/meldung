@@ -15,7 +15,8 @@
     "step": "Passaggio {current} di {total}",
     "startReport": "Avvia segnalazione",
     "missingFieldsWarning": "Alcuni campi consigliati sono ancora vuoti:",
-    "submitAnyway": "Invia comunque"
+    "submitAnyway": "Invia comunque",
+    "fillRequired": "Compilare i campi obbligatori (*)."
   },
   "header": {
     "title": "Segnalazione incidente di sicurezza informatica",
@@ -75,7 +76,11 @@
       "departmentPlaceholder": "Facoltà III / Dip. IT",
       "rolePlaceholder": "es. referente IT",
       "contactPlaceholder": "nome@esempio.it",
-      "invalidEmail": "Inserire un indirizzo e-mail valido"
+      "invalidEmail": "Inserire un indirizzo e-mail valido",
+      "email": "Indirizzo e-mail",
+      "emailPlaceholder": "nome@esempio.it",
+      "phone": "Telefono",
+      "phonePlaceholder": "+49 511 9296-0"
     },
     "timeline": {
       "discoveryDate": "Data e ora della scoperta",
@@ -185,7 +190,8 @@
     },
     "summary": {
       "missingFields": "I seguenti campi consigliati sono ancora vuoti:",
-      "timestamp": "Il timestamp verrà registrato automaticamente all invio."
+      "timestamp": "Il timestamp verrà registrato automaticamente all invio.",
+      "requiredFields": "I seguenti campi obbligatori devono essere compilati:"
     }
   }
 }

@@ -15,7 +15,8 @@
     "step": "Adım {current} / {total}",
     "startReport": "Raporu başlat",
     "missingFieldsWarning": "Bazı önerilen alanlar hâlâ boş:",
-    "submitAnyway": "Yine de gönder"
+    "submitAnyway": "Yine de gönder",
+    "fillRequired": "Lütfen zorunlu alanları (*) doldurun."
   },
   "header": {
     "title": "BT Güvenlik Olayı Bildirimi",
@@ -75,7 +76,11 @@
       "departmentPlaceholder": "Fakülte III / BT Bölümü",
       "rolePlaceholder": "ör. BT sorumlusu",
       "contactPlaceholder": "isim@ornek.com",
-      "invalidEmail": "Lütfen geçerli bir e-posta adresi girin"
+      "invalidEmail": "Lütfen geçerli bir e-posta adresi girin",
+      "email": "E-posta adresi",
+      "emailPlaceholder": "isim@ornek.com",
+      "phone": "Telefon numarası",
+      "phonePlaceholder": "+49 511 9296-0"
     },
     "timeline": {
       "discoveryDate": "Keşfedilme tarihi ve saati",
@@ -185,7 +190,8 @@
     },
     "summary": {
       "missingFields": "Aşağıdaki önerilen alanlar hâlâ boş:",
-      "timestamp": "Zaman damgası gönderim sırasında otomatik olarak kaydedilecektir."
+      "timestamp": "Zaman damgası gönderim sırasında otomatik olarak kaydedilecektir.",
+      "requiredFields": "Aşağıdaki zorunlu alanlar doldurulmalıdır:"
     }
   }
 }

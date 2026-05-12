@@ -15,7 +15,8 @@
     "step": "Paso {current} de {total}",
     "startReport": "Iniciar informe",
     "missingFieldsWarning": "Algunos campos recomendados están vacíos:",
-    "submitAnyway": "Enviar de todos modos"
+    "submitAnyway": "Enviar de todos modos",
+    "fillRequired": "Por favor, complete los campos obligatorios (*)."
   },
   "header": {
     "title": "Informe de incidente de seguridad informática",
@@ -75,7 +76,11 @@
       "departmentPlaceholder": "Facultad III / Dpto. TI",
       "rolePlaceholder": "p. ej. responsable de TI",
       "contactPlaceholder": "nombre@ejemplo.com",
-      "invalidEmail": "Introduzca una dirección de correo electrónico válida"
+      "invalidEmail": "Introduzca una dirección de correo electrónico válida",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "nombre@ejemplo.com",
+      "phone": "Teléfono",
+      "phonePlaceholder": "+49 511 9296-0"
     },
     "timeline": {
       "discoveryDate": "Fecha y hora del descubrimiento",
@@ -185,7 +190,8 @@
     },
     "summary": {
       "missingFields": "Los siguientes campos recomendados están vacíos:",
-      "timestamp": "La marca de tiempo se registrará automáticamente al enviar."
+      "timestamp": "La marca de tiempo se registrará automáticamente al enviar.",
+      "requiredFields": "Los siguientes campos obligatorios deben completarse:"
     }
   }
 }

@@ -15,7 +15,8 @@
     "step": "Schritt {current} von {total}",
     "startReport": "Meldung starten",
     "missingFieldsWarning": "Einige empfohlene Felder sind noch leer:",
-    "submitAnyway": "Trotzdem absenden"
+    "submitAnyway": "Trotzdem absenden",
+    "fillRequired": "Bitte füllen Sie die Pflichtfelder (*) aus."
   },
   "header": {
     "title": "Meldung eines IT-Sicherheitsvorfalls",
@@ -74,7 +75,11 @@
       "namePlaceholder": "Max Mustermann",
       "departmentPlaceholder": "Fakultät III / Abt. IT",
       "rolePlaceholder": "z. B. IT-Ansprechperson",
-      "contactPlaceholder": "name@beispiel.de"
+      "contactPlaceholder": "name@beispiel.de",
+      "email": "E-Mail-Adresse",
+      "emailPlaceholder": "vorname.name@hs-hannover.de",
+      "phone": "Telefonnummer",
+      "phonePlaceholder": "+49 511 9296-0"
     },
     "timeline": {
       "discoveryDate": "Entdeckungszeitpunkt",
@@ -184,7 +189,8 @@
     },
     "summary": {
       "missingFields": "Folgende empfohlene Angaben fehlen noch:",
-      "timestamp": "Der Meldezeitpunkt wird automatisch beim Absenden erfasst."
+      "timestamp": "Der Meldezeitpunkt wird automatisch beim Absenden erfasst.",
+      "requiredFields": "Die folgenden Pflichtfelder müssen ausgefüllt werden:"
     }
   }
 }
