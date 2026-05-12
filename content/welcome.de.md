@@ -1,25 +1,23 @@
-# Datenschutz- & IT-Sicherheitsvorfall melden
+# Meldung von Datenschutz- und IT-Sicherheitsvorfällen
 
-Auf diesem Portal können Sie Datenschutz- oder IT-Sicherheitsvorfälle melden.
+Herzlich Willkommen! Hier können Sie Sicherheitsvorfälle oder Datenschutzverletzungen schnell und sicher an die zuständigen Mitarbeitenden übermitteln.
 
-## Wann sollten Sie melden?
+## Wann ist eine Meldung erforderlich?
+Bitte melden Sie uns insbesondere folgende Ereignisse:
+* **Verdacht auf unbefugte Zugriffe** auf Systeme, Konten oder Daten.
+* **Verlust oder Diebstahl** von Geräten (Laptops, Smartphones, USB-Sticks) mit vertraulichen Daten.
+* **Sicherheitsrelevante Vorfälle** wie Phishing-E-Mails, Social Engineering oder Malware-Infektionen (Viren, Ransomware).
+* **Anomalien**, wie ungewöhnliches Systemverhalten oder plötzliche IT-Ausfälle.
+* **Datenpannen**, z. B. der versehentliche Versand vertraulicher Informationen an falsche Empfänger.
 
-- Verdacht auf unbefugten Zugriff auf Systeme oder Daten
-- Verlust oder Diebstahl von Geräten mit sensiblen Daten
-- Phishing-Angriffe oder Social Engineering
-- Malware-Befall (Viren, Ransomware, Trojaner)
-- Ungewöhnliches Systemverhalten oder Ausfälle
-- Versehentliche Weitergabe vertraulicher Informationen
+## Wichtige Hinweise
+* **Schnelligkeit zählt:** Je früher Sie uns informieren, desto effektiver können wir den Schaden begrenzen. Bei Vorfällen mit **personenbezogenen Daten** sind wir gesetzlich verpflichtet, diese innerhalb von **72 Stunden** an die Aufsichtsbehörden zu melden (Art. 33 DSGVO). Unterstützen Sie uns dabei bitte durch eine frühestmögliche Meldung, da nach ihrer Meldung des Vorfalls bis zur Absendung an die Aufsichtsbehörde noch Zeit für die Bewertung und Aufbereitung der Informationen erforderlich ist.
+* **Zwischenspeichern:** Sie können die Eingabe jederzeit unterbrechen; Ihr Fortschritt wird automatisch in ihrem Browser gesichert.
+* **Absenden nicht vergessen:** Wir erhalten die Information erst mit der Absendung. Sie können Zwischenschritte auch überspringen. Schließen sie den Prozess unbedingt zeitnah ab und melden sie zusätzliche Informationen ggf. nach.
 
-## Hinweise
+## So gehen Sie vor
+1. **Formular ausfüllen:** Geben Sie so viele Details wie möglich an. Pflichtfelder sind markiert, aber auch unvollständige Informationen helfen uns bereits weiter.
+2. **Absenden:** Schließen Sie den Vorgang unbedingt durch Klick auf „Absenden“ ab, auch wenn Sie nicht alle Fragen beantworten können.
+3. **Dokumentation:** Nach dem Absenden erhalten Sie eine Ticketnummer und können Ihre Meldung als PDF für Ihre Dokumentation herunterladen.
+4. **Erreichbarkeit:** Bitte bleiben Sie über die von Ihnen angegebenen Kontaktwege erreichbar, falls Rückfragen für die Analyse notwendig sind.
 
-- **Melden Sie zeitnah** — je früher, desto besser können Gegenmaßnahmen eingeleitet, der Kreis der Betroffenen klein gehalten und Schäden abgewendet werden. Bei **personenbezogenen Daten** besteht sogar eine gesetzliche Meldefrist von **72 Stunden** (Art. 33 Abs. 1 DSGVO). Damit wir dieser gesetzlichen Verpflichtung nachkommen können, müssen wir Ihre Informationen so früh wie möglich erhalten.
-
-- Ihre Meldung wird vertraulich behandelt.
-- Sie können das Formular jederzeit unterbrechen — Ihr Fortschritt wird automatisch gespeichert.
-
-## Ablauf
-
-1. Füllen Sie die Formulare so gut wie möglich aus (ca. 5–10 Minuten)
-2. Senden Sie das Formualar unbedingt ab! Sie erhalten dann eine Ticketnummerr
-3. Bleiben Sie auf den von Ihnen angegebenen Kommunikationswegen unbedingt erreichbar.

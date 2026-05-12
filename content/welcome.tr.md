@@ -1,25 +1,22 @@
-# BT Güvenlik Olayı Bildirimi
+# Veri Koruma ve BT Güvenlik Olaylarının Bildirimi
 
-Bu formu bir BT güvenlik olayını veya kişisel veri ihlalini bildirmek için kullanın.
+Hoş geldiniz! Burada güvenlik olaylarını veya veri koruma ihlallerini hızlı ve güvenli bir şekilde sorumlu personele iletebilirsiniz.
 
-## Ne zaman bildirmelisiniz?
-
-- Sistemlere veya verilere yetkisiz erişim şüphesi
-- Hassas veri içeren cihazların kaybı veya çalınması
-- Kimlik avı (phishing) saldırıları veya sosyal mühendislik
-- Kötü amaçlı yazılım bulaşması (virüs, fidye yazılımı, truva atı)
-- Olağandışı sistem davranışı veya kesintiler
-- Gizli bilgilerin yanlışlıkla paylaşılması
+## Ne zaman bildirim gereklidir?
+Lütfen özellikle aşağıdaki olayları bize bildirin:
+* **Yetkisiz erişim şüphesi** — sistemlere, hesaplara veya verilere.
+* **Kayıp veya hırsızlık** — gizli veri içeren cihazların (dizüstü bilgisayarlar, akıllı telefonlar, USB bellekler).
+* **Güvenlikle ilgili olaylar** — kimlik avı e-postaları, sosyal mühendislik veya kötü amaçlı yazılım bulaşmaları (virüsler, fidye yazılımları) gibi.
+* **Anormallikler** — olağandışı sistem davranışı veya ani BT kesintileri gibi.
+* **Veri ihlalleri** — örneğin gizli bilgilerin yanlışlıkla yanlış alıcılara gönderilmesi.
 
 ## Önemli Bilgiler
+* **Hız önemlidir:** Bizi ne kadar erken bilgilendirirseniz, hasarı o kadar etkili bir şekilde sınırlayabiliriz. **Kişisel verileri** içeren olaylarda, bunları **72 saat** içinde denetim makamlarına bildirmekle yasal olarak yükümlüyüz (KVKK). Bildiriminizden sonra yetkililere iletilmeden önce bilgilerin değerlendirilmesi ve hazırlanması için zamana ihtiyaç duyulduğundan, lütfen mümkün olan en erken bildirimle bizi destekleyin.
+* **Otomatik kaydetme:** Formu istediğiniz zaman yarıda bırakabilirsiniz; ilerlemeniz tarayıcınızda otomatik olarak kaydedilir.
+* **Göndermeyi unutmayın:** Bilgileri ancak gönderdiğinizde alırız. Ara adımları atlayabilirsiniz. Lütfen süreci zamanında tamamlayın ve gerekirse ek bilgileri daha sonra iletin.
 
-- **Derhal bildirin** — ne kadar erken bildirirseniz, karşı önlemler o kadar hızlı başlatılabilir.
-- **Kişisel veriler söz konusuysa**, yasal bildirim süresi **72 saattir** (KVKK).
-- Bildiriminiz gizli tutulacaktır.
-- Formu istediğiniz zaman yarıda bırakabilirsiniz — ilerlemeniz otomatik olarak kaydedilir.
-
-## Süreç
-
-1. Form adımlarını doldurun (yaklaşık 5–10 dakika)
-2. Gönderdikten sonra bir referans numarası alacaksınız
-3. BT güvenlik ekibi sizinle iletişime geçecektir
+## Nasıl ilerlemeli
+1. **Formu doldurun:** Mümkün olduğunca fazla ayrıntı verin. Zorunlu alanlar işaretlenmiştir, ancak eksik bilgiler bile bize yardımcı olur.
+2. **Gönderin:** "Gönder"e tıklayarak süreci mutlaka tamamlayın, tüm soruları yanıtlayamasanız bile.
+3. **Belgeleme:** Gönderdikten sonra bir bilet numarası alacak ve bildiriminizi kayıtlarınız için PDF olarak indirebileceksiniz.
+4. **Ulaşılabilirlik:** Analiz için takip soruları gerekebileceğinden, lütfen verdiğiniz iletişim bilgileri üzerinden ulaşılabilir olun.
