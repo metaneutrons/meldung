@@ -5,7 +5,7 @@ import { routing } from './i18n/routing';
 
 const intlMiddleware = createIntlMiddleware(routing);
 
-export default function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (process.env.AUTH_ENABLED === 'true') {
     const sessionToken =
       request.cookies.get('authjs.session-token') ??
