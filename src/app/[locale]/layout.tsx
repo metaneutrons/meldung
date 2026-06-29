@@ -21,24 +21,15 @@ export default async function LocaleLayout({ children }: { children: React.React
 
   return (
     <html lang={locale} className={isDark ? 'dark' : ''} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className="bg-gray-50 dark:bg-gray-950">
+      <body className="bg-background">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider serverTheme={themeCookie as 'light' | 'dark' | undefined}>
             <div
               className="min-h-screen"
               style={
                 {
-                  '--brand-primary': config.branding.primaryColor,
-                  '--brand-primary-hover': config.branding.primaryColor + 'dd',
-                  '--brand-accent': config.branding.accentColor,
+                  '--brand': config.branding.primaryColor,
+                  '--accent': config.branding.accentColor,
                 } as React.CSSProperties
               }
             >
