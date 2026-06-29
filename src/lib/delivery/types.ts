@@ -10,4 +10,5 @@ export interface DeliveryContext {
   data: FormData;
   referenceNumber: string;
   pdfBuffer: Buffer;
+  locale: string;
 }

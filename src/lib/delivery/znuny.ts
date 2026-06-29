@@ -1,5 +1,5 @@
 import type { ZnunyConfig } from '@/lib/config/schema';
-import type { FormData } from '@/lib/pdf/types';
+import { buildReportModel, formatReportText, type ReportModel } from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
 
 const CHANNEL = 'znuny';
@@ -15,51 +15,6 @@ interface ZnunyTicketResponse {
   Error?: { ErrorCode: string; ErrorMessage: string };
 }
 
-function formatPlainTextBody(data: FormData, referenceNumber: string): string {
-  return [
-    `Reference: ${referenceNumber}`,
-    `Date: ${data.reportDate}`,
-    '',
-    '--- Reporter ---',
-    `Name: ${data.reporterName}`,
-    `Department: ${data.department}`,
-    `Role: ${data.role}`,
-    `Email: ${data.email}`,
-    `Phone: ${data.phone}`,
-    '',
-    '--- Timeline ---',
-    `Discovery: ${data.discoveryDate}`,
-    `Occurrence: ${data.occurrenceDate}`,
-    `Ongoing: ${data.isOngoing}`,
-    '',
-    '--- Classification ---',
-    `Category: ${data.incidentCategory}`,
-    `Sub-type: ${data.incidentSubType}`,
-    '',
-    '--- Description ---',
-    data.description,
-    `Discovery method: ${data.howDiscovered}`,
-    `Attack vector: ${data.attackVector}`,
-    '',
-    '--- Affected Systems ---',
-    data.affectedSystems.join(', '),
-    data.affectedSystemsOther ? `Other: ${data.affectedSystemsOther}` : '',
-    '',
-    '--- Impact ---',
-    `Functional: ${data.functionalImpact}`,
-    `Information: ${data.informationImpact}`,
-    `Recoverability: ${data.recoverability}`,
-    `Personal data involved: ${data.personalDataInvolved}`,
-    '',
-    '--- Measures ---',
-    data.measuresTaken,
-    `Resolved: ${data.isResolved}`,
-    data.recommendedActions ? `Recommended actions: ${data.recommendedActions}` : '',
-  ]
-    .filter(Boolean)
-    .join('\n');
-}
-
 async function authenticate(config: ZnunyConfig): Promise<string> {
   const res = await fetch(`${config.baseUrl}/Session`, {
     method: 'POST',
@@ -73,14 +28,16 @@ async function authenticate(config: ZnunyConfig): Promise<string> {
 
   const body = (await res.json()) as ZnunySessionResponse;
   if (body.Error ?? !body.SessionID) {
-    throw new Error(`Authentication failed: ${body.Error?.ErrorMessage ?? 'no SessionID returned'}`);
+    throw new Error(
+      `Authentication failed: ${body.Error?.ErrorMessage ?? 'no SessionID returned'}`,
+    );
   }
 
   return body.SessionID;
 }
 
-function buildPayload(ctx: DeliveryContext, config: ZnunyConfig) {
-  const title = `[${ctx.referenceNumber}] ${ctx.data.incidentCategory}`;
+function buildPayload(ctx: DeliveryContext, config: ZnunyConfig, model: ReportModel) {
+  const title = `[${ctx.referenceNumber}] ${model.category || ctx.data.incidentCategory}`;
   const ticket = {
     Title: title,
     Queue: config.queue,
@@ -114,10 +71,9 @@ function buildPayload(ctx: DeliveryContext, config: ZnunyConfig) {
     };
   }
 
-  const body = formatPlainTextBody(ctx.data, ctx.referenceNumber);
   const payload: Record<string, unknown> = {
     Ticket: ticket,
-    Article: { ...baseArticle, Body: body },
+    Article: { ...baseArticle, Body: formatReportText(ctx.referenceNumber, model) },
   };
 
   if (config.mappingMode === 'rich' && config.fieldMappings) {
@@ -143,7 +99,8 @@ export async function deliverZnuny(
 ): Promise<DeliveryResult> {
   try {
     const sessionId = await authenticate(config);
-    const payload = buildPayload(ctx, config);
+    const model = await buildReportModel(ctx.data, ctx.locale);
+    const payload = buildPayload(ctx, config, model);
 
     const res = await fetch(`${config.baseUrl}/Ticket?SessionID=${encodeURIComponent(sessionId)}`, {
       method: 'POST',
@@ -152,7 +109,11 @@ export async function deliverZnuny(
     });
 
     if (!res.ok) {
-      return { success: false, channel: CHANNEL, error: `Ticket creation failed: HTTP ${res.status}` };
+      return {
+        success: false,
+        channel: CHANNEL,
+        error: `Ticket creation failed: HTTP ${res.status}`,
+      };
     }
 
     const body = (await res.json()) as ZnunyTicketResponse;
