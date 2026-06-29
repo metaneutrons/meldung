@@ -9,12 +9,19 @@
 # Branding
 # -----------------------------------------------------------------------------
 # Customize the appearance for your organization.
-# logoUrl: path to SVG/PNG in the public/ folder (optional, omit for text-only)
+# Colors are hex. Place logo/favicon assets in the public/ folder.
+# Brand values are injected as CSS variables at runtime (no rebuild to rebrand).
 branding:
-  orgName: "Hochschule Hannover"
-  # logoUrl: "/logo.svg"
-  primaryColor: "#38b449"
-  accentColor: "#333333"
+  orgName: 'Hochschule Hannover'
+  # logoUrl: "/logo.svg"           # web logo (SVG or raster), omit for text-only
+  # logoDarkUrl: "/logo-dark.svg"  # optional dark-mode logo variant
+  # logoPdfUrl: "/logo.png"        # raster (PNG/JPG) for the PDF — SVG cannot be embedded
+  # favicon: "/favicon.ico"        # optional browser-tab icon
+  primaryColor: '#38b449' # brand color (hex)
+  # brandForeground: "#ffffff"     # optional text-on-brand color (auto-contrast otherwise)
+  accentColor: '#333333' # secondary accent (hex)
+  # appTitle: "IT-Sicherheitsmeldung"             # optional browser-tab + PDF title
+  # appDescription: "Sicherheitsvorfälle melden"  # optional meta description
 
 # -----------------------------------------------------------------------------
 # Locale
@@ -33,32 +40,32 @@ delivery:
   email:
     enabled: false
     smtp:
-      host: "smtp.example.com"
+      host: 'smtp.example.com'
       port: 587
       secure: true
-      user: "noreply@example.com"
-      pass: "your-smtp-password"
-      from: "IT-Security <it-security@example.com>"
+      user: 'noreply@example.com'
+      pass: 'your-smtp-password'
+      from: 'IT-Security <it-security@example.com>'
       recipients:
-        - "cert@example.com"
-        - "dpo@example.com"
+        - 'cert@example.com'
+        - 'dpo@example.com'
 
   # --- Znuny / OTRS Channel ---
   znuny:
     enabled: false
     config:
-      baseUrl: "https://znuny.example.com/otrs/nph-genericinterface.pl/Webservice/Ticket%20REST%20API"
-      username: "api-user"
-      password: "your-api-password"
-      queue: "IT-Security"
-      priority: "3 normal"
-      state: "new"
+      baseUrl: 'https://znuny.example.com/otrs/nph-genericinterface.pl/Webservice/Ticket%20REST%20API'
+      username: 'api-user'
+      password: 'your-api-password'
+      queue: 'IT-Security'
+      priority: '3 normal'
+      state: 'new'
 
       # Mapping mode determines how form data is sent to Znuny:
       #   "minimal"        — Title + formatted plain text body
       #   "rich"           — Same as minimal + Dynamic Fields (requires fieldMappings)
       #   "json-attachment" — Short summary body + full form data as JSON attachment
-      mappingMode: "minimal"
+      mappingMode: 'minimal'
 
       # Only used with mappingMode "rich":
       # Maps form field names to Znuny Dynamic Field names.
@@ -79,7 +86,7 @@ delivery:
 persistence:
   enabled: false
   driver: sqlite
-  connectionString: "./data/meldung.jsonl"
+  connectionString: './data/meldung.jsonl'
 
 # -----------------------------------------------------------------------------
 # Authentication (optional)
@@ -99,8 +106,7 @@ auth:
 # -----------------------------------------------------------------------------
 # Prefix for generated incident reference numbers.
 # Format: {prefix}-{YYYYMMDD}-{4 hex chars}, e.g. INC-20260511-a3f2
-referencePrefix: "INC"
-
+referencePrefix: 'INC'
 # -----------------------------------------------------------------------------
 # Taxonomy Override (optional)
 # -----------------------------------------------------------------------------

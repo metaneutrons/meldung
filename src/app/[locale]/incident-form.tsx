@@ -37,6 +37,7 @@ interface StepDef {
 interface IncidentFormProps {
   orgName: string;
   logoUrl?: string;
+  logoDarkUrl?: string;
   welcomeContent: string;
   footerContent: string;
 }
@@ -47,6 +48,7 @@ const errorBox =
 export function IncidentForm({
   orgName,
   logoUrl,
+  logoDarkUrl,
   welcomeContent,
   footerContent,
 }: IncidentFormProps) {
@@ -167,7 +169,12 @@ export function IncidentForm({
   if (showWelcome) {
     return (
       <div className="flex min-h-screen flex-col bg-background">
-        <AppHeader orgName={orgName} logoUrl={logoUrl} onLogoClick={() => setUserView('welcome')} />
+        <AppHeader
+          orgName={orgName}
+          logoUrl={logoUrl}
+          logoDarkUrl={logoDarkUrl}
+          onLogoClick={() => setUserView('welcome')}
+        />
         <WelcomePage
           content={welcomeContent}
           onStart={() => {
@@ -182,7 +189,12 @@ export function IncidentForm({
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <AppHeader orgName={orgName} logoUrl={logoUrl} onLogoClick={() => setUserView('welcome')}>
+      <AppHeader
+        orgName={orgName}
+        logoUrl={logoUrl}
+        logoDarkUrl={logoDarkUrl}
+        onLogoClick={() => setUserView('welcome')}
+      >
         <WizardProgress step={safeStep} total={steps.length} />
       </AppHeader>
 

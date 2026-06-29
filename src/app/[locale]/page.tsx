@@ -41,6 +41,7 @@ export default async function HomePage() {
         <IncidentForm
           orgName={config.branding.orgName}
           logoUrl={config.branding.logoUrl}
+          logoDarkUrl={config.branding.logoDarkUrl}
           welcomeContent={welcomeContent}
           footerContent={footerContent}
         />

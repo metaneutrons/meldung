@@ -39,6 +39,23 @@ npm run dev
 
 Copy [`meldung.config.example.yaml`](meldung.config.example.yaml) and adjust to your environment. The config controls branding, SMTP delivery, and incident categories.
 
+### Branding
+
+White-label the portal via the `branding:` block — brand values are injected as CSS variables at runtime, so no rebuild is needed to rebrand.
+
+| Key                           | Purpose                                                         |
+| ----------------------------- | --------------------------------------------------------------- |
+| `orgName`                     | Organization name (shown when no logo is set)                   |
+| `logoUrl` / `logoDarkUrl`     | Web logo (SVG ok) and optional dark-mode variant                |
+| `logoPdfUrl`                  | Raster logo (PNG/JPG) for the PDF — SVG cannot be embedded      |
+| `favicon`                     | Browser-tab icon                                                |
+| `primaryColor`                | Brand color (hex); drives buttons, accents and the PDF          |
+| `brandForeground`             | Text-on-brand color (auto-derived for WCAG contrast if omitted) |
+| `accentColor`                 | Secondary accent (hex)                                          |
+| `appTitle` / `appDescription` | Browser-tab + PDF title and meta description                    |
+
+Place logo and favicon assets in `public/`. Secrets (SMTP, OIDC, DB) belong in environment variables — see [`.env.example`](.env.example).
+
 ## Deployment
 
 ### Docker

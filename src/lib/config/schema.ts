@@ -1,11 +1,29 @@
 import { z } from 'zod';
 import { routing } from '@/i18n/routing';
 
+const HEX = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
+const hexColor = (msg: string) => z.string().regex(HEX, msg);
+
 const BrandingSchema = z.object({
   orgName: z.string(),
+  // Web logo (SVG or raster) in public/. Omit for text-only.
   logoUrl: z.string().optional(),
-  primaryColor: z.string().default('#38b449'),
-  accentColor: z.string().default('#333333'),
+  // Optional dark-mode logo variant shown when the dark theme is active.
+  logoDarkUrl: z.string().optional(),
+  // Raster logo (PNG/JPG/WebP) for the PDF — @react-pdf cannot embed SVG.
+  // Falls back to logoUrl when that is itself a raster image.
+  logoPdfUrl: z.string().optional(),
+  // Optional browser-tab icon.
+  favicon: z.string().optional(),
+  primaryColor: hexColor('branding.primaryColor must be a hex color, e.g. #38b449').default(
+    '#38b449',
+  ),
+  // Optional text-on-brand color; auto-derived for contrast when omitted.
+  brandForeground: hexColor('branding.brandForeground must be a hex color').optional(),
+  accentColor: hexColor('branding.accentColor must be a hex color').default('#333333'),
+  // Optional browser-tab + PDF title and meta description.
+  appTitle: z.string().optional(),
+  appDescription: z.string().optional(),
 });
 
 const SmtpSchema = z.object({
