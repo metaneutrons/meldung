@@ -1,4 +1,10 @@
 {
+  "errors": {
+    "verification": "Güvenlik doğrulaması başarısız oldu. Lütfen tekrar deneyin.",
+    "rateLimited": "Çok fazla deneme. Lütfen biraz bekleyip tekrar deneyin.",
+    "validation": "Lütfen zorunlu alanları kontrol edip tekrar deneyin.",
+    "generic": "Gönderim başarısız oldu. Lütfen tekrar deneyin."
+  },
   "common": {
     "appName": "Meldung",
     "next": "İleri",

@@ -1,4 +1,10 @@
 {
+  "errors": {
+    "verification": "Verifica di sicurezza non riuscita. Riprovare.",
+    "rateLimited": "Troppi tentativi. Attendere un momento e riprovare.",
+    "validation": "Controllare i campi obbligatori e riprovare.",
+    "generic": "Invio non riuscito. Riprovare."
+  },
   "common": {
     "appName": "Meldung",
     "next": "Avanti",

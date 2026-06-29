@@ -19,7 +19,10 @@ if (!process.env.CAPTCHA_SECRET && !process.env.AUTH_SECRET) {
 }
 
 const TTL_MS = 10 * 60 * 1000;
-const MAX_NUMBER = 100_000;
+/** Default work factor (avg ~half this many hashes ≈ <100ms). Tunable via config. */
+const DEFAULT_DIFFICULTY = 120_000;
+/** Generous absolute cap for verification, independent of the issued difficulty. */
+const MAX_VERIFY = 10_000_000;
 
 export interface CaptchaChallenge {
   algorithm: 'SHA-256';
@@ -39,15 +42,15 @@ export interface CaptchaSolution {
 const sha256 = (s: string) => crypto.createHash('sha256').update(s).digest('hex');
 const hmac = (s: string) => crypto.createHmac('sha256', SECRET).update(s).digest('hex');
 
-export function createChallenge(): CaptchaChallenge {
+export function createChallenge(maxNumber: number = DEFAULT_DIFFICULTY): CaptchaChallenge {
   const salt = `${Date.now().toString(36)}.${crypto.randomBytes(8).toString('hex')}`;
-  const number = crypto.randomInt(0, MAX_NUMBER);
+  const number = crypto.randomInt(0, maxNumber);
   const challenge = sha256(salt + number);
   return {
     algorithm: 'SHA-256',
     challenge,
     salt,
-    maxnumber: MAX_NUMBER,
+    maxnumber: maxNumber,
     signature: hmac(challenge),
   };
 }
@@ -74,6 +77,6 @@ export function verifySolution(solution: unknown): boolean {
   // Authenticity: the challenge was signed by us (client cannot forge it).
   if (!timingSafeEqualHex(hmac(s.challenge), s.signature)) return false;
   // Proof of work: the number actually reproduces the challenge.
-  if (s.number < 0 || s.number > MAX_NUMBER) return false;
+  if (!Number.isInteger(s.number) || s.number < 0 || s.number > MAX_VERIFY) return false;
   return sha256(s.salt + s.number) === s.challenge;
 }

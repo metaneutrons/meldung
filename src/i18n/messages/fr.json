@@ -1,4 +1,10 @@
 {
+  "errors": {
+    "verification": "La vérification de sécurité a échoué. Veuillez réessayer.",
+    "rateLimited": "Trop de tentatives. Veuillez patienter un instant et réessayer.",
+    "validation": "Veuillez vérifier les champs obligatoires et réessayer.",
+    "generic": "Échec de l’envoi. Veuillez réessayer."
+  },
   "common": {
     "appName": "Meldung",
     "next": "Suivant",

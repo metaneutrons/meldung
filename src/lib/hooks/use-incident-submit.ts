@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useFormStore } from '@/lib/store/form-store';
 import { fetchAndSolveCaptcha } from '@/lib/captcha-client';
 
@@ -14,6 +14,7 @@ export interface SubmitResult {
 /** Encapsulates the submit lifecycle: POST /api/submit, result/error state. */
 export function useIncidentSubmit() {
   const locale = useLocale();
+  const te = useTranslations('errors');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [result, setResult] = useState<SubmitResult | null>(null);
@@ -34,18 +35,29 @@ export function useIncidentSubmit() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...formData, locale, captcha, honeypot }),
         });
-        if (!res.ok) throw new Error(`Server error: ${res.status}`);
+        if (!res.ok) {
+          const key =
+            res.status === 429
+              ? 'rateLimited'
+              : res.status === 400
+                ? 'verification'
+                : res.status === 422
+                  ? 'validation'
+                  : 'generic';
+          setError(te(key));
+          return;
+        }
         const data = (await res.json()) as SubmitResult;
         setResult(data);
         setSubmitted(true);
         useFormStore.getState().clearDraft();
-      } catch (e) {
-        setError(e instanceof Error ? e.message : 'Submission failed');
+      } catch {
+        setError(te('generic'));
       } finally {
         setSubmitting(false);
       }
     },
-    [locale],
+    [locale, te],
   );
 
   const resetSubmission = useCallback(() => {

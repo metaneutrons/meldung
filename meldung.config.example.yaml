@@ -102,6 +102,15 @@ auth:
   # clientSecret: "your-client-secret"
 
 # -----------------------------------------------------------------------------
+# Captcha (anti-bot)
+# -----------------------------------------------------------------------------
+# Invisible, self-hosted proof-of-work captcha (GDPR-clean — no third party).
+# difficulty is the work factor: higher = more bot deterrence, slower client
+# solve (still usually <1s). Set CAPTCHA_SECRET in env (see .env.example).
+captcha:
+  difficulty: 120000
+
+# -----------------------------------------------------------------------------
 # Reference Number
 # -----------------------------------------------------------------------------
 # Prefix for generated incident reference numbers.

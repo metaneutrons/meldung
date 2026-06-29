@@ -1,4 +1,10 @@
 {
+  "errors": {
+    "verification": "Security check failed. Please try again.",
+    "rateLimited": "Too many attempts. Please wait a moment and try again.",
+    "validation": "Please check the required fields and try again.",
+    "generic": "Submission failed. Please try again."
+  },
   "common": {
     "appName": "Meldung",
     "next": "Next",

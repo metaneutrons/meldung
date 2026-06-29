@@ -68,6 +68,12 @@ const AuthSchema = z.object({
   clientSecret: z.string().optional(),
 });
 
+const CaptchaSchema = z.object({
+  // Invisible proof-of-work difficulty: higher = more bot deterrence, slower
+  // (still usually <1s) client solve. The client adapts via the challenge.
+  difficulty: z.number().int().min(1000).max(5_000_000).default(120_000),
+});
+
 const TaxonomyEntrySchema = z.object({
   value: z.string(),
   label: z.string(),
@@ -86,6 +92,7 @@ export const AppConfigSchema = z.object({
   delivery: DeliverySchema,
   persistence: PersistenceSchema.default({}),
   auth: AuthSchema.default({}),
+  captcha: CaptchaSchema.default({}),
   taxonomy: z.array(TaxonomyCategorySchema).optional(),
   systems: z.array(z.string()).optional(),
   dataCategories: z.array(z.string()).optional(),

@@ -1,4 +1,10 @@
 {
+  "errors": {
+    "verification": "La verificación de seguridad falló. Inténtelo de nuevo.",
+    "rateLimited": "Demasiados intentos. Espere un momento e inténtelo de nuevo.",
+    "validation": "Compruebe los campos obligatorios e inténtelo de nuevo.",
+    "generic": "Error al enviar. Inténtelo de nuevo."
+  },
   "common": {
     "appName": "Meldung",
     "next": "Siguiente",

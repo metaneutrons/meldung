@@ -1,4 +1,10 @@
 {
+  "errors": {
+    "verification": "Sicherheitsprüfung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "rateLimited": "Zu viele Versuche. Bitte warten Sie einen Moment und versuchen Sie es erneut.",
+    "validation": "Bitte prüfen Sie die Pflichtfelder und versuchen Sie es erneut.",
+    "generic": "Senden fehlgeschlagen. Bitte versuchen Sie es erneut."
+  },
   "common": {
     "appName": "Meldung",
     "next": "Weiter",
