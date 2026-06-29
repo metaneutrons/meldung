@@ -7,6 +7,7 @@ import { deliverZnuny } from '@/lib/delivery/znuny';
 import { saveIncident } from '@/lib/persistence';
 import { submissionSchema } from '@/lib/form/schema';
 import { rateLimit } from '@/lib/rate-limit';
+import { verifySolution } from '@/lib/captcha';
 import { routing } from '@/i18n/routing';
 import type { DeliveryResult } from '@/lib/delivery/types';
 
@@ -34,6 +35,16 @@ export async function POST(request: Request) {
 
   try {
     const body: unknown = await request.json();
+    const antibot = body as { honeypot?: unknown; captcha?: unknown };
+
+    // Honeypot: a hidden field that only bots fill in.
+    if (typeof antibot.honeypot === 'string' && antibot.honeypot.trim() !== '') {
+      return NextResponse.json({ error: 'Rejected.' }, { status: 400 });
+    }
+    // Invisible, self-hosted proof-of-work captcha (GDPR-clean).
+    if (!verifySolution(antibot.captcha)) {
+      return NextResponse.json({ error: 'Verification failed. Please retry.' }, { status: 400 });
+    }
 
     // Shared schema validates shape + required reporter fields (SSOT with client).
     const parsed = submissionSchema.safeParse(body);

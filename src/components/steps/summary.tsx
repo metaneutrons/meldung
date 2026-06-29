@@ -6,23 +6,63 @@ import { useFormStore } from '@/lib/store/form-store';
 import { ENISA_RSIT_TAXONOMY } from '@/lib/taxonomy/enisa-rsit';
 import { SYSTEM_KEYS } from '@/lib/systems';
 import { EMAIL_RE } from '@/lib/form/schema';
+import { useWizardNav } from '@/components/wizard/wizard-nav';
+
+interface FieldRef {
+  label: string;
+  step: string;
+}
+
+/** A bullet list whose items jump to the step where the data is entered. */
+function FieldList({
+  items,
+  className,
+  onGo,
+}: {
+  items: FieldRef[];
+  className: string;
+  onGo: ((id: string) => void) | null;
+}) {
+  return (
+    <ul className={className} style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
+      {items.map((item) => (
+        <li key={item.label}>
+          {onGo ? (
+            <button
+              type="button"
+              onClick={() => onGo(item.step)}
+              className="underline underline-offset-2 hover:no-underline"
+            >
+              {item.label}
+            </button>
+          ) : (
+            item.label
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export function Summary() {
   const t = useTranslations('steps');
   const tw = useTranslations('wizard');
   const tax = useTranslations('taxonomy');
   const state = useFormStore();
+  const goTo = useWizardNav();
 
-  const required: string[] = [];
-  if (!state.reporterName.trim()) required.push(t('reporter.name'));
-  if (!state.email.trim() || !EMAIL_RE.test(state.email)) required.push(t('reporter.email'));
-  if (!state.phone.trim()) required.push(t('reporter.phone'));
+  const required: FieldRef[] = [];
+  if (!state.reporterName.trim()) required.push({ label: t('reporter.name'), step: 'reporter' });
+  if (!state.email.trim() || !EMAIL_RE.test(state.email))
+    required.push({ label: t('reporter.email'), step: 'reporter' });
+  if (!state.phone.trim()) required.push({ label: t('reporter.phone'), step: 'reporter' });
 
-  const missing: string[] = [];
-  if (!state.discoveryDate) missing.push(tw('timeline'));
-  if (!state.incidentCategory) missing.push(tw('classification'));
-  if (!state.description) missing.push(tw('description'));
-  if (!state.functionalImpact) missing.push(tw('impact'));
+  const missing: FieldRef[] = [];
+  if (!state.discoveryDate) missing.push({ label: tw('timeline'), step: 'timeline' });
+  if (!state.incidentCategory)
+    missing.push({ label: tw('classification'), step: 'classification' });
+  if (!state.description) missing.push({ label: tw('description'), step: 'description' });
+  if (!state.functionalImpact) missing.push({ label: tw('impact'), step: 'impact' });
 
   const category = ENISA_RSIT_TAXONOMY.find((c) => c.value === state.incidentCategory);
   const subType = category?.entries.find((e) => e === state.incidentSubType);
@@ -41,14 +81,11 @@ export function Summary() {
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
             <div>
               <p className="text-sm font-medium text-danger">{t('summary.requiredFields')}</p>
-              <ul
+              <FieldList
+                items={required}
+                onGo={goTo}
                 className="mt-1 space-y-0.5 text-sm text-danger"
-                style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}
-              >
-                {required.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
+              />
             </div>
           </div>
         </div>
@@ -60,14 +97,11 @@ export function Summary() {
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
             <div>
               <p className="text-sm font-medium text-warning">{t('summary.missingFields')}</p>
-              <ul
+              <FieldList
+                items={missing}
+                onGo={goTo}
                 className="mt-1 space-y-0.5 text-sm text-warning"
-                style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}
-              >
-                {missing.map((f) => (
-                  <li key={f}>{f}</li>
-                ))}
-              </ul>
+              />
             </div>
           </div>
         </div>

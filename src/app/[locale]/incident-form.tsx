@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState, useCallback, useEffect, useSyncExternalStore } from 'react';
+import { useMemo, useState, useCallback, useEffect, useRef, useSyncExternalStore } from 'react';
 import { useTranslations } from 'next-intl';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Send } from 'lucide-react';
@@ -14,6 +14,7 @@ import { WelcomePage } from '@/components/welcome-page';
 import { Confirmation } from '@/components/wizard/confirmation';
 import { StepNav } from '@/components/wizard/step-nav';
 import { WizardProgress } from '@/components/wizard/wizard-progress';
+import { WizardNavProvider } from '@/components/wizard/wizard-nav';
 import { Button, Card } from '@/components/ui';
 import {
   ReporterInfo,
@@ -149,8 +150,18 @@ export function IncidentForm({
     [safeStep],
   );
 
+  const goToStepById = useCallback(
+    (id: string) => {
+      const i = steps.findIndex((s) => s.id === id);
+      if (i >= 0) goToStep(i);
+    },
+    [steps, goToStep],
+  );
+
+  const honeypotRef = useRef<HTMLInputElement>(null);
+
   const handleSubmit = useCallback(() => {
-    if (canSubmit) void submit();
+    if (canSubmit) void submit(honeypotRef.current?.value ?? '');
   }, [canSubmit, submit]);
 
   if (submitted && result) {
@@ -221,20 +232,33 @@ export function IncidentForm({
             else goNext();
           }}
         >
+          {/* Honeypot — hidden from humans; a bot that fills it is rejected server-side. */}
+          <input
+            ref={honeypotRef}
+            type="text"
+            name="contact_url"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[-9999px] top-0 h-0 w-0 opacity-0"
+            defaultValue=""
+          />
           <Card id={`step-panel-${currentStepDef.id}`} className="p-5 sm:p-6">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={currentStepDef.id}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, x: direction * 24 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={reduce ? { opacity: 0 } : { opacity: 0, x: direction * -24 }}
-                transition={
-                  reduce ? { duration: 0.12 } : { duration: 0.22, ease: [0.32, 0.72, 0, 1] }
-                }
-              >
-                <StepComponent />
-              </motion.div>
-            </AnimatePresence>
+            <WizardNavProvider value={goToStepById}>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={currentStepDef.id}
+                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: direction * 24 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={reduce ? { opacity: 0 } : { opacity: 0, x: direction * -24 }}
+                  transition={
+                    reduce ? { duration: 0.12 } : { duration: 0.22, ease: [0.32, 0.72, 0, 1] }
+                  }
+                >
+                  <StepComponent />
+                </motion.div>
+              </AnimatePresence>
+            </WizardNavProvider>
           </Card>
 
           {error && <div className={errorBox}>{error}</div>}
