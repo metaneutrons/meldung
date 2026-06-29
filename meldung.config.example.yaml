@@ -33,8 +33,9 @@ defaultLocale: de
 # Delivery Channels
 # -----------------------------------------------------------------------------
 # Configure how incident reports are delivered after submission.
-# Both channels can be enabled simultaneously — they run in parallel.
-# If both are disabled, the report is only available as PDF download.
+# Any number of channels can be enabled simultaneously — they run in parallel.
+# If all are disabled, the report is only available as PDF download.
+# Secrets (passwords, tokens, webhook secret) are best set via env (.env.example).
 delivery:
   # --- Email Channel ---
   email:
@@ -77,6 +78,47 @@ delivery:
       #   recoverability: "DynamicField_Recoverability"
       #   personalDataInvolved: "DynamicField_PersonalData"
       #   isGdprBreach: "DynamicField_GDPRBreach"
+
+  # --- OTOBO Channel (OTRS fork) ---
+  # Same GenericInterface REST connector as Znuny (Session + Ticket), so all
+  # Znuny options above (mappingMode, fieldMappings, queue, ...) apply here too.
+  # otobo:
+  #   enabled: false
+  #   config:
+  #     baseUrl: 'https://otobo.example.com/otobo/nph-genericinterface.pl/Webservice/GenericTicketConnectorREST'
+  #     username: 'api-user'
+  #     password: 'your-api-password'   # prefer OTOBO_PASSWORD env
+  #     queue: 'IT-Security'
+  #     mappingMode: 'minimal'
+
+  # --- Generic Webhook Channel ---
+  # POSTs a stable, versioned JSON payload to any URL — wire it into n8n, Make,
+  # Power Automate, a SOAR playbook, a SIEM, or a custom endpoint.
+  # Payload: { version, event, referenceNumber, locale, submittedAt, data, report }
+  # If 'secret' is set, the raw body is signed: header
+  #   X-Meldung-Signature: sha256=<hex(hmac_sha256(secret, body))>
+  # webhook:
+  #   enabled: false
+  #   config:
+  #     url: 'https://hooks.example.com/incident'
+  #     method: 'POST'              # POST (default) or PUT
+  #     secret: 'shared-secret'     # prefer WEBHOOK_SECRET env; omit to disable signing
+  #     includePdf: false           # add the PDF as base64 (pdfBase64) to the payload
+  #     timeoutMs: 10000
+  #     headers:                    # optional custom headers (e.g. an API key)
+  #       Authorization: 'Bearer your-token'
+
+  # --- Zammad Channel ---
+  # Creates a ticket via the Zammad REST API (token auth). The report becomes the
+  # first article; the PDF is attached when includePdf is true.
+  # zammad:
+  #   enabled: false
+  #   config:
+  #     baseUrl: 'https://zammad.example.com'
+  #     token: 'your-api-token'          # prefer ZAMMAD_TOKEN env
+  #     group: 'IT-Security'
+  #     customerEmailFallback: 'cert@example.com'  # used when reporter gave no e-mail
+  #     includePdf: true
 
 # -----------------------------------------------------------------------------
 # Persistence (optional)
