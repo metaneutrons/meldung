@@ -5,7 +5,9 @@ import { generatePdf } from '@/lib/pdf/generate';
 import { deliverEmail, sendConfirmationEmail } from '@/lib/delivery/email';
 import { deliverZnuny } from '@/lib/delivery/znuny';
 import { saveIncident } from '@/lib/persistence';
-import type { FormData } from '@/lib/pdf/types';
+import { submissionSchema } from '@/lib/form/schema';
+import { rateLimit } from '@/lib/rate-limit';
+import { routing } from '@/i18n/routing';
 import type { DeliveryResult } from '@/lib/delivery/types';
 
 function generateReferenceNumber(prefix: string): string {
@@ -14,35 +16,54 @@ function generateReferenceNumber(prefix: string): string {
   return `${prefix}-${date}-${rand}`;
 }
 
-function looksLikeEmail(value: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+function clientIp(request: Request): string {
+  const fwd = request.headers.get('x-forwarded-for');
+  return fwd?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
 }
 
 export async function POST(request: Request) {
-  try {
-    const data = (await request.json()) as FormData;
+  // Abuse guard (PDF render + outbound mail per request; confirmation mail goes
+  // to a user-supplied address). 5 submissions / 10 min / IP.
+  const limit = rateLimit(`submit:${clientIp(request)}`, 5, 10 * 60 * 1000);
+  if (!limit.ok) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again later.' },
+      { status: 429, headers: { 'Retry-After': String(limit.retryAfterSec) } },
+    );
+  }
 
-    // Server-side validation: require name, valid email, and phone
-    if (!data.reporterName?.trim() || !data.email?.trim() || !looksLikeEmail(data.email) || !data.phone?.trim()) {
+  try {
+    const body: unknown = await request.json();
+
+    // Shared schema validates shape + required reporter fields (SSOT with client).
+    const parsed = submissionSchema.safeParse(body);
+    if (!parsed.success) {
       return NextResponse.json(
         { error: 'Reporter name, valid email address, and phone number are required.' },
         { status: 422 },
       );
     }
+    const data = parsed.data;
+
+    // Report language for the PDF / e-mail, validated against supported locales.
+    const requestedLocale = (body as { locale?: unknown }).locale;
+    const locale =
+      typeof requestedLocale === 'string' &&
+      (routing.locales as readonly string[]).includes(requestedLocale)
+        ? requestedLocale
+        : routing.defaultLocale;
 
     const config = getConfig();
     const referenceNumber = generateReferenceNumber(config.referencePrefix);
-    const pdfBuffer = await generatePdf(data, referenceNumber);
+    const pdfBuffer = await generatePdf(data, referenceNumber, locale);
 
-    const ctx = { data, referenceNumber, pdfBuffer };
+    const ctx = { data, referenceNumber, pdfBuffer, locale };
     const deliveryPromises: Promise<DeliveryResult>[] = [];
 
     if (config.delivery.email.enabled && config.delivery.email.smtp) {
       const smtp = config.delivery.email.smtp;
       deliveryPromises.push(deliverEmail(ctx, smtp));
-      if (looksLikeEmail(data.email)) {
-        deliveryPromises.push(sendConfirmationEmail(ctx, smtp, data.email));
-      }
+      deliveryPromises.push(sendConfirmationEmail(ctx, smtp, data.email));
     }
 
     if (config.delivery.znuny.enabled && config.delivery.znuny.config) {
@@ -56,13 +77,19 @@ export async function POST(request: Request) {
         : { success: false, channel: 'unknown', error: String(r.reason) },
     );
 
-    await saveIncident({
-      id: crypto.randomUUID(),
-      referenceNumber,
-      formData: data,
-      deliveryResults,
-      createdAt: new Date().toISOString(),
-    });
+    // Persistence is a best-effort audit trail — its failure must not fail the
+    // submission (delivery is the source of truth).
+    try {
+      await saveIncident({
+        id: crypto.randomUUID(),
+        referenceNumber,
+        formData: data,
+        deliveryResults,
+        createdAt: new Date().toISOString(),
+      });
+    } catch (persistErr) {
+      console.error('[submit] persistence failed (non-fatal):', persistErr);
+    }
 
     return NextResponse.json({
       referenceNumber,
@@ -70,7 +97,8 @@ export async function POST(request: Request) {
       pdfBase64: pdfBuffer.toString('base64'),
     });
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Submission failed';
-    return NextResponse.json({ error: message }, { status: 500 });
+    // Do not leak internal error details to the client.
+    console.error('[submit] error:', err);
+    return NextResponse.json({ error: 'Submission failed' }, { status: 500 });
   }
 }
