@@ -4,15 +4,18 @@ import { useTranslations } from 'next-intl';
 import { AlertTriangle } from 'lucide-react';
 import { useFormStore } from '@/lib/store/form-store';
 import { ENISA_RSIT_TAXONOMY } from '@/lib/taxonomy/enisa-rsit';
+import { SYSTEM_KEYS } from '@/lib/systems';
+import { EMAIL_RE } from '@/lib/form/schema';
 
 export function Summary() {
   const t = useTranslations('steps');
   const tw = useTranslations('wizard');
+  const tax = useTranslations('taxonomy');
   const state = useFormStore();
 
   const required: string[] = [];
   if (!state.reporterName.trim()) required.push(t('reporter.name'));
-  if (!state.email.trim() || !state.email.includes('@')) required.push(t('reporter.email'));
+  if (!state.email.trim() || !EMAIL_RE.test(state.email)) required.push(t('reporter.email'));
   if (!state.phone.trim()) required.push(t('reporter.phone'));
 
   const missing: string[] = [];
@@ -22,75 +25,117 @@ export function Summary() {
   if (!state.functionalImpact) missing.push(tw('impact'));
 
   const category = ENISA_RSIT_TAXONOMY.find((c) => c.value === state.incidentCategory);
-  const subType = category?.entries.find((e) => e.value === state.incidentSubType);
+  const subType = category?.entries.find((e) => e === state.incidentSubType);
+  const sysLabel = (s: string) =>
+    s === 'other'
+      ? state.affectedSystemsOther || t('systems.other')
+      : (SYSTEM_KEYS as readonly string[]).includes(s)
+        ? t(`systems.options.${s}`)
+        : s;
 
   return (
     <div className="space-y-5">
-      {/* Required fields error */}
       {required.length > 0 && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/20">
+        <div className="rounded-xl border border-danger-border bg-danger-bg p-4">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
             <div>
-              <p className="text-sm font-medium text-red-800 dark:text-red-200">{t('summary.requiredFields')}</p>
-              <ul className="mt-1 space-y-0.5 text-sm text-red-700 dark:text-red-300" style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
-                {required.map((f) => <li key={f}>{f}</li>)}
+              <p className="text-sm font-medium text-danger">{t('summary.requiredFields')}</p>
+              <ul
+                className="mt-1 space-y-0.5 text-sm text-danger"
+                style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}
+              >
+                {required.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
       )}
 
-      {/* Missing fields warning */}
       {missing.length > 0 && (
-        <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-900/20">
+        <div className="rounded-xl border border-warning-border bg-warning-bg p-4">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600 dark:text-amber-400" />
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-warning" />
             <div>
-              <p className="text-sm font-medium text-amber-800 dark:text-amber-200">{t('summary.missingFields')}</p>
-              <ul className="mt-1 space-y-0.5 text-sm text-amber-700 dark:text-amber-300" style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
-                {missing.map((f) => <li key={f}>{f}</li>)}
+              <p className="text-sm font-medium text-warning">{t('summary.missingFields')}</p>
+              <ul
+                className="mt-1 space-y-0.5 text-sm text-warning"
+                style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}
+              >
+                {missing.map((f) => (
+                  <li key={f}>{f}</li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
       )}
 
-      {/* Filled fields summary */}
       <div className="space-y-3">
         {state.reporterName && <Row label={t('reporter.name')} value={state.reporterName} />}
         {state.department && <Row label={t('reporter.department')} value={state.department} />}
         {state.role && <Row label={t('reporter.role')} value={state.role} />}
         {state.email && <Row label={t('reporter.email')} value={state.email} />}
         {state.phone && <Row label={t('reporter.phone')} value={state.phone} />}
-        {state.discoveryDate && <Row label={t('timeline.discoveryDate')} value={formatDate(state.discoveryDate)} />}
-        {state.occurrenceDate && <Row label={t('timeline.occurrenceDate')} value={formatDate(state.occurrenceDate)} />}
-        {category && <Row label={t('classification.category')} value={category.label} />}
-        {subType && <Row label={t('classification.subType')} value={subType.label} />}
-        {state.description && <Row label={t('description.description')} value={state.description} />}
-        {state.howDiscovered && <Row label={t('description.howDiscovered')} value={state.howDiscovered} />}
-        {state.affectedSystems.length > 0 && <Row label={tw('systems')} value={state.affectedSystems.join(', ')} />}
-        {state.functionalImpact && <Row label={t('impact.functional')} value={state.functionalImpact} />}
-        {state.informationImpact && <Row label={t('impact.information')} value={state.informationImpact} />}
-        {state.recoverability && <Row label={t('impact.recoverability')} value={state.recoverability} />}
-        {state.measuresTaken && <Row label={t('measures.measuresTaken')} value={state.measuresTaken} />}
+        {state.discoveryDate && (
+          <Row label={t('timeline.discoveryDate')} value={formatDate(state.discoveryDate)} />
+        )}
+        {state.occurrenceDate && (
+          <Row label={t('timeline.occurrenceDate')} value={formatDate(state.occurrenceDate)} />
+        )}
+        {category && (
+          <Row
+            label={t('classification.category')}
+            value={tax(`categories.${category.value}.label`)}
+          />
+        )}
+        {subType && (
+          <Row label={t('classification.subType')} value={tax(`entries.${subType}.label`)} />
+        )}
+        {state.description && (
+          <Row label={t('description.description')} value={state.description} />
+        )}
+        {state.howDiscovered && (
+          <Row label={t('description.howDiscovered')} value={state.howDiscovered} />
+        )}
+        {state.affectedSystems.length > 0 && (
+          <Row label={tw('systems')} value={state.affectedSystems.map(sysLabel).join(', ')} />
+        )}
+        {state.functionalImpact && (
+          <Row label={t('impact.functional')} value={state.functionalImpact} />
+        )}
+        {state.informationImpact && (
+          <Row label={t('impact.information')} value={state.informationImpact} />
+        )}
+        {state.recoverability && (
+          <Row label={t('impact.recoverability')} value={state.recoverability} />
+        )}
+        {state.measuresTaken && (
+          <Row label={t('measures.measuresTaken')} value={state.measuresTaken} />
+        )}
         {state.personalDataInvolved && (
           <Row label={t('impact.personalData')} value={state.personalDataInvolved} />
         )}
-        {state.dataCategories.length > 0 && <Row label={t('gdpr.dataCategories')} value={state.dataCategories.join(', ')} />}
-        {state.estimatedRecords && <Row label={t('gdpr.estimatedRecords')} value={state.estimatedRecords} />}
+        {state.dataCategories.length > 0 && (
+          <Row label={t('gdpr.dataCategories')} value={state.dataCategories.join(', ')} />
+        )}
+        {state.estimatedRecords && (
+          <Row label={t('gdpr.estimatedRecords')} value={state.estimatedRecords} />
+        )}
       </div>
 
-      <p className="text-xs text-gray-400 dark:text-gray-500">{t('summary.timestamp')}</p>
+      <p className="text-xs text-fg-subtle">{t('summary.timestamp')}</p>
     </div>
   );
 }
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex flex-col gap-0.5 border-b border-gray-100 pb-2 dark:border-gray-800 sm:flex-row sm:gap-4">
-      <span className="shrink-0 text-sm font-medium text-gray-500 dark:text-gray-400 sm:w-40">{label}</span>
-      <span className="text-sm text-gray-900 dark:text-gray-100">{value}</span>
+    <div className="flex flex-col gap-0.5 border-b border-border pb-2 sm:flex-row sm:gap-4">
+      <span className="shrink-0 text-sm font-medium text-fg-muted sm:w-40">{label}</span>
+      <span className="text-sm text-fg">{value}</span>
     </div>
   );
 }
