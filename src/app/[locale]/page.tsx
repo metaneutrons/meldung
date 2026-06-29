@@ -36,7 +36,7 @@ export default async function HomePage() {
 
   return (
     <div className="relative flex min-h-screen flex-col">
-      <div className="pointer-events-none fixed inset-0 bg-gradient-to-br from-[var(--color-primary)]/3 via-transparent to-transparent dark:from-[var(--color-primary)]/5" />
+      <div className="pointer-events-none fixed inset-0 bg-gradient-to-br from-brand/[0.03] via-transparent to-transparent dark:from-brand/[0.05]" />
       <div className="relative z-10 flex min-h-screen flex-col">
         <IncidentForm
           orgName={config.branding.orgName}
