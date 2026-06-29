@@ -38,7 +38,10 @@ const SmtpSchema = z.object({
 
 const ZnunyMappingSchema = z.enum(['minimal', 'rich', 'json-attachment']);
 
-const ZnunySchema = z.object({
+// OTRS-compatible ticket connector. Znuny and OTOBO are both OTRS 6 forks that
+// ship the identical GenericInterface REST connector (/Session → /Ticket), so a
+// single schema and connector serve both — only the channel label differs.
+const OtrsTicketSchema = z.object({
   baseUrl: z.string().url(),
   username: z.string(),
   password: z.string(),
@@ -47,11 +50,49 @@ const ZnunySchema = z.object({
   state: z.string().default('new'),
   mappingMode: ZnunyMappingSchema.default('minimal'),
   fieldMappings: z.record(z.string(), z.string()).optional(),
+  timeoutMs: z.number().int().min(1000).max(30000).default(10000),
 });
 
+// Generic outbound webhook — POSTs a stable, versioned JSON payload to any URL
+// (SOAR, iPaaS, SIEM, custom endpoint). An optional secret enables an HMAC-SHA256
+// body signature (sent as `X-Meldung-Signature: sha256=<hex>`) for authenticity.
+const WebhookSchema = z.object({
+  url: z.string().url(),
+  method: z.enum(['POST', 'PUT']).default('POST'),
+  headers: z.record(z.string(), z.string()).optional(),
+  secret: z.string().optional(),
+  includePdf: z.boolean().default(false),
+  timeoutMs: z.number().int().min(1000).max(30000).default(10000),
+});
+
+// Zammad helpdesk REST API (token auth). Creates a ticket with the report as the
+// first article, optionally attaching the PDF.
+const ZammadSchema = z.object({
+  baseUrl: z.string().url(),
+  token: z.string(),
+  group: z.string().default('Users'),
+  customerEmailFallback: z.string().email().optional(),
+  includePdf: z.boolean().default(true),
+  timeoutMs: z.number().int().min(1000).max(30000).default(10000),
+});
+
+// Each channel is an enabled flag plus its optional channel-specific config.
+// The ticket/webhook blocks are defaulted so configs may omit them (absent →
+// disabled), keeping the delivery section backward-compatible as channels grow.
 const DeliverySchema = z.object({
   email: z.object({ enabled: z.boolean().default(false), smtp: SmtpSchema.optional() }),
-  znuny: z.object({ enabled: z.boolean().default(false), config: ZnunySchema.optional() }),
+  znuny: z
+    .object({ enabled: z.boolean().default(false), config: OtrsTicketSchema.optional() })
+    .default({}),
+  otobo: z
+    .object({ enabled: z.boolean().default(false), config: OtrsTicketSchema.optional() })
+    .default({}),
+  webhook: z
+    .object({ enabled: z.boolean().default(false), config: WebhookSchema.optional() })
+    .default({}),
+  zammad: z
+    .object({ enabled: z.boolean().default(false), config: ZammadSchema.optional() })
+    .default({}),
 });
 
 const PersistenceSchema = z.object({
@@ -103,5 +144,9 @@ export const AppConfigSchema = z.object({
 export type AppConfig = z.infer<typeof AppConfigSchema>;
 export type Branding = z.infer<typeof BrandingSchema>;
 export type DeliveryConfig = z.infer<typeof DeliverySchema>;
-export type ZnunyConfig = z.infer<typeof ZnunySchema>;
+export type OtrsTicketConfig = z.infer<typeof OtrsTicketSchema>;
+/** @deprecated Use OtrsTicketConfig — Znuny and OTOBO share this shape. */
+export type ZnunyConfig = OtrsTicketConfig;
+export type WebhookConfig = z.infer<typeof WebhookSchema>;
+export type ZammadConfig = z.infer<typeof ZammadSchema>;
 export type SmtpConfig = z.infer<typeof SmtpSchema>;

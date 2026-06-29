@@ -3,7 +3,9 @@ import { NextResponse } from 'next/server';
 import { getConfig } from '@/lib/config';
 import { generatePdf } from '@/lib/pdf/generate';
 import { deliverEmail, sendConfirmationEmail } from '@/lib/delivery/email';
-import { deliverZnuny } from '@/lib/delivery/znuny';
+import { deliverZnuny, deliverOtobo } from '@/lib/delivery/otrs';
+import { deliverWebhook } from '@/lib/delivery/webhook';
+import { deliverZammad } from '@/lib/delivery/zammad';
 import { saveIncident } from '@/lib/persistence';
 import { submissionSchema } from '@/lib/form/schema';
 import { rateLimit } from '@/lib/rate-limit';
@@ -67,8 +69,9 @@ export async function POST(request: Request) {
     const config = getConfig();
     const referenceNumber = generateReferenceNumber(config.referencePrefix);
     const pdfBuffer = await generatePdf(data, referenceNumber, locale);
+    const submittedAt = new Date().toISOString();
 
-    const ctx = { data, referenceNumber, pdfBuffer, locale };
+    const ctx = { data, referenceNumber, pdfBuffer, locale, submittedAt };
     const deliveryPromises: Promise<DeliveryResult>[] = [];
 
     if (config.delivery.email.enabled && config.delivery.email.smtp) {
@@ -79,6 +82,18 @@ export async function POST(request: Request) {
 
     if (config.delivery.znuny.enabled && config.delivery.znuny.config) {
       deliveryPromises.push(deliverZnuny(ctx, config.delivery.znuny.config));
+    }
+
+    if (config.delivery.otobo.enabled && config.delivery.otobo.config) {
+      deliveryPromises.push(deliverOtobo(ctx, config.delivery.otobo.config));
+    }
+
+    if (config.delivery.webhook.enabled && config.delivery.webhook.config) {
+      deliveryPromises.push(deliverWebhook(ctx, config.delivery.webhook.config));
+    }
+
+    if (config.delivery.zammad.enabled && config.delivery.zammad.config) {
+      deliveryPromises.push(deliverZammad(ctx, config.delivery.zammad.config));
     }
 
     const settled = await Promise.allSettled(deliveryPromises);
@@ -96,7 +111,7 @@ export async function POST(request: Request) {
         referenceNumber,
         formData: data,
         deliveryResults,
-        createdAt: new Date().toISOString(),
+        createdAt: submittedAt,
       });
     } catch (persistErr) {
       console.error('[submit] persistence failed (non-fatal):', persistErr);

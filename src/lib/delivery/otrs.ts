@@ -1,32 +1,35 @@
-import type { ZnunyConfig } from '@/lib/config/schema';
+import type { OtrsTicketConfig } from '@/lib/config/schema';
 import { buildReportModel, formatReportText, type ReportModel } from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
+import { fetchWithTimeout } from './http';
 
-const CHANNEL = 'znuny';
-
-interface ZnunySessionResponse {
+interface OtrsSessionResponse {
   SessionID?: string;
   Error?: { ErrorCode: string; ErrorMessage: string };
 }
 
-interface ZnunyTicketResponse {
+interface OtrsTicketResponse {
   TicketID?: string;
   TicketNumber?: string;
   Error?: { ErrorCode: string; ErrorMessage: string };
 }
 
-async function authenticate(config: ZnunyConfig): Promise<string> {
-  const res = await fetch(`${config.baseUrl}/Session`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ UserLogin: config.username, Password: config.password }),
-  });
+async function authenticate(config: OtrsTicketConfig): Promise<string> {
+  const res = await fetchWithTimeout(
+    `${config.baseUrl}/Session`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ UserLogin: config.username, Password: config.password }),
+    },
+    config.timeoutMs,
+  );
 
   if (!res.ok) {
     throw new Error(`Authentication failed: HTTP ${res.status}`);
   }
 
-  const body = (await res.json()) as ZnunySessionResponse;
+  const body = (await res.json()) as OtrsSessionResponse;
   if (body.Error ?? !body.SessionID) {
     throw new Error(
       `Authentication failed: ${body.Error?.ErrorMessage ?? 'no SessionID returned'}`,
@@ -36,7 +39,7 @@ async function authenticate(config: ZnunyConfig): Promise<string> {
   return body.SessionID;
 }
 
-function buildPayload(ctx: DeliveryContext, config: ZnunyConfig, model: ReportModel) {
+function buildPayload(ctx: DeliveryContext, config: OtrsTicketConfig, model: ReportModel) {
   const title = `[${ctx.referenceNumber}] ${model.category || ctx.data.incidentCategory}`;
   const ticket = {
     Title: title,
@@ -78,11 +81,11 @@ function buildPayload(ctx: DeliveryContext, config: ZnunyConfig, model: ReportMo
 
   if (config.mappingMode === 'rich' && config.fieldMappings) {
     const dynamicFields: { Name: string; Value: string }[] = [];
-    for (const [formField, znunyField] of Object.entries(config.fieldMappings)) {
+    for (const [formField, otrsField] of Object.entries(config.fieldMappings)) {
       const value = (ctx.data as Record<string, unknown>)[formField];
       if (value != null) {
         dynamicFields.push({
-          Name: znunyField,
+          Name: otrsField,
           Value: Array.isArray(value) ? value.join(', ') : String(value),
         });
       }
@@ -93,41 +96,58 @@ function buildPayload(ctx: DeliveryContext, config: ZnunyConfig, model: ReportMo
   return payload;
 }
 
-export async function deliverZnuny(
+/**
+ * Delivers to an OTRS-compatible ticket system via its GenericInterface REST
+ * connector. Znuny and OTOBO share this code path — see {@link deliverZnuny} /
+ * {@link deliverOtobo}. The `channel` label flows into the DeliveryResult and the
+ * audit trail.
+ */
+async function deliverOtrs(
   ctx: DeliveryContext,
-  config: ZnunyConfig,
+  config: OtrsTicketConfig,
+  channel: string,
 ): Promise<DeliveryResult> {
   try {
     const sessionId = await authenticate(config);
     const model = await buildReportModel(ctx.data, ctx.locale);
     const payload = buildPayload(ctx, config, model);
 
-    const res = await fetch(`${config.baseUrl}/Ticket?SessionID=${encodeURIComponent(sessionId)}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    const res = await fetchWithTimeout(
+      `${config.baseUrl}/Ticket?SessionID=${encodeURIComponent(sessionId)}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      },
+      config.timeoutMs,
+    );
 
     if (!res.ok) {
       return {
         success: false,
-        channel: CHANNEL,
+        channel,
         error: `Ticket creation failed: HTTP ${res.status}`,
       };
     }
 
-    const body = (await res.json()) as ZnunyTicketResponse;
+    const body = (await res.json()) as OtrsTicketResponse;
     if (body.Error ?? !body.TicketID) {
       return {
         success: false,
-        channel: CHANNEL,
+        channel,
         error: `Ticket creation failed: ${body.Error?.ErrorMessage ?? 'no TicketID returned'}`,
       };
     }
 
-    return { success: true, channel: CHANNEL };
+    return { success: true, channel };
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown Znuny delivery error';
-    return { success: false, channel: CHANNEL, error: message };
+    const message = err instanceof Error ? err.message : `Unknown ${channel} delivery error`;
+    return { success: false, channel, error: message };
   }
 }
+
+export const deliverZnuny = (ctx: DeliveryContext, config: OtrsTicketConfig) =>
+  deliverOtrs(ctx, config, 'znuny');
+
+export const deliverOtobo = (ctx: DeliveryContext, config: OtrsTicketConfig) =>
+  deliverOtrs(ctx, config, 'otobo');
