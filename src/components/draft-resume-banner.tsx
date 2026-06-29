@@ -7,15 +7,18 @@ import { Button } from '@/components/ui';
 
 export function DraftResumeBanner() {
   const t = useTranslations('draft');
-  const [dismissed, setDismissed] = useState(false);
-  const savedAt = useFormStore((s) => s._savedAt);
-  const reporterName = useFormStore((s) => s.reporterName);
-  const description = useFormStore((s) => s.description);
   const clearDraft = useFormStore((s) => s.clearDraft);
+  const [dismissed, setDismissed] = useState(false);
 
-  const hasDraft = savedAt !== '' && (reporterName !== '' || description !== '');
+  // Only offer to resume a draft that ALREADY existed when this mounted — never
+  // one the user is creating right now by typing (every keystroke sets _savedAt).
+  // Captured once via the lazy initializer; it does not react to live edits.
+  const [hadDraft] = useState(() => {
+    const s = useFormStore.getState();
+    return s._savedAt !== '' && (s.reporterName !== '' || s.description !== '');
+  });
 
-  if (dismissed || !hasDraft) return null;
+  if (dismissed || !hadDraft) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm">
