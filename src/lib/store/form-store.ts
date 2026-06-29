@@ -1,93 +1,16 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { formDataSchema, type FormData } from '@/lib/form/schema';
 
 const STORAGE_KEY = 'meldung-draft';
 
-export interface FormState {
-  // Step 1: Reporter Info
-  reporterName: string;
-  department: string;
-  role: string;
-  email: string;
-  phone: string;
-  reportDate: string;
-
-  // Step 2: Timeline
-  discoveryDate: string;
-  occurrenceDate: string;
-  isOngoing: 'yes' | 'no' | 'unknown' | '';
-
-  // Step 3: Classification
-  incidentCategory: string;
-  incidentSubType: string;
-
-  // Step 4: Description
-  description: string;
-  howDiscovered: string;
-  attackVector: string;
-
-  // Step 5: Affected Systems
-  affectedSystems: string[];
-  affectedSystemsOther: string;
-
-  // Step 6: Impact
-  functionalImpact: string;
-  informationImpact: string;
-  recoverability: string;
-  personalDataInvolved: 'yes' | 'no' | 'unknown' | '';
-
-  // Step 7: Measures
-  measuresTaken: string;
-  isResolved: 'yes' | 'no' | '';
-  recommendedActions: string;
-
-  // Step 8: GDPR (conditional)
-  dataCategories: string[];
-  personCategories: string[];
-  estimatedRecords: string;
-  dpoContact: string;
-  isGdprBreach: 'yes' | 'no' | 'unknown' | '';
-
-  // Persistence metadata
-  _savedAt: string;
-
-  // Actions
-  update: (fields: Partial<Omit<FormState, 'update' | 'reset' | 'clearDraft'>>) => void;
+export type FormState = FormData & {
+  update: (fields: Partial<FormData>) => void;
   reset: () => void;
   clearDraft: () => void;
-}
-
-const initialState: Omit<FormState, 'update' | 'reset' | 'clearDraft'> = {
-  reporterName: '',
-  department: '',
-  role: '',
-  email: '',
-  phone: '',
-  reportDate: '',
-  discoveryDate: '',
-  occurrenceDate: '',
-  isOngoing: '',
-  incidentCategory: '',
-  incidentSubType: '',
-  description: '',
-  howDiscovered: '',
-  attackVector: '',
-  affectedSystems: [],
-  affectedSystemsOther: '',
-  functionalImpact: '',
-  informationImpact: '',
-  recoverability: '',
-  personalDataInvolved: '',
-  measuresTaken: '',
-  isResolved: '',
-  recommendedActions: '',
-  dataCategories: [],
-  personCategories: [],
-  estimatedRecords: '',
-  dpoContact: '',
-  isGdprBreach: '',
-  _savedAt: '',
 };
+
+const initialState: FormData = formDataSchema.parse({});
 
 export const useFormStore = create<FormState>()(
   persist(
