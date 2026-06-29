@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { routing } from '@/i18n/routing';
 
 const BrandingSchema = z.object({
   orgName: z.string(),
@@ -63,7 +64,7 @@ const TaxonomyCategorySchema = z.object({
 
 export const AppConfigSchema = z.object({
   branding: BrandingSchema,
-  defaultLocale: z.enum(['de', 'en', 'es', 'fr', 'tr', 'it']).default('de'),
+  defaultLocale: z.enum(routing.locales).default(routing.defaultLocale),
   delivery: DeliverySchema,
   persistence: PersistenceSchema.default({}),
   auth: AuthSchema.default({}),

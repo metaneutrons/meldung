@@ -23,5 +23,8 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(de|en|es|fr|tr|it)/:path*'],
+  // Run on every path except API routes, Next internals and static files.
+  // Locale handling is delegated to next-intl, so there is no locale list to
+  // keep in sync here (single source of truth: routing.locales).
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 };

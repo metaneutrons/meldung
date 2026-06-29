@@ -20,6 +20,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder /app/meldung.config.yaml ./meldung.config.yaml
+COPY --from=builder /app/content ./content
 RUN mkdir -p data && chown nextjs:nodejs data
 USER nextjs
 EXPOSE 3000
