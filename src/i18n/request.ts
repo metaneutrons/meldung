@@ -8,8 +8,18 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = routing.defaultLocale;
   }
 
+  const [ui, taxonomy, report] = await Promise.all([
+    import(`./messages/${locale}.json`),
+    import(`./messages/taxonomy.${locale}.json`),
+    import(`./messages/report.${locale}.json`),
+  ]);
+
   return {
     locale,
-    messages: (await import(`./messages/${locale}.json`)).default as Record<string, unknown>,
+    messages: {
+      ...ui.default,
+      taxonomy: taxonomy.default,
+      report: report.default,
+    } as Record<string, unknown>,
   };
 });

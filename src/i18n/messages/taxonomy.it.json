@@ -1,0 +1,194 @@
+{
+  "categories": {
+    "abusive-content": {
+      "label": "Contenuto illecito",
+      "description": "Contenuto illegale o perseguibile ai sensi della legislazione applicabile."
+    },
+    "malicious-code": {
+      "label": "Codice dannoso",
+      "description": "Software progettato intenzionalmente per causare danni o ottenere accesso non autorizzato."
+    },
+    "information-gathering": {
+      "label": "Raccolta di informazioni",
+      "description": "Attività volte a raccogliere informazioni sugli obiettivi per un successivo sfruttamento."
+    },
+    "intrusion-attempts": {
+      "label": "Tentativi di intrusione",
+      "description": "Tentativi di sfruttare vulnerabilità o aggirare i controlli di sicurezza per ottenere accesso."
+    },
+    "intrusions": {
+      "label": "Intrusioni",
+      "description": "Accesso non autorizzato riuscito a sistemi, account o applicazioni."
+    },
+    "availability": {
+      "label": "Disponibilità",
+      "description": "Incidenti che compromettono la disponibilità di sistemi, reti o servizi."
+    },
+    "information-content-security": {
+      "label": "Sicurezza dei contenuti informativi",
+      "description": "Incidenti che compromettono la riservatezza, l'integrità o la disponibilità dei dati."
+    },
+    "fraud": {
+      "label": "Frode",
+      "description": "Azioni intese a ingannare o utilizzare impropriamente risorse per profitto personale."
+    },
+    "vulnerable": {
+      "label": "Vulnerabile",
+      "description": "Sistemi o servizi con debolezze sfruttabili o configurazioni errate."
+    }
+  },
+  "entries": {
+    "spam": {
+      "label": "Spam",
+      "description": "Messaggi di massa non richiesti inviati per scopi commerciali o dannosi."
+    },
+    "harmful-speech": {
+      "label": "Espressioni dannose",
+      "description": "Incitamento all'odio, discriminazione o minacce rivolte a individui o gruppi."
+    },
+    "child-abuse-material": {
+      "label": "Materiale pedopornografico",
+      "description": "Contenuti che rappresentano lo sfruttamento o l'abuso sessuale di minori."
+    },
+    "virus": {
+      "label": "Virus",
+      "description": "Malware autoreplicante che si attacca a programmi o file legittimi."
+    },
+    "worm": {
+      "label": "Worm",
+      "description": "Malware autopropagante che si diffonde nelle reti senza interazione dell'utente."
+    },
+    "trojan": {
+      "label": "Trojan",
+      "description": "Malware camuffato da software legittimo per indurre gli utenti a eseguirlo."
+    },
+    "spyware": {
+      "label": "Spyware",
+      "description": "Software che raccoglie di nascosto informazioni sull'utente senza consenso."
+    },
+    "ransomware": {
+      "label": "Ransomware",
+      "description": "Malware che cifra i dati e richiede un pagamento per il loro rilascio."
+    },
+    "rootkit": {
+      "label": "Rootkit",
+      "description": "Software progettato per nascondere l'esistenza di processi o programmi dannosi."
+    },
+    "dialer": {
+      "label": "Dialer",
+      "description": "Malware che collega un sistema a numeri telefonici a tariffazione speciale."
+    },
+    "cryptominer": {
+      "label": "Cryptominer",
+      "description": "Malware che utilizza le risorse del sistema per estrarre criptovaluta senza autorizzazione."
+    },
+    "scanning": {
+      "label": "Scansione",
+      "description": "Sondaggio attivo di reti o sistemi per individuare servizi e vulnerabilità."
+    },
+    "sniffing": {
+      "label": "Sniffing",
+      "description": "Intercettazione passiva del traffico di rete per acquisire dati sensibili."
+    },
+    "social-engineering": {
+      "label": "Ingegneria sociale",
+      "description": "Manipolazione di persone affinché divulghino informazioni riservate o compiano azioni."
+    },
+    "phishing": {
+      "label": "Phishing",
+      "description": "Tentativi fraudolenti di ottenere credenziali fingendosi un'entità affidabile."
+    },
+    "exploitation-of-vulnerability": {
+      "label": "Sfruttamento di una vulnerabilità",
+      "description": "Tentativo di sfruttare una vulnerabilità software o hardware nota."
+    },
+    "login-attempts": {
+      "label": "Tentativi di accesso",
+      "description": "Attacchi di forza bruta o credential stuffing contro i meccanismi di autenticazione."
+    },
+    "new-attack-signature": {
+      "label": "Nuova firma di attacco",
+      "description": "Schema di attacco precedentemente sconosciuto che non corrisponde alle firme esistenti."
+    },
+    "compromised-account": {
+      "label": "Account compromesso",
+      "description": "Accesso non autorizzato ottenuto a un account utente o di servizio."
+    },
+    "compromised-application": {
+      "label": "Applicazione compromessa",
+      "description": "Integrità di un'applicazione violata tramite sfruttamento o manomissione."
+    },
+    "compromised-system": {
+      "label": "Sistema compromesso",
+      "description": "Controllo non autorizzato totale o parziale ottenuto su un sistema."
+    },
+    "bot": {
+      "label": "Bot",
+      "description": "Sistema compromesso e arruolato in una botnet per l'esecuzione remota di comandi."
+    },
+    "dos": {
+      "label": "Denial of Service",
+      "description": "Attacco che rende un servizio non disponibile sovraccaricandolo di richieste."
+    },
+    "ddos": {
+      "label": "Distributed Denial of Service",
+      "description": "Attacco denial-of-service coordinato proveniente da più fonti."
+    },
+    "sabotage": {
+      "label": "Sabotaggio",
+      "description": "Distruzione o interruzione deliberata di infrastrutture o servizi."
+    },
+    "outage": {
+      "label": "Interruzione",
+      "description": "Interruzione non intenzionale del servizio causata da errori di configurazione o guasti."
+    },
+    "unauthorised-information-access": {
+      "label": "Accesso non autorizzato alle informazioni",
+      "description": "Accesso a informazioni senza adeguata autorizzazione o abilitazione."
+    },
+    "unauthorised-information-modification": {
+      "label": "Modifica non autorizzata delle informazioni",
+      "description": "Alterazione di dati senza adeguata autorizzazione o approvazione."
+    },
+    "data-loss": {
+      "label": "Perdita di dati",
+      "description": "Perdita permanente di dati a causa di cancellazione accidentale o guasto del sistema."
+    },
+    "data-leak": {
+      "label": "Fuga di dati",
+      "description": "Esposizione di informazioni sensibili a parti non autorizzate."
+    },
+    "unauthorised-use-of-resources": {
+      "label": "Uso non autorizzato di risorse",
+      "description": "Utilizzo di risorse istituzionali per scopi non autorizzati."
+    },
+    "copyright": {
+      "label": "Diritto d'autore",
+      "description": "Distribuzione o utilizzo di materiale protetto da copyright senza autorizzazione."
+    },
+    "masquerade": {
+      "label": "Mascheramento",
+      "description": "Impersonificazione di un'altra entità per ottenere un vantaggio illegittimo."
+    },
+    "weak-crypto": {
+      "label": "Crittografia debole",
+      "description": "Uso di algoritmi o lunghezze di chiave crittografici obsoleti o insufficienti."
+    },
+    "ddos-amplifier": {
+      "label": "Amplificatore DDoS",
+      "description": "Servizio mal configurato che può essere abusato per amplificare attacchi denial-of-service."
+    },
+    "potentially-unwanted-accessible": {
+      "label": "Accessibile potenzialmente indesiderato",
+      "description": "Servizio accessibile da Internet che non dovrebbe essere esposto pubblicamente."
+    },
+    "information-disclosure": {
+      "label": "Divulgazione di informazioni",
+      "description": "Sistema che espone inavvertitamente informazioni sensibili a utenti non autenticati."
+    },
+    "vulnerable-system": {
+      "label": "Sistema vulnerabile",
+      "description": "Sistema che esegue software con vulnerabilità note non corrette."
+    }
+  }
+}

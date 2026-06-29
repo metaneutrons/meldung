@@ -76,6 +76,7 @@
       "departmentPlaceholder": "Fakultät III / Abt. IT",
       "rolePlaceholder": "z. B. IT-Ansprechperson",
       "contactPlaceholder": "name@beispiel.de",
+      "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
       "email": "E-Mail-Adresse",
       "emailPlaceholder": "vorname.name@hs-hannover.de",
       "phone": "Telefonnummer",
@@ -111,6 +112,16 @@
     },
     "systems": {
       "label": "Betroffene Systeme auswählen",
+      "options": {
+        "campus-management": "Campus-Management-System",
+        "learning-platform": "Lernplattform (Moodle)",
+        "email": "E-Mail-System",
+        "research-db": "Forschungsdatenbank",
+        "local-machines": "Lokale Rechner / Server",
+        "vpn-network": "VPN / Netzwerk",
+        "cloud": "Cloud-Dienste",
+        "databases": "Datenbanken"
+      },
       "other": "Sonstiges",
       "otherPlaceholder": "Bitte angeben"
     },

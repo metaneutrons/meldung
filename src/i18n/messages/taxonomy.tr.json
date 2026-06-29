@@ -1,0 +1,194 @@
+{
+  "categories": {
+    "abusive-content": {
+      "label": "Kötüye kullanım içeriği",
+      "description": "Geçerli mevzuata göre yasa dışı veya kovuşturulabilir içerik."
+    },
+    "malicious-code": {
+      "label": "Kötü amaçlı kod",
+      "description": "Hasara yol açmak veya yetkisiz erişim sağlamak için kasıtlı olarak tasarlanmış yazılım."
+    },
+    "information-gathering": {
+      "label": "Bilgi toplama",
+      "description": "Daha sonra istismar etmek amacıyla hedefler hakkında bilgi toplamaya yönelik faaliyetler."
+    },
+    "intrusion-attempts": {
+      "label": "Sızma girişimleri",
+      "description": "Erişim elde etmek için güvenlik açıklarını istismar etme veya güvenlik denetimlerini atlatma girişimleri."
+    },
+    "intrusions": {
+      "label": "Sızmalar",
+      "description": "Sistemlere, hesaplara veya uygulamalara başarılı yetkisiz erişim."
+    },
+    "availability": {
+      "label": "Kullanılabilirlik",
+      "description": "Sistemlerin, ağların veya hizmetlerin kullanılabilirliğini etkileyen olaylar."
+    },
+    "information-content-security": {
+      "label": "Bilgi içeriği güvenliği",
+      "description": "Verilerin gizliliğini, bütünlüğünü veya kullanılabilirliğini etkileyen olaylar."
+    },
+    "fraud": {
+      "label": "Dolandırıcılık",
+      "description": "Kişisel çıkar için aldatmaya veya kaynakları kötüye kullanmaya yönelik eylemler."
+    },
+    "vulnerable": {
+      "label": "Savunmasız",
+      "description": "İstismar edilebilir zayıflıklara veya hatalı yapılandırmalara sahip sistemler veya hizmetler."
+    }
+  },
+  "entries": {
+    "spam": {
+      "label": "Spam",
+      "description": "Ticari veya kötü amaçlarla gönderilen istenmeyen toplu mesajlar."
+    },
+    "harmful-speech": {
+      "label": "Zararlı söylem",
+      "description": "Bireylere veya gruplara yönelik nefret söylemi, ayrımcılık veya tehditler."
+    },
+    "child-abuse-material": {
+      "label": "Çocuk istismarı materyali",
+      "description": "Çocukların cinsel istismarını veya sömürüsünü betimleyen içerik."
+    },
+    "virus": {
+      "label": "Virüs",
+      "description": "Meşru programlara veya dosyalara bulaşan, kendini çoğaltan kötü amaçlı yazılım."
+    },
+    "worm": {
+      "label": "Solucan",
+      "description": "Kullanıcı etkileşimi olmadan ağlar üzerinden yayılan, kendini yayan kötü amaçlı yazılım."
+    },
+    "trojan": {
+      "label": "Truva atı",
+      "description": "Kullanıcıları çalıştırmaya kandırmak için meşru yazılım gibi gösterilen kötü amaçlı yazılım."
+    },
+    "spyware": {
+      "label": "Casus yazılım",
+      "description": "Kullanıcı bilgilerini rıza olmadan gizlice toplayan yazılım."
+    },
+    "ransomware": {
+      "label": "Fidye yazılımı",
+      "description": "Verileri şifreleyen ve serbest bırakılması için ödeme talep eden kötü amaçlı yazılım."
+    },
+    "rootkit": {
+      "label": "Rootkit",
+      "description": "Kötü amaçlı süreçlerin veya programların varlığını gizlemek için tasarlanmış yazılım."
+    },
+    "dialer": {
+      "label": "Çevirici",
+      "description": "Bir sistemi yüksek ücretli telefon numaralarına bağlayan kötü amaçlı yazılım."
+    },
+    "cryptominer": {
+      "label": "Kripto madencisi",
+      "description": "Sistem kaynaklarını yetkisiz olarak kripto para madenciliği için kullanan kötü amaçlı yazılım."
+    },
+    "scanning": {
+      "label": "Tarama",
+      "description": "Hizmetleri ve güvenlik açıklarını keşfetmek için ağların veya sistemlerin etkin biçimde yoklanması."
+    },
+    "sniffing": {
+      "label": "Dinleme (Sniffing)",
+      "description": "Hassas verileri yakalamak için ağ trafiğinin pasif biçimde ele geçirilmesi."
+    },
+    "social-engineering": {
+      "label": "Sosyal mühendislik",
+      "description": "Gizli bilgileri ifşa etmeleri veya eylemlerde bulunmaları için kişilerin manipüle edilmesi."
+    },
+    "phishing": {
+      "label": "Oltalama (Phishing)",
+      "description": "Güvenilir bir kuruluş gibi davranarak kimlik bilgilerini ele geçirmeye yönelik sahtekârlık girişimleri."
+    },
+    "exploitation-of-vulnerability": {
+      "label": "Güvenlik açığının istismarı",
+      "description": "Bilinen bir yazılım veya donanım güvenlik açığını istismar etme girişimi."
+    },
+    "login-attempts": {
+      "label": "Oturum açma girişimleri",
+      "description": "Kimlik doğrulama mekanizmalarına yönelik kaba kuvvet veya kimlik bilgisi doldurma saldırıları."
+    },
+    "new-attack-signature": {
+      "label": "Yeni saldırı imzası",
+      "description": "Mevcut imzalarla eşleşmeyen, daha önce bilinmeyen saldırı deseni."
+    },
+    "compromised-account": {
+      "label": "Ele geçirilmiş hesap",
+      "description": "Bir kullanıcı veya hizmet hesabına yetkisiz erişim."
+    },
+    "compromised-application": {
+      "label": "Ele geçirilmiş uygulama",
+      "description": "İstismar veya kurcalama yoluyla bütünlüğü ihlal edilmiş uygulama."
+    },
+    "compromised-system": {
+      "label": "Ele geçirilmiş sistem",
+      "description": "Bir sistem üzerinde tam veya kısmi yetkisiz denetim elde edilmesi."
+    },
+    "bot": {
+      "label": "Bot",
+      "description": "Uzaktan komut yürütme için bir botnet'e dahil edilmiş, ele geçirilmiş sistem."
+    },
+    "dos": {
+      "label": "Hizmet engelleme",
+      "description": "Bir hizmeti isteklerle aşırı yükleyerek kullanılamaz hale getiren saldırı."
+    },
+    "ddos": {
+      "label": "Dağıtık hizmet engelleme",
+      "description": "Birden çok kaynaktan gelen koordineli hizmet engelleme saldırısı."
+    },
+    "sabotage": {
+      "label": "Sabotaj",
+      "description": "Altyapının veya hizmetlerin kasıtlı olarak tahrip edilmesi veya kesintiye uğratılması."
+    },
+    "outage": {
+      "label": "Kesinti",
+      "description": "Hatalı yapılandırma veya arıza nedeniyle istem dışı hizmet kesintisi."
+    },
+    "unauthorised-information-access": {
+      "label": "Yetkisiz bilgi erişimi",
+      "description": "Uygun yetki veya izin olmadan bilgiye erişim."
+    },
+    "unauthorised-information-modification": {
+      "label": "Yetkisiz bilgi değişikliği",
+      "description": "Uygun yetki veya onay olmadan verilerin değiştirilmesi."
+    },
+    "data-loss": {
+      "label": "Veri kaybı",
+      "description": "Yanlışlıkla silme veya sistem arızası nedeniyle verilerin kalıcı kaybı."
+    },
+    "data-leak": {
+      "label": "Veri sızıntısı",
+      "description": "Hassas bilgilerin yetkisiz taraflara ifşa edilmesi."
+    },
+    "unauthorised-use-of-resources": {
+      "label": "Kaynakların yetkisiz kullanımı",
+      "description": "Kurumsal kaynakların yetkisiz amaçlarla kullanılması."
+    },
+    "copyright": {
+      "label": "Telif hakkı",
+      "description": "Telif hakkıyla korunan materyalin izinsiz dağıtımı veya kullanımı."
+    },
+    "masquerade": {
+      "label": "Kimliğe bürünme",
+      "description": "Haksız bir avantaj elde etmek için başka bir kuruluşun kimliğine bürünme."
+    },
+    "weak-crypto": {
+      "label": "Zayıf kriptografi",
+      "description": "Eskimiş veya yetersiz kriptografik algoritmaların veya anahtar uzunluklarının kullanımı."
+    },
+    "ddos-amplifier": {
+      "label": "DDoS yükselticisi",
+      "description": "Hizmet engelleme saldırılarını yükseltmek için kötüye kullanılabilen yanlış yapılandırılmış hizmet."
+    },
+    "potentially-unwanted-accessible": {
+      "label": "Potansiyel olarak istenmeyen erişilebilirlik",
+      "description": "İnternetten erişilebilen, herkese açık olmaması gereken hizmet."
+    },
+    "information-disclosure": {
+      "label": "Bilgi ifşası",
+      "description": "Hassas bilgileri istemeden kimliği doğrulanmamış kullanıcılara açan sistem."
+    },
+    "vulnerable-system": {
+      "label": "Savunmasız sistem",
+      "description": "Bilinen, yamalanmamış güvenlik açıklarına sahip yazılım çalıştıran sistem."
+    }
+  }
+}

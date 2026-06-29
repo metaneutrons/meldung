@@ -1,0 +1,194 @@
+{
+  "categories": {
+    "abusive-content": {
+      "label": "Missbräuchliche Inhalte",
+      "description": "Inhalte, die nach geltendem Recht rechtswidrig oder verfolgbar sind."
+    },
+    "malicious-code": {
+      "label": "Schadsoftware",
+      "description": "Software, die absichtlich Schaden anrichtet oder unbefugten Zugriff verschafft."
+    },
+    "information-gathering": {
+      "label": "Informationsbeschaffung",
+      "description": "Aktivitäten zur Sammlung von Informationen über Ziele für eine spätere Ausnutzung."
+    },
+    "intrusion-attempts": {
+      "label": "Eindringversuche",
+      "description": "Versuche, Schwachstellen auszunutzen oder Sicherheitskontrollen zu umgehen, um Zugriff zu erlangen."
+    },
+    "intrusions": {
+      "label": "Einbrüche",
+      "description": "Erfolgreicher unbefugter Zugriff auf Systeme, Konten oder Anwendungen."
+    },
+    "availability": {
+      "label": "Verfügbarkeit",
+      "description": "Vorfälle, die die Verfügbarkeit von Systemen, Netzwerken oder Diensten beeinträchtigen."
+    },
+    "information-content-security": {
+      "label": "Informations- und Inhaltssicherheit",
+      "description": "Vorfälle, die die Vertraulichkeit, Integrität oder Verfügbarkeit von Daten betreffen."
+    },
+    "fraud": {
+      "label": "Betrug",
+      "description": "Handlungen mit dem Ziel, zu täuschen oder Ressourcen zum eigenen Vorteil zu missbrauchen."
+    },
+    "vulnerable": {
+      "label": "Verwundbar",
+      "description": "Systeme oder Dienste mit ausnutzbaren Schwachstellen oder Fehlkonfigurationen."
+    }
+  },
+  "entries": {
+    "spam": {
+      "label": "Spam",
+      "description": "Unerwünschte Massennachrichten zu kommerziellen oder bösartigen Zwecken."
+    },
+    "harmful-speech": {
+      "label": "Schädliche Äußerungen",
+      "description": "Hassrede, Diskriminierung oder Drohungen gegen Personen oder Gruppen."
+    },
+    "child-abuse-material": {
+      "label": "Darstellung von Kindesmissbrauch",
+      "description": "Inhalte, die die sexuelle Ausbeutung oder den Missbrauch von Kindern darstellen."
+    },
+    "virus": {
+      "label": "Virus",
+      "description": "Sich selbst replizierende Schadsoftware, die sich an legitime Programme oder Dateien anhängt."
+    },
+    "worm": {
+      "label": "Wurm",
+      "description": "Sich selbst verbreitende Schadsoftware, die sich ohne Nutzerinteraktion über Netzwerke ausbreitet."
+    },
+    "trojan": {
+      "label": "Trojaner",
+      "description": "Als legitime Software getarnte Schadsoftware, die Nutzer zur Ausführung verleitet."
+    },
+    "spyware": {
+      "label": "Spyware",
+      "description": "Software, die heimlich und ohne Einwilligung Nutzerinformationen sammelt."
+    },
+    "ransomware": {
+      "label": "Ransomware",
+      "description": "Schadsoftware, die Daten verschlüsselt und Lösegeld für deren Freigabe fordert."
+    },
+    "rootkit": {
+      "label": "Rootkit",
+      "description": "Software, die darauf ausgelegt ist, bösartige Prozesse oder Programme zu verbergen."
+    },
+    "dialer": {
+      "label": "Dialer",
+      "description": "Schadsoftware, die ein System mit kostenpflichtigen Telefonnummern verbindet."
+    },
+    "cryptominer": {
+      "label": "Cryptominer",
+      "description": "Schadsoftware, die Systemressourcen unbefugt zum Schürfen von Kryptowährung nutzt."
+    },
+    "scanning": {
+      "label": "Scanning",
+      "description": "Aktives Sondieren von Netzwerken oder Systemen, um Dienste und Schwachstellen zu entdecken."
+    },
+    "sniffing": {
+      "label": "Sniffing",
+      "description": "Passives Abfangen von Netzwerkverkehr, um sensible Daten zu erfassen."
+    },
+    "social-engineering": {
+      "label": "Social Engineering",
+      "description": "Manipulation von Personen, um vertrauliche Informationen preiszugeben oder Handlungen auszuführen."
+    },
+    "phishing": {
+      "label": "Phishing",
+      "description": "Betrügerische Versuche, durch Vortäuschung einer vertrauenswürdigen Instanz an Zugangsdaten zu gelangen."
+    },
+    "exploitation-of-vulnerability": {
+      "label": "Ausnutzung einer Schwachstelle",
+      "description": "Versuch, eine bekannte Software- oder Hardware-Schwachstelle auszunutzen."
+    },
+    "login-attempts": {
+      "label": "Anmeldeversuche",
+      "description": "Brute-Force- oder Credential-Stuffing-Angriffe auf Authentifizierungsmechanismen."
+    },
+    "new-attack-signature": {
+      "label": "Neue Angriffssignatur",
+      "description": "Bisher unbekanntes Angriffsmuster, das keiner vorhandenen Signatur entspricht."
+    },
+    "compromised-account": {
+      "label": "Kompromittiertes Konto",
+      "description": "Unbefugter Zugriff auf ein Benutzer- oder Dienstkonto."
+    },
+    "compromised-application": {
+      "label": "Kompromittierte Anwendung",
+      "description": "Integrität einer Anwendung durch Ausnutzung oder Manipulation verletzt."
+    },
+    "compromised-system": {
+      "label": "Kompromittiertes System",
+      "description": "Vollständige oder teilweise unbefugte Kontrolle über ein System erlangt."
+    },
+    "bot": {
+      "label": "Bot",
+      "description": "System kompromittiert und in ein Botnetz zur Fernsteuerung eingebunden."
+    },
+    "dos": {
+      "label": "Denial of Service",
+      "description": "Angriff, der einen Dienst durch Überlastung mit Anfragen unerreichbar macht."
+    },
+    "ddos": {
+      "label": "Distributed Denial of Service",
+      "description": "Koordinierter Denial-of-Service-Angriff aus mehreren Quellen."
+    },
+    "sabotage": {
+      "label": "Sabotage",
+      "description": "Vorsätzliche Zerstörung oder Störung von Infrastruktur oder Diensten."
+    },
+    "outage": {
+      "label": "Ausfall",
+      "description": "Unbeabsichtigte Dienststörung durch Fehlkonfiguration oder Versagen."
+    },
+    "unauthorised-information-access": {
+      "label": "Unbefugter Informationszugriff",
+      "description": "Zugriff auf Informationen ohne ordnungsgemäße Berechtigung oder Freigabe."
+    },
+    "unauthorised-information-modification": {
+      "label": "Unbefugte Informationsänderung",
+      "description": "Änderung von Daten ohne ordnungsgemäße Berechtigung oder Genehmigung."
+    },
+    "data-loss": {
+      "label": "Datenverlust",
+      "description": "Dauerhafter Verlust von Daten durch versehentliches Löschen oder Systemversagen."
+    },
+    "data-leak": {
+      "label": "Datenabfluss",
+      "description": "Offenlegung sensibler Informationen gegenüber Unbefugten."
+    },
+    "unauthorised-use-of-resources": {
+      "label": "Unbefugte Ressourcennutzung",
+      "description": "Nutzung institutioneller Ressourcen für unbefugte Zwecke."
+    },
+    "copyright": {
+      "label": "Urheberrecht",
+      "description": "Verbreitung oder Nutzung urheberrechtlich geschützten Materials ohne Berechtigung."
+    },
+    "masquerade": {
+      "label": "Identitätsvortäuschung",
+      "description": "Vortäuschung einer anderen Identität, um sich einen unrechtmäßigen Vorteil zu verschaffen."
+    },
+    "weak-crypto": {
+      "label": "Schwache Kryptografie",
+      "description": "Verwendung veralteter oder unzureichender kryptografischer Verfahren oder Schlüssellängen."
+    },
+    "ddos-amplifier": {
+      "label": "DDoS-Verstärker",
+      "description": "Fehlkonfigurierter Dienst, der zur Verstärkung von Denial-of-Service-Angriffen missbraucht werden kann."
+    },
+    "potentially-unwanted-accessible": {
+      "label": "Potenziell unerwünscht erreichbar",
+      "description": "Aus dem Internet erreichbarer Dienst, der nicht öffentlich zugänglich sein sollte."
+    },
+    "information-disclosure": {
+      "label": "Informationsoffenlegung",
+      "description": "System, das unbeabsichtigt sensible Informationen gegenüber nicht authentifizierten Nutzern preisgibt."
+    },
+    "vulnerable-system": {
+      "label": "Verwundbares System",
+      "description": "System, das Software mit bekannten, ungepatchten Schwachstellen ausführt."
+    }
+  }
+}

@@ -112,6 +112,16 @@
     },
     "systems": {
       "label": "Seleccione los sistemas afectados",
+      "options": {
+        "campus-management": "Sistema de gestión del campus",
+        "learning-platform": "Plataforma de aprendizaje (Moodle)",
+        "email": "Sistema de correo electrónico",
+        "research-db": "Base de datos de investigación",
+        "local-machines": "Equipos / servidores locales",
+        "vpn-network": "VPN / red",
+        "cloud": "Servicios en la nube",
+        "databases": "Bases de datos"
+      },
       "other": "Otro",
       "otherPlaceholder": "Especifique"
     },

@@ -112,6 +112,16 @@
     },
     "systems": {
       "label": "Etkilenen sistemleri seçin",
+      "options": {
+        "campus-management": "Kampüs yönetim sistemi",
+        "learning-platform": "Öğrenme platformu (Moodle)",
+        "email": "E-posta sistemi",
+        "research-db": "Araştırma veritabanı",
+        "local-machines": "Yerel bilgisayarlar / sunucular",
+        "vpn-network": "VPN / ağ",
+        "cloud": "Bulut hizmetleri",
+        "databases": "Veritabanları"
+      },
       "other": "Diğer",
       "otherPlaceholder": "Lütfen belirtin"
     },
