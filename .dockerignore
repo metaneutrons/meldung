@@ -2,4 +2,8 @@ node_modules
 .next
 .git
 data
-*.md
+coverage
+/*.md
+.env*
+.vercel
+*.log

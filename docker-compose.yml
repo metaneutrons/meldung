@@ -2,13 +2,29 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - ./meldung.config.yaml:/app/meldung.config.yaml:ro
       - app-data:/app/data
     environment:
-      - AUTH_ENABLED=false
-      - AUTH_SECRET=change-me-in-production
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - AUTH_ENABLED=${AUTH_ENABLED:-false}
+      # Secrets are read from a .env file next to this compose file (see .env.example).
+      # AUTH_SECRET and CAPTCHA_SECRET MUST be stable across restarts and replicas,
+      # otherwise sessions and captcha challenges break. Change them for production.
+      - AUTH_SECRET=${AUTH_SECRET:-change-me-in-production}
+      - CAPTCHA_SECRET=${CAPTCHA_SECRET:-change-me-in-production}
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
     restart: unless-stopped
 
 volumes:
