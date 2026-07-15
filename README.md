@@ -42,8 +42,8 @@ personal-data-breach assessment.
 ## Features
 
 - **Guided multi-step wizard** with draft auto-save and resume (stored in the browser).
-- **Six languages** — German, English, Spanish, French, Italian, Turkish — covering the full UI,
-  the ENISA taxonomy, and the generated report.
+- **Eight languages** — German, English, Spanish, French, Italian, Turkish, Russian, Ukrainian —
+  covering the full UI, the ENISA taxonomy, and the generated report.
 - **ENISA RSIT classification** (overridable) and a **GDPR Art. 33** breach-assessment step.
 - **Localized PDF report** with an automatic reference number.
 - **Multi-channel delivery**, run in parallel and best-effort: e-mail, Znuny/OTRS, OTOBO,
@@ -154,9 +154,9 @@ Place logo and favicon assets in `public/`. The welcome page and footer are Mark
 
 ### Localization
 
-The UI ships in **DE, EN, ES, FR, IT, TR**. Set the default with `defaultLocale:` (one of those
-codes); reporters can switch language in the header. Translations live in `src/i18n/messages/`,
-with the ENISA taxonomy and report strings localized alongside.
+The UI ships in **DE, EN, ES, FR, IT, TR, RU, UK**. Set the default with `defaultLocale:` (one of
+those codes); reporters can switch language in the header. Translations live in
+`src/i18n/messages/`, with the ENISA taxonomy and report strings localized alongside.
 
 ### Delivery channels
 

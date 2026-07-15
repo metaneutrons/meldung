@@ -26,7 +26,7 @@ branding:
 # -----------------------------------------------------------------------------
 # Locale
 # -----------------------------------------------------------------------------
-# Default language for the UI. Supported: de, en, es, fr, tr, it
+# Default language for the UI. Supported: de, en, es, fr, tr, it, ru, uk
 defaultLocale: de
 
 # -----------------------------------------------------------------------------

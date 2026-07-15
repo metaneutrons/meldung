@@ -1,0 +1,213 @@
+{
+  "errors": {
+    "verification": "Проверка безопасности не пройдена. Пожалуйста, попробуйте ещё раз.",
+    "rateLimited": "Слишком много попыток. Подождите немного и попробуйте ещё раз.",
+    "validation": "Проверьте обязательные поля и попробуйте ещё раз.",
+    "generic": "Не удалось отправить. Попробуйте ещё раз."
+  },
+  "common": {
+    "appName": "Meldung",
+    "next": "Далее",
+    "back": "Назад",
+    "submit": "Отправить",
+    "submitting": "Отправка…",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "required": "Обязательно",
+    "optional": "Необязательно",
+    "yes": "Да",
+    "no": "Нет",
+    "unknown": "Неизвестно",
+    "step": "Шаг {current} из {total}",
+    "startReport": "Начать сообщение",
+    "missingFieldsWarning": "Некоторые рекомендуемые поля ещё не заполнены:",
+    "submitAnyway": "Отправить всё равно",
+    "fillRequired": "Заполните обязательные поля (*)."
+  },
+  "header": {
+    "title": "Сообщение об инциденте ИТ-безопасности",
+    "subtitle": "Внутреннее сообщение согласно политике информационной безопасности",
+    "darkMode": "Тёмная тема",
+    "lightMode": "Светлая тема",
+    "language": "Язык"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – ИТ-безопасность и защита данных",
+    "privacy": "Политика конфиденциальности",
+    "imprint": "Выходные данные"
+  },
+  "wizard": {
+    "step": "Шаг {current} из {total}",
+    "startReport": "Начать сообщение",
+    "missingFieldsWarning": "Некоторые рекомендуемые поля ещё не заполнены:",
+    "submitAnyway": "Отправить всё равно",
+    "stepOf": "Шаг {current} из {total}",
+    "progress": "Прогресс",
+    "reporterInfo": "Сведения о заявителе",
+    "timeline": "Хронология инцидента",
+    "classification": "Классификация",
+    "description": "Описание",
+    "systems": "Затронутые системы",
+    "impact": "Оценка воздействия",
+    "measures": "Принятые меры",
+    "gdpr": "Оценка по GDPR",
+    "summary": "Сводка",
+    "stepNavigation": "Навигация по шагам"
+  },
+  "draft": {
+    "found": "Найден сохранённый черновик. Хотите продолжить с него?",
+    "resume": "Продолжить",
+    "discard": "Отклонить",
+    "autoSaved": "Черновик сохранён автоматически"
+  },
+  "confirmation": {
+    "title": "Ваше сообщение об инциденте успешно отправлено",
+    "reference": "Номер обращения",
+    "downloadPdf": "Скачать отчёт в PDF",
+    "deliveryStatus": "Статус доставки",
+    "channelSuccess": "{channel}: доставлено",
+    "channelFailed": "{channel}: не удалось доставить",
+    "submitAnother": "Отправить ещё одно сообщение",
+    "errorTitle": "Не удалось отправить",
+    "errorRetry": "Попробуйте ещё раз"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Имя",
+      "department": "Отдел / подразделение",
+      "role": "Роль / должность",
+      "contact": "Контакт (email / телефон)",
+      "reportDate": "Дата и время сообщения",
+      "namePlaceholder": "Иван Иванов",
+      "departmentPlaceholder": "Факультет III / ИТ-отдел",
+      "rolePlaceholder": "напр. ИТ-контактное лицо",
+      "contactPlaceholder": "name@example.com",
+      "invalidEmail": "Введите корректный адрес электронной почты",
+      "email": "Адрес электронной почты",
+      "emailPlaceholder": "name@example.com",
+      "phone": "Номер телефона",
+      "phonePlaceholder": "+49 511 9296-0"
+    },
+    "timeline": {
+      "discoveryDate": "Дата и время обнаружения",
+      "occurrenceDate": "Дата и время происшествия (если известно)",
+      "isResolved": "Инцидент устранён?"
+    },
+    "classification": {
+      "category": "Категория инцидента",
+      "subType": "Подкатегория",
+      "selectPlaceholder": "-- Пожалуйста, выберите --",
+      "undetermined": "Невозможно определить / неизвестно"
+    },
+    "description": {
+      "description": "Описание инцидента",
+      "descriptionPlaceholder": "Что произошло?",
+      "howDiscovered": "Как был обнаружен инцидент?",
+      "attackVector": "Вектор атаки",
+      "vectors": {
+        "email": "Электронная почта",
+        "web": "Веб / браузер",
+        "network": "Сеть",
+        "physical": "Физический доступ",
+        "social-engineering": "Социальная инженерия",
+        "supply-chain": "Цепочка поставок",
+        "insider": "Инсайдер",
+        "unknown": "Неизвестно",
+        "other": "Другое"
+      }
+    },
+    "systems": {
+      "label": "Выберите затронутые системы",
+      "options": {
+        "campus-management": "Система управления кампусом",
+        "learning-platform": "Учебная платформа (Moodle)",
+        "email": "Система электронной почты",
+        "research-db": "База данных исследований",
+        "local-machines": "Локальные компьютеры / серверы",
+        "vpn-network": "VPN / сеть",
+        "cloud": "Облачные сервисы",
+        "databases": "Базы данных"
+      },
+      "other": "Другое",
+      "otherPlaceholder": "Укажите, пожалуйста"
+    },
+    "impact": {
+      "functional": "Функциональное воздействие",
+      "information": "Информационное воздействие",
+      "recoverability": "Восстанавливаемость",
+      "personalData": "Затрагивает ли инцидент персональные данные?",
+      "personalDataHint": "Будет добавлен дополнительный шаг для оценки защиты данных.",
+      "functionalOptions": {
+        "none": "Нет — отсутствие влияния",
+        "low": "Низкое — минимальное влияние",
+        "medium": "Среднее — значительное влияние",
+        "high": "Высокое — критическое влияние"
+      },
+      "informationOptions": {
+        "none": "Отсутствует",
+        "privacy-breach": "Нарушение конфиденциальности",
+        "proprietary-breach": "Нарушение конфиденциальной информации",
+        "integrity-loss": "Потеря целостности"
+      },
+      "recoverabilityOptions": {
+        "regular": "Обычная — имеющихся ресурсов достаточно",
+        "supplemented": "Дополненная — требуются дополнительные ресурсы",
+        "extended": "Расширенная — требуются значительные время/ресурсы",
+        "not-recoverable": "Невосстановимо"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Уже принятые меры",
+      "isResolved": "Инцидент устранён?",
+      "recommendedActions": "Рекомендуемые дальнейшие шаги (необязательно)"
+    },
+    "gdpr": {
+      "infoTitle": "GDPR, ст. 33 — обязанность уведомления",
+      "infoText": "О нарушениях защиты персональных данных необходимо уведомить надзорный орган в течение 72 часов.",
+      "dataCategories": "Затронутые категории данных",
+      "personCategories": "Затронутые категории субъектов данных",
+      "estimatedRecords": "Предполагаемое число затронутых записей",
+      "dpoContact": "Контакт ответственного за защиту данных",
+      "isBreach": "Является ли это нарушением защиты персональных данных по GDPR?",
+      "dataCategoryOptions": {
+        "nameAddress": "Имя и адресные данные",
+        "contactData": "Контактные данные (email, телефон)",
+        "dateOfBirth": "Дата рождения / возраст",
+        "credentials": "Учётные данные / пароли",
+        "financialData": "Финансовые / банковские данные",
+        "healthData": "Данные о здоровье",
+        "biometricData": "Биометрические данные",
+        "locationData": "Данные о местоположении / GPS",
+        "onlineIdentifiers": "Онлайн-идентификаторы (IP, cookies)",
+        "employmentData": "Данные о занятости",
+        "educationData": "Данные об обучении / экзаменах",
+        "socialSecurityId": "Номера социального страхования / удостоверений личности",
+        "religiousPolitical": "Религиозные / политические убеждения",
+        "sexualOrientation": "Сексуальная ориентация",
+        "criminalRecords": "Данные о судимости",
+        "communicationContent": "Содержание переписки",
+        "other": "Другое"
+      },
+      "personCategoryOptions": {
+        "students": "Студенты",
+        "staff": "Сотрудники",
+        "applicants": "Соискатели",
+        "externalPartners": "Внешние партнёры",
+        "alumni": "Выпускники",
+        "minors": "Несовершеннолетние (до 18 лет)",
+        "customers": "Клиенты / пользователи услуг",
+        "patients": "Пациенты"
+      }
+    },
+    "options": {
+      "yes": "Да",
+      "no": "Нет",
+      "unknown": "Неизвестно / невозможно определить"
+    },
+    "summary": {
+      "missingFields": "Следующие рекомендуемые поля ещё не заполнены:",
+      "timestamp": "Время сообщения будет зафиксировано автоматически при отправке.",
+      "requiredFields": "Необходимо заполнить следующие обязательные поля:"
+    }
+  }
+}
