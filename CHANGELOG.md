@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/metaneutrons/meldung/compare/v0.2.0...v0.2.1) (2026-07-15)
+
+
+### Bug Fixes
+
+* **ci:** use GitHub App token for release-please PRs ([#3](https://github.com/metaneutrons/meldung/issues/3)) ([b6884c7](https://github.com/metaneutrons/meldung/commit/b6884c722f0d3d5e64b5177fe5b30e68808038c7))
+
 ## [0.2.0](https://github.com/metaneutrons/meldung/compare/v0.1.0...v0.2.0) (2026-07-15)
 
 
