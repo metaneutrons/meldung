@@ -1,0 +1,213 @@
+{
+  "errors": {
+    "verification": "Перевірку безпеки не пройдено. Спробуйте ще раз.",
+    "rateLimited": "Забагато спроб. Зачекайте трохи і спробуйте ще раз.",
+    "validation": "Перевірте обов'язкові поля та спробуйте ще раз.",
+    "generic": "Не вдалося надіслати. Спробуйте ще раз."
+  },
+  "common": {
+    "appName": "Meldung",
+    "next": "Далі",
+    "back": "Назад",
+    "submit": "Надіслати",
+    "submitting": "Надсилання…",
+    "cancel": "Скасувати",
+    "save": "Зберегти",
+    "required": "Обов'язково",
+    "optional": "Необов'язково",
+    "yes": "Так",
+    "no": "Ні",
+    "unknown": "Невідомо",
+    "step": "Крок {current} з {total}",
+    "startReport": "Почати повідомлення",
+    "missingFieldsWarning": "Деякі рекомендовані поля ще порожні:",
+    "submitAnyway": "Надіслати попри це",
+    "fillRequired": "Заповніть обов'язкові поля (*)."
+  },
+  "header": {
+    "title": "Повідомлення про інцидент ІТ-безпеки",
+    "subtitle": "Внутрішнє повідомлення відповідно до політики інформаційної безпеки",
+    "darkMode": "Темна тема",
+    "lightMode": "Світла тема",
+    "language": "Мова"
+  },
+  "footer": {
+    "copyright": "© {year} {orgName} – ІТ-безпека та захист даних",
+    "privacy": "Політика конфіденційності",
+    "imprint": "Вихідні дані"
+  },
+  "wizard": {
+    "step": "Крок {current} з {total}",
+    "startReport": "Почати повідомлення",
+    "missingFieldsWarning": "Деякі рекомендовані поля ще порожні:",
+    "submitAnyway": "Надіслати попри це",
+    "stepOf": "Крок {current} з {total}",
+    "progress": "Прогрес",
+    "reporterInfo": "Відомості про заявника",
+    "timeline": "Хронологія інциденту",
+    "classification": "Класифікація",
+    "description": "Опис",
+    "systems": "Уражені системи",
+    "impact": "Оцінка впливу",
+    "measures": "Вжиті заходи",
+    "gdpr": "Оцінка за GDPR",
+    "summary": "Підсумок",
+    "stepNavigation": "Навігація по кроках"
+  },
+  "draft": {
+    "found": "Знайдено збережений чернетку. Бажаєте продовжити з неї?",
+    "resume": "Продовжити",
+    "discard": "Відхилити",
+    "autoSaved": "Чернетку збережено автоматично"
+  },
+  "confirmation": {
+    "title": "Ваше повідомлення про інцидент успішно надіслано",
+    "reference": "Номер звернення",
+    "downloadPdf": "Завантажити звіт у PDF",
+    "deliveryStatus": "Статус доставки",
+    "channelSuccess": "{channel}: доставлено",
+    "channelFailed": "{channel}: не вдалося доставити",
+    "submitAnother": "Надіслати ще одне повідомлення",
+    "errorTitle": "Не вдалося надіслати",
+    "errorRetry": "Спробуйте ще раз"
+  },
+  "steps": {
+    "reporter": {
+      "name": "Ім'я",
+      "department": "Відділ / підрозділ",
+      "role": "Роль / посада",
+      "contact": "Контакт (email / телефон)",
+      "reportDate": "Дата й час повідомлення",
+      "namePlaceholder": "Іван Іваненко",
+      "departmentPlaceholder": "Факультет III / ІТ-відділ",
+      "rolePlaceholder": "напр. ІТ-контактна особа",
+      "contactPlaceholder": "name@example.com",
+      "invalidEmail": "Введіть коректну адресу електронної пошти",
+      "email": "Адреса електронної пошти",
+      "emailPlaceholder": "name@example.com",
+      "phone": "Номер телефону",
+      "phonePlaceholder": "+49 511 9296-0"
+    },
+    "timeline": {
+      "discoveryDate": "Дата й час виявлення",
+      "occurrenceDate": "Дата й час події (якщо відомо)",
+      "isResolved": "Інцидент усунено?"
+    },
+    "classification": {
+      "category": "Категорія інциденту",
+      "subType": "Підкатегорія",
+      "selectPlaceholder": "-- Будь ласка, оберіть --",
+      "undetermined": "Неможливо визначити / невідомо"
+    },
+    "description": {
+      "description": "Опис інциденту",
+      "descriptionPlaceholder": "Що сталося?",
+      "howDiscovered": "Як було виявлено інцидент?",
+      "attackVector": "Вектор атаки",
+      "vectors": {
+        "email": "Електронна пошта",
+        "web": "Веб / браузер",
+        "network": "Мережа",
+        "physical": "Фізичний доступ",
+        "social-engineering": "Соціальна інженерія",
+        "supply-chain": "Ланцюг постачання",
+        "insider": "Інсайдер",
+        "unknown": "Невідомо",
+        "other": "Інше"
+      }
+    },
+    "systems": {
+      "label": "Оберіть уражені системи",
+      "options": {
+        "campus-management": "Система управління кампусом",
+        "learning-platform": "Навчальна платформа (Moodle)",
+        "email": "Система електронної пошти",
+        "research-db": "База даних досліджень",
+        "local-machines": "Локальні комп'ютери / сервери",
+        "vpn-network": "VPN / мережа",
+        "cloud": "Хмарні сервіси",
+        "databases": "Бази даних"
+      },
+      "other": "Інше",
+      "otherPlaceholder": "Будь ласка, уточніть"
+    },
+    "impact": {
+      "functional": "Функціональний вплив",
+      "information": "Інформаційний вплив",
+      "recoverability": "Відновлюваність",
+      "personalData": "Чи стосується інцидент персональних даних?",
+      "personalDataHint": "Буде додано додатковий крок для оцінки захисту даних.",
+      "functionalOptions": {
+        "none": "Немає — відсутність впливу",
+        "low": "Низький — мінімальний вплив",
+        "medium": "Середній — значний вплив",
+        "high": "Високий — критичний вплив"
+      },
+      "informationOptions": {
+        "none": "Відсутній",
+        "privacy-breach": "Порушення конфіденційності",
+        "proprietary-breach": "Порушення конфіденційної інформації",
+        "integrity-loss": "Втрата цілісності"
+      },
+      "recoverabilityOptions": {
+        "regular": "Звичайна — наявних ресурсів достатньо",
+        "supplemented": "Доповнена — потрібні додаткові ресурси",
+        "extended": "Розширена — потрібні значні час/ресурси",
+        "not-recoverable": "Непоправно"
+      }
+    },
+    "measures": {
+      "measuresTaken": "Вже вжиті заходи",
+      "isResolved": "Чи усунено інцидент?",
+      "recommendedActions": "Рекомендовані наступні кроки (необов'язково)"
+    },
+    "gdpr": {
+      "infoTitle": "GDPR, ст. 33 — обов'язок повідомлення",
+      "infoText": "Про порушення захисту персональних даних необхідно повідомити наглядовий орган протягом 72 годин.",
+      "dataCategories": "Уражені категорії даних",
+      "personCategories": "Уражені категорії суб'єктів даних",
+      "estimatedRecords": "Орієнтовна кількість уражених записів",
+      "dpoContact": "Контакт відповідального за захист даних",
+      "isBreach": "Чи є це порушенням захисту персональних даних згідно з GDPR?",
+      "dataCategoryOptions": {
+        "nameAddress": "Ім'я та адресні дані",
+        "contactData": "Контактні дані (email, телефон)",
+        "dateOfBirth": "Дата народження / вік",
+        "credentials": "Облікові дані / паролі",
+        "financialData": "Фінансові / банківські дані",
+        "healthData": "Дані про здоров'я",
+        "biometricData": "Біометричні дані",
+        "locationData": "Дані про місцезнаходження / GPS",
+        "onlineIdentifiers": "Онлайн-ідентифікатори (IP, cookies)",
+        "employmentData": "Дані про зайнятість",
+        "educationData": "Дані про навчання / іспити",
+        "socialSecurityId": "Номери соціального страхування / посвідчень особи",
+        "religiousPolitical": "Релігійні / політичні переконання",
+        "sexualOrientation": "Сексуальна орієнтація",
+        "criminalRecords": "Дані про судимість",
+        "communicationContent": "Зміст листування",
+        "other": "Інше"
+      },
+      "personCategoryOptions": {
+        "students": "Студенти",
+        "staff": "Співробітники",
+        "applicants": "Кандидати",
+        "externalPartners": "Зовнішні партнери",
+        "alumni": "Випускники",
+        "minors": "Неповнолітні (до 18 років)",
+        "customers": "Клієнти / користувачі послуг",
+        "patients": "Пацієнти"
+      }
+    },
+    "options": {
+      "yes": "Так",
+      "no": "Ні",
+      "unknown": "Невідомо / неможливо визначити"
+    },
+    "summary": {
+      "missingFields": "Наступні рекомендовані поля ще порожні:",
+      "timestamp": "Час повідомлення буде зафіксовано автоматично під час надсилання.",
+      "requiredFields": "Необхідно заповнити такі обов'язкові поля:"
+    }
+  }
+}
