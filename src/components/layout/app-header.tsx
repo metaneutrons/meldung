@@ -7,8 +7,8 @@ import { ThemeToggle } from './theme-toggle';
 
 interface AppHeaderProps {
   orgName: string;
-  logoUrl?: string;
-  logoDarkUrl?: string;
+  logoUrl?: string | undefined;
+  logoDarkUrl?: string | undefined;
   onLogoClick?: () => void;
   /** Rendered inside the sticky header, below the brand row (e.g. progress bar). */
   children?: ReactNode;

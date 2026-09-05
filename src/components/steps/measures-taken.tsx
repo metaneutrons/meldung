@@ -16,19 +16,19 @@ export function MeasuresTaken() {
         label={t('measures.measuresTaken')}
         rows={3}
         value={measuresTaken}
-        onChange={(e) => update({ measuresTaken: e.target.value })}
+        onChange={(e) => { update({ measuresTaken: e.target.value }); }}
       />
       <SegmentedControl
         legend={t('measures.isResolved')}
         options={options}
         value={isResolved}
-        onChange={(v) => update({ isResolved: v as 'yes' | 'no' })}
+        onChange={(v) => { update({ isResolved: v as 'yes' | 'no' }); }}
       />
       <TextareaField
         label={t('measures.recommendedActions')}
         rows={2}
         value={recommendedActions}
-        onChange={(e) => update({ recommendedActions: e.target.value })}
+        onChange={(e) => { update({ recommendedActions: e.target.value }); }}
       />
     </div>
   );

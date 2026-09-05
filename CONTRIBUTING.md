@@ -5,23 +5,25 @@ Thanks for taking the time. This is a small project, so the process is short.
 ## Getting started
 
 ```bash
-npm ci
-npm run dev
+pnpm install
+pnpm dev
 ```
 
-Node 22 or newer is required. Copy `.env.example` to `.env.local` for local
+Node 24 or newer and pnpm are required; the pnpm version is pinned in
+`package.json` under `packageManager`. Copy `.env.example` to `.env.local` for local
 secrets; `meldung.config.yaml` holds everything that is not a secret.
 
 ## Before you push
 
 ```bash
-npm run lint
-npm run check
-npm test
-npm run build
+pnpm lint
+pnpm typecheck
+pnpm test --coverage
+pnpm build
 ```
 
-CI runs exactly these four. The git hooks run a subset on commit and push.
+CI runs these plus a container build and a commit-hygiene check. The git
+hooks, managed by lefthook, run a subset on commit and push.
 
 ## Commits
 

@@ -30,7 +30,7 @@ function FieldList({
           {onGo ? (
             <button
               type="button"
-              onClick={() => onGo(item.step)}
+              onClick={() => { onGo(item.step); }}
               className="underline underline-offset-2 hover:no-underline"
             >
               {item.label}

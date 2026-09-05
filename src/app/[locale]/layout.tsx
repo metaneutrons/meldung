@@ -7,7 +7,7 @@ import { contrastColor } from '@/lib/branding';
 import { ThemeProvider } from '@/components/theme-provider';
 import '@/app/globals.css';
 
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   const { branding } = getConfig();
   return {
     title: branding.appTitle ?? `${branding.orgName} — IT Security Incident Report`,

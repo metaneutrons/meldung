@@ -3,6 +3,18 @@ import { buildReportModel, formatReportText, type ReportModel } from '@/lib/repo
 import type { DeliveryContext, DeliveryResult } from './types';
 import { fetchWithTimeout } from './http';
 
+/**
+ * Dynamic field values come from the untyped form payload. A plain `String()`
+ * turns an object into "[object Object]" and that would land in the ticket
+ * verbatim, so objects are serialized instead.
+ */
+function stringifyFieldValue(value: unknown): string {
+  if (Array.isArray(value)) return value.join(', ');
+  if (value instanceof Date) return value.toISOString();
+  if (typeof value === 'object' && value !== null) return JSON.stringify(value);
+  return String(value);
+}
+
 interface OtrsSessionResponse {
   SessionID?: string;
   Error?: { ErrorCode: string; ErrorMessage: string };
@@ -86,11 +98,11 @@ function buildPayload(ctx: DeliveryContext, config: OtrsTicketConfig, model: Rep
       if (value != null) {
         dynamicFields.push({
           Name: otrsField,
-          Value: Array.isArray(value) ? value.join(', ') : String(value),
+          Value: stringifyFieldValue(value),
         });
       }
     }
-    payload['DynamicField'] = dynamicFields;
+    payload.DynamicField = dynamicFields;
   }
 
   return payload;

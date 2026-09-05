@@ -39,7 +39,7 @@ export function StepNav({ steps, current, onSelect }: StepNavProps) {
             aria-selected={i === current}
             aria-controls={`step-panel-${step.id}`}
             data-step={i}
-            onClick={() => onSelect(i)}
+            onClick={() => { onSelect(i); }}
             className={cn(
               'relative shrink-0 px-4 py-3 text-center text-xs font-medium transition',
               focusRing,

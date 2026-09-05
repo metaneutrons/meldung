@@ -46,9 +46,9 @@ export function Select({ className, children, ...props }: SelectHTMLAttributes<H
 interface FieldShellProps {
   id?: string;
   label: string;
-  required?: boolean;
-  error?: string;
-  hint?: string;
+  required?: boolean | undefined;
+  error?: string | undefined;
+  hint?: string | undefined;
   children: ReactNode;
 }
 
@@ -68,7 +68,12 @@ export function Field({ id, label, required, error, hint, children }: FieldShell
 
 // --- Ergonomic field + control combos --------------------------------------
 
-type FieldExtras = { label: string; required?: boolean; error?: string; hint?: string };
+interface FieldExtras {
+  label: string;
+  required?: boolean | undefined;
+  error?: string | undefined;
+  hint?: string | undefined;
+}
 
 export function TextField({
   label,
@@ -160,7 +165,7 @@ export function RadioGroup({
               name={name}
               value={opt.value}
               checked={value === opt.value}
-              onChange={() => onChange(opt.value)}
+              onChange={() => { onChange(opt.value); }}
               className={choiceBase}
             />
             {opt.label}
@@ -198,7 +203,7 @@ export function CheckboxGroup({
             <input
               type="checkbox"
               checked={values.includes(opt.value)}
-              onChange={() => onToggle(opt.value)}
+              onChange={() => { onToggle(opt.value); }}
               className={cn(choiceBase, 'rounded')}
             />
             <span>{opt.label}</span>
@@ -243,7 +248,7 @@ export function SegmentedControl({
               type="button"
               role="radio"
               aria-checked={active}
-              onClick={() => onChange(opt.value)}
+              onClick={() => { onChange(opt.value); }}
               className={cn(
                 'rounded-lg px-4 py-1.5 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand',
                 active ? 'bg-surface text-fg shadow-sm' : 'text-fg-muted hover:text-fg',

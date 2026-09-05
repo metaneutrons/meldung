@@ -86,25 +86,26 @@ the container) to configure delivery and branding.
 
 ## Development
 
-Requires **Node.js 20+**.
+Requires **Node.js 24+** and **pnpm**; the exact pnpm version is pinned in
+`package.json` under `packageManager`.
 
 ```bash
-npm install --legacy-peer-deps          # Next.js 16 peer deps
+pnpm install
 cp meldung.config.example.yaml meldung.config.yaml
-npm run dev                             # http://localhost:3000
+pnpm dev                                # http://localhost:3000
 ```
 
 ### Scripts
 
 | Command          | Purpose                          |
 | ---------------- | -------------------------------- |
-| `npm run dev`    | Start the dev server (Turbopack) |
-| `npm run build`  | Production build                 |
-| `npm start`      | Serve the production build       |
-| `npm run check`  | Type-check (`tsc --noEmit`)      |
-| `npm run lint`   | ESLint                           |
-| `npm run format` | Prettier                         |
-| `npm test`       | Run the test suite (Vitest)      |
+| `pnpm dev`       | Start the dev server (Turbopack) |
+| `pnpm build`     | Production build                 |
+| `pnpm start`     | Serve the production build       |
+| `pnpm typecheck` | Type-check (`tsc --noEmit`)      |
+| `pnpm lint`      | ESLint, warnings are errors      |
+| `pnpm format`    | Prettier                         |
+| `pnpm test`      | Run the test suite (Vitest)      |
 
 ### Project structure
 

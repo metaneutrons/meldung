@@ -71,34 +71,33 @@ export function GdprAssessment() {
         legend={t('gdpr.dataCategories')}
         options={dataOptions}
         values={dataCategories}
-        onToggle={(v) => toggleArray('dataCategories', v)}
+        onToggle={(v) => { toggleArray('dataCategories', v); }}
       />
       <CheckboxGroup
         legend={t('gdpr.personCategories')}
         options={personOptions}
         values={personCategories}
-        onToggle={(v) => toggleArray('personCategories', v)}
+        onToggle={(v) => { toggleArray('personCategories', v); }}
       />
 
       <TextField
         label={t('gdpr.estimatedRecords')}
         type="number"
         value={estimatedRecords}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          update({ estimatedRecords: e.target.value })
+        onChange={(e: ChangeEvent<HTMLInputElement>) => { update({ estimatedRecords: e.target.value }); }
         }
       />
       <TextField
         label={t('gdpr.dpoContact')}
         value={dpoContact}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => update({ dpoContact: e.target.value })}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => { update({ dpoContact: e.target.value }); }}
       />
 
       <SegmentedControl
         legend={t('gdpr.isBreach')}
         options={breachOptions}
         value={isGdprBreach}
-        onChange={(v) => update({ isGdprBreach: v as 'yes' | 'no' | 'unknown' })}
+        onChange={(v) => { update({ isGdprBreach: v as 'yes' | 'no' | 'unknown' }); }}
       />
     </div>
   );

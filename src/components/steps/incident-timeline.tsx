@@ -37,7 +37,7 @@ export function IncidentTimeline() {
         legend={t('timeline.isResolved')}
         options={options}
         value={isOngoing}
-        onChange={(v) => update({ isOngoing: v as 'yes' | 'no' | 'unknown' })}
+        onChange={(v) => { update({ isOngoing: v as 'yes' | 'no' | 'unknown' }); }}
       />
     </div>
   );

@@ -29,17 +29,17 @@ export function IncidentDescription() {
         rows={4}
         placeholder={t('description.descriptionPlaceholder')}
         value={description}
-        onChange={(e) => update({ description: e.target.value })}
+        onChange={(e) => { update({ description: e.target.value }); }}
       />
       <TextField
         label={t('description.howDiscovered')}
         value={howDiscovered}
-        onChange={(e) => update({ howDiscovered: e.target.value })}
+        onChange={(e) => { update({ howDiscovered: e.target.value }); }}
       />
       <SelectField
         label={t('description.attackVector')}
         value={attackVector}
-        onChange={(e: ChangeEvent<HTMLSelectElement>) => update({ attackVector: e.target.value })}
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => { update({ attackVector: e.target.value }); }}
       >
         <option value="">{t('classification.selectPlaceholder')}</option>
         {ATTACK_VECTORS.map((v) => (

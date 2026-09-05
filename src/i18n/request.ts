@@ -8,11 +8,14 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = routing.defaultLocale;
   }
 
-  const [ui, taxonomy, report] = await Promise.all([
+  // A dynamic import of JSON resolves to `any`. Naming the shape here keeps
+  // the untyped value from spreading into the message object below.
+  interface MessageModule { default: Record<string, unknown> }
+  const [ui, taxonomy, report] = (await Promise.all([
     import(`./messages/${locale}.json`),
     import(`./messages/taxonomy.${locale}.json`),
     import(`./messages/report.${locale}.json`),
-  ]);
+  ])) as [MessageModule, MessageModule, MessageModule];
 
   return {
     locale,
