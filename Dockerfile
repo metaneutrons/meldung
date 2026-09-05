@@ -4,7 +4,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
 WORKDIR /app
-COPY package.json package-lock.json ./
+# .npmrc carries legacy-peer-deps=true. Without it `npm ci` aborts with
+# ERESOLVE on the peerOptional nodemailer bound of next-auth, which is what
+# kept every release from ever pushing an image.
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 COPY . .
 RUN npm run build
