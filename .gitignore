@@ -1,45 +1,44 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Patterns are deliberately UNANCHORED, so that they bite at every level.
+# A leading slash stops matching as soon as a subproject appears.
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Dependencies
+node_modules/
+.pnpm-store/
 
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-!.env.example
-
-# vercel
-.vercel
-
-# typescript
+# Build output
+.next/
+out/
+build/
+dist/
 *.tsbuildinfo
 next-env.d.ts
 
-# persistence data
-/data/
+# Coverage
+coverage/
+.nyc_output/
+
+# Environment and state
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Keys and certificates
+*.pem
+
+# Deployment
+.vercel/
+
+# Data directory of the file persistence driver
+data/
+
+# Editor and operating system
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
