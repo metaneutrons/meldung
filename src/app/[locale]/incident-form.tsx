@@ -37,8 +37,8 @@ interface StepDef {
 
 interface IncidentFormProps {
   orgName: string;
-  logoUrl?: string;
-  logoDarkUrl?: string;
+  logoUrl?: string | undefined;
+  logoDarkUrl?: string | undefined;
   welcomeContent: string;
   footerContent: string;
 }
@@ -74,7 +74,9 @@ export function IncidentForm({
   // Once mounted, jump straight to the wizard if a draft exists — unless the
   // user explicitly navigated (start button / logo click).
   const mounted = useSyncExternalStore(
-    () => () => {},
+    () => () => {
+      /* nothing to unsubscribe from: this store never changes */
+    },
     () => true,
     () => false,
   );
@@ -92,7 +94,7 @@ export function IncidentForm({
       if (s.reporterName || s.description) e.preventDefault();
     };
     window.addEventListener('beforeunload', handler);
-    return () => window.removeEventListener('beforeunload', handler);
+    return () => { window.removeEventListener('beforeunload', handler); };
   }, [submitted, showWelcome, store]);
 
   const steps: StepDef[] = useMemo(() => {
@@ -117,7 +119,12 @@ export function IncidentForm({
     return base;
   }, [t, store, personalDataInvolved]);
 
-  const safeStep = Math.min(currentStep, steps.length - 1);
+  const safeStep = Math.min(Math.max(currentStep, 0), steps.length - 1);
+  // `steps` always holds at least the summary step and safeStep is clamped
+  // into range, so this is never undefined. A guard is impossible here: the
+  // hooks below must run on every render, so an early return would break the
+  // rules of hooks.
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const currentStepDef = steps[safeStep]!;
   const StepComponent = currentStepDef.component;
   const isFirst = safeStep === 0;
@@ -184,7 +191,7 @@ export function IncidentForm({
           orgName={orgName}
           logoUrl={logoUrl}
           logoDarkUrl={logoDarkUrl}
-          onLogoClick={() => setUserView('welcome')}
+          onLogoClick={() => { setUserView('welcome'); }}
         />
         <WelcomePage
           content={welcomeContent}
@@ -204,7 +211,7 @@ export function IncidentForm({
         orgName={orgName}
         logoUrl={logoUrl}
         logoDarkUrl={logoDarkUrl}
-        onLogoClick={() => setUserView('welcome')}
+        onLogoClick={() => { setUserView('welcome'); }}
       >
         <WizardProgress step={safeStep} total={steps.length} />
       </AppHeader>

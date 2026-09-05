@@ -7,7 +7,7 @@ interface IncidentReportProps {
   generatedAt: string;
   model: ReportModel;
   /** Optional raster logo as a data URI (see generate.ts). */
-  logo?: string;
+  logo?: string | undefined;
   /** Brand color from config; drives header rule + headings. */
   accentColor: string;
 }

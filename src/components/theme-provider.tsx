@@ -6,7 +6,9 @@ type Theme = 'light' | 'dark';
 
 const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
   theme: 'light',
-  toggle: () => {},
+  toggle: () => {
+    /* replaced by the provider; the default is only read outside it */
+  },
 });
 
 export function useTheme() {
@@ -17,9 +19,9 @@ function setThemeCookie(theme: Theme) {
   document.cookie = `meldung-theme=${theme};path=/;max-age=31536000;SameSite=Lax`;
 }
 
-let listeners: Array<() => void> = [];
+let listeners: (() => void)[] = [];
 function emitChange() {
-  listeners.forEach((l) => l());
+  listeners.forEach((l) => { l(); });
 }
 
 function getThemeSnapshot(): Theme {
@@ -40,7 +42,7 @@ function subscribe(listener: () => void) {
 
 interface ThemeProviderProps {
   children: ReactNode;
-  serverTheme?: Theme;
+  serverTheme?: Theme | undefined;
 }
 
 export function ThemeProvider({ children, serverTheme }: ThemeProviderProps) {

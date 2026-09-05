@@ -16,7 +16,7 @@ export function LocaleSwitcher() {
         <button
           key={loc}
           type="button"
-          onClick={() => router.replace(pathname, { locale: loc })}
+          onClick={() => { router.replace(pathname, { locale: loc }); }}
           aria-label={loc.toUpperCase()}
           className={cn(
             'rounded-md px-2 py-1 text-xs font-semibold transition',

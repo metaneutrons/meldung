@@ -10,7 +10,9 @@ export function ThemeToggle() {
   const { theme, toggle } = useTheme();
   const th = useTranslations('header');
   const mounted = useSyncExternalStore(
-    () => () => {},
+    () => () => {
+      /* nothing to unsubscribe from: this store never changes */
+    },
     () => true,
     () => false,
   );

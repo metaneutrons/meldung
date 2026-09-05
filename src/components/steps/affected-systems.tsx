@@ -40,8 +40,7 @@ export function AffectedSystems() {
           label={t('systems.otherPlaceholder')}
           value={affectedSystemsOther}
           placeholder={t('systems.otherPlaceholder')}
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            update({ affectedSystemsOther: e.target.value })
+          onChange={(e: ChangeEvent<HTMLInputElement>) => { update({ affectedSystemsOther: e.target.value }); }
           }
         />
       )}

@@ -23,8 +23,7 @@ export function IncidentClassification() {
         hint={
           selectedCategory ? tax(`categories.${selectedCategory.value}.description`) : undefined
         }
-        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          update({ incidentCategory: e.target.value, incidentSubType: '' })
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => { update({ incidentCategory: e.target.value, incidentSubType: '' }); }
         }
       >
         <option value="">{t('classification.selectPlaceholder')}</option>
@@ -41,8 +40,7 @@ export function IncidentClassification() {
         required
         value={incidentSubType}
         hint={selectedSubType ? tax(`entries.${selectedSubType}.description`) : undefined}
-        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          update({ incidentSubType: e.target.value })
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => { update({ incidentSubType: e.target.value }); }
         }
       >
         <option value="">{t('classification.selectPlaceholder')}</option>

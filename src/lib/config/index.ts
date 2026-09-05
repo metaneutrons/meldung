@@ -7,15 +7,19 @@ let cachedConfig: AppConfig | null = null;
 
 /** Sets a nested value, creating intermediate objects as needed. */
 function setNested(obj: Record<string, unknown>, path: readonly string[], value: unknown): void {
+  const leaf = path[path.length - 1];
+  if (leaf === undefined) return;
+
   let cur = obj;
-  for (let i = 0; i < path.length - 1; i++) {
-    const key = path[i]!;
+  // Iterating the slice yields `string` directly, so no index access has to be
+  // asserted away under noUncheckedIndexedAccess.
+  for (const key of path.slice(0, -1)) {
     if (typeof cur[key] !== 'object' || cur[key] === null) {
       cur[key] = {};
     }
     cur = cur[key] as Record<string, unknown>;
   }
-  cur[path[path.length - 1]!] = value;
+  cur[leaf] = value;
 }
 
 /**

@@ -32,7 +32,7 @@ export function ImpactAssessment() {
         required
         options={functionalOptions}
         value={functionalImpact}
-        onChange={(v) => update({ functionalImpact: v })}
+        onChange={(v) => { update({ functionalImpact: v }); }}
       />
       <RadioGroup
         name="informationImpact"
@@ -40,7 +40,7 @@ export function ImpactAssessment() {
         required
         options={informationOptions}
         value={informationImpact}
-        onChange={(v) => update({ informationImpact: v })}
+        onChange={(v) => { update({ informationImpact: v }); }}
       />
       <RadioGroup
         name="recoverability"
@@ -48,14 +48,14 @@ export function ImpactAssessment() {
         required
         options={recoverabilityOptions}
         value={recoverability}
-        onChange={(v) => update({ recoverability: v })}
+        onChange={(v) => { update({ recoverability: v }); }}
       />
       <SegmentedControl
         legend={t('impact.personalData')}
         required
         options={personalDataOptions}
         value={personalDataInvolved}
-        onChange={(v) => update({ personalDataInvolved: v as 'yes' | 'no' | 'unknown' })}
+        onChange={(v) => { update({ personalDataInvolved: v as 'yes' | 'no' | 'unknown' }); }}
       />
       {(personalDataInvolved === 'yes' || personalDataInvolved === 'unknown') && (
         <div className="mt-3 rounded-xl border border-info-border bg-info-bg p-3 text-sm text-info">

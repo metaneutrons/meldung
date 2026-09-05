@@ -24,7 +24,7 @@ interface Tax {
   categories: Record<string, { label?: string; description?: string }>;
   entries: Record<string, { label?: string; description?: string }>;
 }
-type Ui = { steps: { systems: { options: Record<string, string> } } };
+interface Ui { steps: { systems: { options: Record<string, string> } } }
 
 const taxonomies = {
   de: taxDe,

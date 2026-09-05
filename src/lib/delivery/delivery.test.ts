@@ -71,7 +71,7 @@ describe('webhook channel', () => {
 
   it('signs the body with HMAC-SHA256 when a secret is configured', async () => {
     const fetchMock = vi.fn().mockResolvedValue(okJson({}));
-    global.fetch = fetchMock as unknown as typeof fetch;
+    global.fetch = fetchMock;
 
     const res = await deliverWebhook(ctx, { ...config, secret: 's3cr3t' });
     expect(res).toEqual({ success: true, channel: 'webhook' });
@@ -85,7 +85,7 @@ describe('webhook channel', () => {
 
   it('omits the signature header when no secret is configured', async () => {
     const fetchMock = vi.fn().mockResolvedValue(okJson({}));
-    global.fetch = fetchMock as unknown as typeof fetch;
+    global.fetch = fetchMock;
 
     await deliverWebhook(ctx, config);
     const headers = callOf(fetchMock).init.headers as Record<string, string>;
@@ -93,7 +93,7 @@ describe('webhook channel', () => {
   });
 
   it('reports failure on a non-2xx response', async () => {
-    global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 503 }) as unknown as typeof fetch;
+    global.fetch = vi.fn().mockResolvedValue({ ok: false, status: 503 });
     const res = await deliverWebhook(ctx, config);
     expect(res).toMatchObject({ success: false, channel: 'webhook' });
     expect(res.error).toContain('503');
@@ -124,7 +124,7 @@ describe('zammad channel', () => {
       customer: 'reporter@example.de',
     });
     const article = ticket.article as Record<string, unknown>;
-    const attachments = article.attachments as Array<Record<string, unknown>>;
+    const attachments = article.attachments as Record<string, unknown>[];
     expect(attachments[0]).toMatchObject({
       filename: 'INC-20260630-aaaa.pdf',
       'mime-type': 'application/pdf',
@@ -132,7 +132,7 @@ describe('zammad channel', () => {
   });
 
   it('falls back to customerEmailFallback when the reporter gave no e-mail', () => {
-    const noEmailCtx = { ...ctx, data: { ...ctx.data, email: '' } } as DeliveryContext;
+    const noEmailCtx = { ...ctx, data: { ...ctx.data, email: '' } };
     const ticket = buildZammadTicket(
       noEmailCtx,
       { ...config, customerEmailFallback: 'cert@x.de' },
@@ -143,7 +143,7 @@ describe('zammad channel', () => {
 
   it('sends a token-authenticated POST and succeeds on a returned id', async () => {
     const fetchMock = vi.fn().mockResolvedValue(okJson({ id: 42, number: '67001' }));
-    global.fetch = fetchMock as unknown as typeof fetch;
+    global.fetch = fetchMock;
 
     const res = await deliverZammad(ctx, config);
     expect(res).toEqual({ success: true, channel: 'zammad' });
@@ -154,7 +154,7 @@ describe('zammad channel', () => {
   });
 
   it('fails when no ticket id is returned', async () => {
-    global.fetch = vi.fn().mockResolvedValue(okJson({ error: 'nope' })) as unknown as typeof fetch;
+    global.fetch = vi.fn().mockResolvedValue(okJson({ error: 'nope' }));
     const res = await deliverZammad(ctx, config);
     expect(res).toMatchObject({ success: false, channel: 'zammad', error: 'nope' });
   });
@@ -202,7 +202,7 @@ describe('otrs channels (znuny + otobo)', () => {
             ? okJson({ SessionID: 'sess' })
             : okJson({ Error: { ErrorCode: 'X', ErrorMessage: 'bad queue' } }),
         ),
-      ) as unknown as typeof fetch;
+      );
     const res = await deliverOtobo(ctx, config);
     expect(res).toMatchObject({ success: false, channel: 'otobo' });
     expect(res.error).toContain('bad queue');
@@ -215,7 +215,7 @@ describe('fetchWithTimeout', () => {
       const err = new Error('aborted');
       err.name = 'AbortError';
       return Promise.reject(err);
-    }) as unknown as typeof fetch;
+    });
     await expect(fetchWithTimeout('https://x.example', { method: 'GET' }, 5000)).rejects.toThrow(
       /timed out/,
     );

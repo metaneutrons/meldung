@@ -25,7 +25,7 @@ export function DraftResumeBanner() {
       <div className="w-full max-w-sm rounded-2xl border border-border bg-surface p-6 shadow-elevated">
         <p className="text-sm text-fg-muted">{t('found')}</p>
         <div className="mt-5 flex gap-3">
-          <Button className="flex-1" onClick={() => setDismissed(true)}>
+          <Button className="flex-1" onClick={() => { setDismissed(true); }}>
             {t('resume')}
           </Button>
           <Button
