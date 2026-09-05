@@ -1,0 +1,43 @@
+name: Feature request
+description: Propose a change to what the portal does
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Which situation is not handled well today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What should happen instead?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Reporting wizard
+        - ENISA classification / GDPR assessment
+        - PDF report
+        - Delivery channel (e-mail, Znuny, OTOBO, Zammad, webhook)
+        - Persistence
+        - Localization
+        - Deployment / configuration
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Regulatory or operational context
+      description: >
+        Optional. If this comes out of a concrete obligation, name it, for
+        example GDPR Art. 33, NIS2 or an internal policy.
