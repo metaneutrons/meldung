@@ -1,0 +1,27 @@
+# pnpm blocks dependency build scripts by default and demands an explicit
+# decision per package. This is the allowlist, so a new dependency that brings a
+# postinstall script cannot execute code unnoticed during install.
+#
+# sharp        native image processing, used by Next.js image optimization
+# @swc/core    platform binary of the Next.js compiler
+# @parcel/watcher  native file watcher used by the dev tooling
+# unrs-resolver    native resolver behind eslint-import-resolver
+# lefthook     installs the git hooks from lefthook.yml
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  lefthook: true
+  sharp: true
+  unrs-resolver: true
+
+# Forced versions for transitive dependencies whose parent still pins a
+# vulnerable release. Both come from next@16.2.11 itself, so there is no range
+# to widen; the override is the only route short of waiting for Next.
+#
+# 2026-09-06:
+#   postcss  GHSA sourceMappingURL path traversal and XSS, patched in 8.5.23
+#   sharp    inherited libvips CVE-2026-33327/33328/35590/35591, patched in 0.35.0
+# Drop an entry as soon as next ships at or above it.
+overrides:
+  postcss: '>=8.5.23'
+  sharp: '>=0.35.0'
