@@ -105,7 +105,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: false
-          outputs: type=oci,dest=image.tar
+          outputs: type=oci,dest=image.tar,name=meldung
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
@@ -114,11 +114,15 @@ jobs:
           SOURCE_DATE_EPOCH: ${{ needs.metadata.outputs.source_date_epoch }}
 
       # A build that produces an archive nobody starts is not a qualified
-      # artefact. Load the host architecture out of the archive and run it.
+      # artefact. The image under test is loaded OUT OF THE ARCHIVE, not built
+      # a second time, so the bytes that answer here are the bytes that get
+      # pushed later.
       - name: Smoke-test the built image
         run: |
           set -euo pipefail
-          docker buildx build --load --platform linux/amd64 -t meldung:smoke .
+          sudo apt-get update -qq && sudo apt-get install -y -qq skopeo
+          skopeo copy --override-arch amd64 --override-os linux \
+            "oci-archive:image.tar:meldung" "docker-daemon:meldung:smoke"
           docker run -d --name smoke -p 3000:3000 \
             -e CAPTCHA_SECRET=release-smoke-test-not-a-real-secret meldung:smoke
           for i in $(seq 1 40); do
@@ -332,7 +336,7 @@ jobs:
 
           for t in $tags; do
             echo "pushing $IMAGE:$t"
-            skopeo copy --all "oci-archive:image.tar" "docker://${IMAGE}:${t}"
+            skopeo copy --all "oci-archive:image.tar:meldung" "docker://${IMAGE}:${t}"
           done
 
           digest=$(skopeo inspect --raw "docker://${IMAGE}:${TAG}" | sha256sum | cut -d' ' -f1)
