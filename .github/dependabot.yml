@@ -1,0 +1,52 @@
+# The grouping is separated by update kind on purpose. One group across all
+# kinds bundles breaking changes with harmless bumps, and a single broken
+# dependency then blocks the whole stack. Minor and patch stay bundled, major
+# stays ungrouped so every case arrives on its own.
+#
+# `cooldown` keeps a version that is withdrawn shortly after publication out of
+# every pull request. Times are UTC.
+
+version: 2
+
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '05:15'
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 3
+      # semver-major-days is not permitted for github-actions. If it stands
+      # here, Dependabot rejects the ENTIRE file and not a single update runs
+      # any more, not even a security update.
+    groups:
+      github-actions-minor-patch:
+        patterns: ['*']
+        update-types: [minor, patch]
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: '05:30'
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 3
+      semver-major-days: 7
+    groups:
+      npm-minor-patch:
+        patterns: ['*']
+        update-types: [minor, patch]
+    ignore:
+      # Peer bounds belong here, otherwise Dependabot reliably produces a pull
+      # request that npm cannot install at all.
+      #
+      # 2026-09-06: @typescript-eslint/parser 8.59.2, pulled in through
+      # eslint-config-next, declares `typescript: >=4.8.4 <6.1.0`. Measured in
+      # the installed tree, not taken from the release notes. Lift this entry
+      # only once that bound widens.
+      - dependency-name: typescript
+        versions: ['>=6.1']
