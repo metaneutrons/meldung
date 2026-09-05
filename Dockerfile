@@ -1,16 +1,23 @@
 # syntax=docker/dockerfile:1
-FROM node:22-slim AS base
+FROM node:24-slim AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
 WORKDIR /app
-# .npmrc carries legacy-peer-deps=true. Without it `npm ci` aborts with
-# ERESOLVE on the peerOptional nodemailer bound of next-auth, which is what
-# kept every release from ever pushing an image.
-COPY package.json package-lock.json .npmrc ./
-RUN npm ci
+# Pinned explicitly rather than through corepack: from Node 25 on corepack is
+# no longer part of the distribution. The version tracks packageManager in
+# package.json; both have to move together. Installed in the builder only, so
+# the runtime image does not carry a package manager it never uses.
+RUN npm install -g pnpm@12.3.4
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+# The prepare lifecycle script runs during install and lives here. Without it
+# the install aborts before a single dependency is linked.
+COPY scripts ./scripts
+# --frozen-lockfile fails when the lockfile does not match package.json. That
+# is exactly what it is for.
+RUN pnpm install --frozen-lockfile
 COPY . .
-RUN npm run build
+RUN pnpm build
 
 FROM base AS runner
 WORKDIR /app
