@@ -12,29 +12,37 @@ permissions:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    # The app key and its client id live in the protected environment, so the
+    # job has to declare it: without this it sees neither.
     environment: release
     outputs:
       release_created: ${{ steps.rp.outputs.release_created }}
       tag_name: ${{ steps.rp.outputs.tag_name }}
     steps:
-      # Both RELEASE_PLEASE_APP_* secrets exist now, so this step must not
-      # be softened and the token must not have a fallback. A fallback
-      # would silently produce a release PR without CI, which is exactly
-      # what the App token is here to prevent.
-      - uses: actions/create-github-app-token@v2
+      # The release pull request must be created by an app, not by
+      # GITHUB_TOKEN: GitHub suppresses workflow triggers from GITHUB_TOKEN
+      # pushes, so CI would never run on the release pull request and the
+      # required check would stay pending forever. No fallback for the same
+      # reason, and no continue-on-error, which would hide exactly that.
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
-          app-id: ${{ vars.RELEASE_PLEASE_APP_ID }}
+          client-id: ${{ vars.RELEASE_PLEASE_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_PLEASE_APP_PRIVATE_KEY }}
 
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.3.0
         id: rp
         with:
           token: ${{ steps.app-token.outputs.token }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
-      - name: Trigger release workflow
+
+      # The tag created here is the only automatic trigger of the release
+      # pipeline. The pipeline itself carries no tag trigger, otherwise every
+      # tag would start two runs in parallel.
+      - name: Start the release pipeline
         if: steps.rp.outputs.release_created == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh workflow run release.yml --ref ${{ steps.rp.outputs.tag_name }} --repo ${{ github.repository }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          TAG: ${{ steps.rp.outputs.tag_name }}
+        run: gh workflow run release.yml --ref "$TAG" -f tag="$TAG" --repo "$GITHUB_REPOSITORY"
