@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/metaneutrons/meldung/compare/v0.2.1...v0.2.2) (2026-09-06)
+
+
+### Bug Fixes
+
+* **docker:** copy .npmrc into the builder stage ([#7](https://github.com/metaneutrons/meldung/issues/7)) ([102bbc9](https://github.com/metaneutrons/meldung/commit/102bbc9136039aa932ed03d77d0ce9b18644124f))
+
 ## [0.2.1](https://github.com/metaneutrons/meldung/compare/v0.2.0...v0.2.1) (2026-07-15)
 
 
