@@ -105,7 +105,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: false
-          outputs: type=oci,dest=image.tar,name=meldung
+          outputs: type=oci,dest=image.tar,name=meldung:candidate
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
@@ -122,7 +122,7 @@ jobs:
           set -euo pipefail
           sudo apt-get update -qq && sudo apt-get install -y -qq skopeo
           skopeo copy --override-arch amd64 --override-os linux \
-            "oci-archive:image.tar:meldung" "docker-daemon:meldung:smoke"
+            "oci-archive:image.tar:candidate" "docker-daemon:meldung:smoke"
           docker run -d --name smoke -p 3000:3000 \
             -e CAPTCHA_SECRET=release-smoke-test-not-a-real-secret meldung:smoke
           for i in $(seq 1 40); do
@@ -247,9 +247,15 @@ jobs:
 
           if [ -n "$location" ]; then
             case "$location" in https://*) url="$location" ;; *) url="https://ghcr.io$location" ;; esac
+            # ghcr.io answers 405 here: it does not implement cancellation.
+            # The session is then simply abandoned and garbage-collected, so
+            # this is reported rather than dressed up as a successful cancel.
             cancel=$(curl -sS -o /dev/null -w '%{http_code}' -X DELETE \
               -H "Authorization: Bearer $token" "$url")
-            echo "upload session cancelled (HTTP $cancel)"
+            case "$cancel" in
+              20*) echo "upload session cancelled (HTTP $cancel)" ;;
+              *)   echo "the registry does not support cancelling the session (HTTP $cancel); it is abandoned" ;;
+            esac
           fi
 
   # ---------------------------------------------------------------- stage 7
@@ -336,7 +342,7 @@ jobs:
 
           for t in $tags; do
             echo "pushing $IMAGE:$t"
-            skopeo copy --all "oci-archive:image.tar:meldung" "docker://${IMAGE}:${t}"
+            skopeo copy --all "oci-archive:image.tar:candidate" "docker://${IMAGE}:${t}"
           done
 
           digest=$(skopeo inspect --raw "docker://${IMAGE}:${TAG}" | sha256sum | cut -d' ' -f1)
