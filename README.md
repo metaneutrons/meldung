@@ -5,11 +5,11 @@
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](LICENSE)
 [![Docker](https://img.shields.io/badge/Docker-ghcr.io-blue)](https://ghcr.io/metaneutrons/meldung)
 
-**Meldung** is a self-hostable IT security incident reporting portal. Reporters complete a
-guided, multi-language wizard; the portal produces a localized PDF, delivers the report to one
-or more back-end systems (e-mail, ticketing, webhooks) in parallel, and optionally keeps an
-audit trail. Classification follows the **ENISA RSIT** taxonomy and includes a **GDPR Art. 33**
-personal-data-breach assessment.
+**Meldung** — German for a _report_ or _notification_ — is a self-hostable IT security incident
+reporting portal. Reporters complete a guided, multi-language wizard; the portal produces a
+localized PDF, delivers the report to one or more back-end systems (e-mail, ticketing, webhooks)
+in parallel, and optionally keeps an audit trail. Classification follows the **ENISA RSIT**
+taxonomy and includes a **GDPR Art. 33** personal-data-breach assessment.
 
 ---
 
