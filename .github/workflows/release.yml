@@ -282,23 +282,26 @@ jobs:
           TAG: ${{ needs.metadata.outputs.tag }}
         run: |
           set -euo pipefail
-          state=$(gh release view "$TAG" --json isDraft --jq .isDraft 2>/dev/null || echo absent)
+          # Every gh call names the repository: these jobs deliberately have no
+          # checkout, and without --repo gh looks for a git remote and dies with
+          # "not a git repository".
+          state=$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json isDraft --jq .isDraft 2>/dev/null || echo absent)
           case "$state" in
-            absent) gh release create "$TAG" --draft --verify-tag --title "$TAG" --generate-notes ;;
+            absent) gh release create "$TAG" --repo "$GITHUB_REPOSITORY" --draft --verify-tag --title "$TAG" --generate-notes ;;
             true)   echo "draft from release-please, attaching assets" ;;
             false)  echo "::error::release $TAG is already published"; exit 1 ;;
           esac
 
-          gh release upload "$TAG" candidate/* --clobber
+          gh release upload "$TAG" --repo "$GITHUB_REPOSITORY" candidate/* --clobber
 
           # Read the bytes back from the release rather than trusting the upload.
           mkdir readback && cd readback
-          gh release download "$TAG" --pattern '*'
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" --pattern '*'
           sha256sum -c SHA256SUMS
           cmp SHA256SUMS ../candidate/SHA256SUMS
           cd ..
 
-          gh release edit "$TAG" --draft=false --prerelease
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --draft=false --prerelease
 
   # ---------------------------------------------------------------- stage 8
   publish:
@@ -412,5 +415,5 @@ jobs:
           [ "sha256:$served" = "$DIGEST" ] || {
             echo "::error::latest serves sha256:$served, expected $DIGEST"; exit 1; }
 
-          gh release edit "$TAG" --prerelease=false --latest
+          gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --prerelease=false --latest
           echo "promoted ${IMAGE}:latest and release $TAG"
