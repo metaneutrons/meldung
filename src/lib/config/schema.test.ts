@@ -38,24 +38,6 @@ describe('AppConfigSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('rejects an invalid customerEmailFallback (z.email)', () => {
-    const result = AppConfigSchema.safeParse({
-      ...minimal,
-      delivery: {
-        email: { enabled: false },
-        zammad: {
-          enabled: true,
-          config: {
-            baseUrl: 'https://zammad.example.com',
-            token: 't',
-            customerEmailFallback: 'nope',
-          },
-        },
-      },
-    });
-    expect(result.success).toBe(false);
-  });
-
   it('rejects an invalid hex brand colour', () => {
     const result = AppConfigSchema.safeParse({
       ...minimal,

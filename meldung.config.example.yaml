@@ -110,14 +110,15 @@ delivery:
 
   # --- Zammad Channel ---
   # Creates a ticket via the Zammad REST API (token auth). The report becomes the
-  # first article; the PDF is attached when includePdf is true.
+  # first article; the PDF is attached when includePdf is true. The reporter is
+  # matched by e-mail and created as a Zammad customer if unknown. The token
+  # needs ticket.agent permission on the group.
   # zammad:
   #   enabled: false
   #   config:
   #     baseUrl: 'https://zammad.example.com'
   #     token: 'your-api-token'          # prefer ZAMMAD_TOKEN env
   #     group: 'IT-Security'
-  #     customerEmailFallback: 'cert@example.com'  # used when reporter gave no e-mail
   #     includePdf: true
 
 # -----------------------------------------------------------------------------
