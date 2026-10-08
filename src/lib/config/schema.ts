@@ -95,7 +95,6 @@ const ZammadSchema = z.object({
   baseUrl: z.url(),
   token: z.string(),
   group: z.string().default('Users'),
-  customerEmailFallback: z.email().optional(),
   includePdf: z.boolean().default(true),
   timeoutMs: z.number().int().min(1000).max(30000).default(10000),
 });

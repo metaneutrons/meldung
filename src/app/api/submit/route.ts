@@ -111,6 +111,18 @@ export async function POST(request: Request) {
         : { success: false, channel: 'unknown', error: String(r.reason) },
     );
 
+    // A failed channel does not fail the submission, so the log is the only place
+    // an operator learns about it. The detail stays server-side: it can name
+    // internal groups or reveal whether an address is known to the helpdesk.
+    for (const result of deliveryResults) {
+      if (!result.success) {
+        console.error(
+          `[submit] ${referenceNumber}: delivery via ${result.channel} failed:`,
+          result.error,
+        );
+      }
+    }
+
     // Persistence is a best-effort audit trail — its failure must not fail the
     // submission (delivery is the source of truth).
     try {
@@ -127,7 +139,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       referenceNumber,
-      deliveryResults,
+      deliveryResults: deliveryResults.map(({ channel, success }) => ({ channel, success })),
       pdfBase64: pdfBuffer.toString('base64'),
     });
   } catch (err) {

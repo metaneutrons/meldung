@@ -1,14 +1,18 @@
 import type { ZammadConfig } from '@/lib/config/schema';
 import { buildReportModel, formatReportText, type ReportModel } from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
-import { fetchWithTimeout } from './http';
+import { fetchWithTimeout, joinUrl } from './http';
 
 const CHANNEL = 'zammad';
 
 interface ZammadTicketResponse {
   id?: number;
   number?: string;
+}
+
+interface ZammadErrorResponse {
   error?: string;
+  error_human?: string;
 }
 
 export function buildZammadTicket(
@@ -17,13 +21,15 @@ export function buildZammadTicket(
   model: ReportModel,
 ): Record<string, unknown> {
   const title = `[${ctx.referenceNumber}] ${model.category || ctx.data.incidentCategory}`;
-  // Zammad auto-creates the customer from the e-mail if it does not yet exist.
-  const customer = ctx.data.email || config.customerEmailFallback;
 
   const article: Record<string, unknown> = {
     subject: title,
     body: formatReportText(ctx.referenceNumber, model),
     type: 'web',
+    // The article is the reporter's statement, not an agent's reply. Left unset,
+    // Zammad records the token owner's role (Agent) as the sender, and with it
+    // the ticket's create_article_sender that overviews and triggers match on.
+    sender: 'Customer',
     internal: false,
     content_type: 'text/plain',
   };
@@ -37,9 +43,26 @@ export function buildZammadTicket(
     ];
   }
 
-  const ticket: Record<string, unknown> = { title, group: config.group, article };
-  if (customer) ticket.customer = customer;
-  return ticket;
+  return {
+    title,
+    group: config.group,
+    // A plain `customer: <e-mail>` is only looked up, and an unknown address is
+    // rejected with 422. The `guess:` form is the one Zammad resolves by e-mail
+    // and creates as a new customer when it does not exist yet. The submission
+    // schema guarantees a valid address, so there is no fallback case.
+    customer_id: `guess:${ctx.data.email}`,
+    article,
+  };
+}
+
+/** Reads Zammad's error text from a failed response, if it sent one. */
+async function errorDetail(res: Response): Promise<string> {
+  try {
+    const body = (await res.json()) as ZammadErrorResponse;
+    return body.error_human ?? body.error ?? '';
+  } catch {
+    return '';
+  }
 }
 
 export async function deliverZammad(
@@ -51,7 +74,7 @@ export async function deliverZammad(
     const ticket = buildZammadTicket(ctx, config, model);
 
     const res = await fetchWithTimeout(
-      `${config.baseUrl}/api/v1/tickets`,
+      joinUrl(config.baseUrl, '/api/v1/tickets'),
       {
         method: 'POST',
         headers: {
@@ -64,16 +87,17 @@ export async function deliverZammad(
     );
 
     if (!res.ok) {
+      const detail = await errorDetail(res);
       return {
         success: false,
         channel: CHANNEL,
-        error: `Ticket creation failed: HTTP ${res.status}`,
+        error: `Ticket creation failed: HTTP ${res.status}${detail ? ` – ${detail}` : ''}`,
       };
     }
 
     const body = (await res.json()) as ZammadTicketResponse;
     if (!body.id) {
-      return { success: false, channel: CHANNEL, error: body.error ?? 'no ticket id returned' };
+      return { success: false, channel: CHANNEL, error: 'no ticket id returned' };
     }
 
     return { success: true, channel: CHANNEL };
