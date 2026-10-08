@@ -20,8 +20,13 @@ allowBuilds:
 #
 # 2026-09-06:
 #   postcss  GHSA sourceMappingURL path traversal and XSS, patched in 8.5.23
+#            (dropped 2026-10-08: next@16.3.8 pins postcss 8.5.23 itself)
 #   sharp    inherited libvips CVE-2026-33327/33328/35590/35591, patched in 0.35.0
+#
+# 2026-10-08:
+#   sharp          GHSA-wq5f-xc86-pv6w, inherited librsvg CVE-2026-96889, patched in 0.35.5
+#   source-map-js  GHSA-68fv-2mgg-jv7q, event-loop DoS via indexed source maps, patched in 1.2.2
 # Drop an entry as soon as next ships at or above it.
 overrides:
-  postcss: '>=8.5.23'
-  sharp: '>=0.35.0'
+  sharp: '>=0.35.5'
+  source-map-js: '>=1.2.2'
