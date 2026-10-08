@@ -56,6 +56,41 @@ describe('AppConfigSchema', () => {
     expect(result.success).toBe(false);
   });
 
+  const withConfirmation = (confirmation: unknown) =>
+    AppConfigSchema.safeParse({
+      ...minimal,
+      delivery: { email: { enabled: false, confirmation } },
+    });
+
+  it('defaults the confirmation texts to empty overrides', () => {
+    const result = AppConfigSchema.safeParse(minimal);
+    expect(result.success && result.data.delivery.email.confirmation).toEqual({});
+  });
+
+  it('accepts confirmation texts for some locales only', () => {
+    const result = withConfirmation({
+      subject: { de: 'Eingang {reference}' },
+      body: { en: 'Hello {name},\n\nwe got {reference}.\n{orgName}\n' },
+    });
+    expect(result.success).toBe(true);
+    if (!result.success) return;
+    expect(result.data.delivery.email.confirmation.body?.en).toBe(
+      'Hello {name},\n\nwe got {reference}.\n{orgName}',
+    );
+  });
+
+  it('rejects a confirmation text with an unknown placeholder', () => {
+    expect(withConfirmation({ subject: { de: 'Eingang {refrence}' } }).success).toBe(false);
+  });
+
+  it('rejects a confirmation text for a locale the portal does not offer', () => {
+    expect(withConfirmation({ subject: { pl: 'Potwierdzenie {reference}' } }).success).toBe(false);
+  });
+
+  it('rejects a multi-line confirmation subject', () => {
+    expect(withConfirmation({ subject: { de: 'Eingang\n{reference}' } }).success).toBe(false);
+  });
+
   it('rejects an invalid hex brand colour', () => {
     const result = AppConfigSchema.safeParse({
       ...minimal,

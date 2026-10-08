@@ -189,6 +189,33 @@ delivery:
         - 'dpo@example.com'
 ```
 
+The confirmation to the reporter is sent in the language the report was filed in. Every language
+ships with a default subject and body; you can override either one per language, and any language
+you leave out keeps its default. The defaults live in `src/i18n/messages/report.<locale>.json`
+under `confirmationMail`.
+
+Three placeholders are available: `{reference}` (the reference number), `{name}` (the reporter's
+name) and `{orgName}` (`branding.orgName`). An unknown placeholder, an unsupported language or a
+subject spanning several lines is rejected as a configuration error that names the key, so a typo
+never reaches a reporter.
+
+```yaml
+delivery:
+  email:
+    confirmation:
+      subject:
+        de: 'Ihre Meldung {reference} bei {orgName}'
+      body:
+        de: |
+          Guten Tag {name},
+
+          vielen Dank für Ihre Meldung. Wir melden uns innerhalb eines Werktags.
+
+          Referenznummer: {reference}
+
+          CERT der {orgName}
+```
+
 #### Znuny / OTRS & OTOBO
 
 Creates a ticket through the OTRS-compatible **GenericInterface REST** connector (`/Session` →

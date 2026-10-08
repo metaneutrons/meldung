@@ -50,6 +50,20 @@ delivery:
       recipients:
         - 'cert@example.com'
         - 'dpo@example.com'
+    # Confirmation to the reporter, sent in the report's language. Every
+    # language has a built-in default; override subject and/or body per
+    # language, languages left out keep their default. Placeholders:
+    # {reference}, {name} (reporter), {orgName} (branding.orgName).
+    # confirmation:
+    #   subject:
+    #     de: 'Ihre Meldung {reference} bei {orgName}'
+    #   body:
+    #     de: |
+    #       Guten Tag {name},
+    #
+    #       vielen Dank für Ihre Meldung. Wir melden uns innerhalb eines Werktags.
+    #
+    #       Referenznummer: {reference}
 
   # --- Znuny / OTRS Channel ---
   znuny:
