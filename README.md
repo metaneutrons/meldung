@@ -295,18 +295,23 @@ delivery:
 
 #### Zammad
 
-Creates a ticket via the Zammad REST API (token auth). The report becomes the first article; the
-PDF is attached when `includePdf` is enabled. Zammad auto-creates the customer from the reporter's
-e-mail; `customerEmailFallback` is used when the reporter provided none.
+Creates a ticket via the Zammad REST API (token auth). The report becomes the first article, sent
+as the customer; the PDF is attached when `includePdf` is enabled.
 
-| Key                     | Default | Purpose                                     |
-| ----------------------- | ------- | ------------------------------------------- |
-| `baseUrl`               | —       | Zammad base URL                             |
-| `token`                 | —       | API token (prefer `ZAMMAD_TOKEN` env)       |
-| `group`                 | `Users` | Target group                                |
-| `customerEmailFallback` | —       | Customer e-mail when the reporter gave none |
-| `includePdf`            | `true`  | Attach the PDF to the article               |
-| `timeoutMs`             | `10000` | Request timeout                             |
+The reporter's e-mail is passed as `customer_id: guess:<e-mail>`. Zammad links the ticket to an
+existing user with that address, or **creates a new customer account** for it. Every reporter who is
+not yet known to Zammad therefore ends up as a user there; plan your retention rules accordingly.
+
+The token needs the `ticket.agent` permission for the target group. With a customer-level token
+Zammad ignores the given customer and files every ticket under the token's own user.
+
+| Key          | Default | Purpose                               |
+| ------------ | ------- | ------------------------------------- |
+| `baseUrl`    | —       | Zammad base URL                       |
+| `token`      | —       | API token (prefer `ZAMMAD_TOKEN` env) |
+| `group`      | `Users` | Target group                          |
+| `includePdf` | `true`  | Attach the PDF to the article         |
+| `timeoutMs`  | `10000` | Request timeout                       |
 
 ```yaml
 delivery:

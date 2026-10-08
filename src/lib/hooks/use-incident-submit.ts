@@ -8,7 +8,7 @@ import { fetchAndSolveCaptcha } from '@/lib/captcha-client';
 export interface SubmitResult {
   referenceNumber: string;
   pdfBase64: string;
-  deliveryResults: { success: boolean; channel: string; error?: string }[];
+  deliveryResults: { success: boolean; channel: string }[];
 }
 
 /** Encapsulates the submit lifecycle: POST /api/submit, result/error state. */
