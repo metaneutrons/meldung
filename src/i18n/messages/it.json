@@ -64,12 +64,10 @@
     "title": "La segnalazione dell'incidente è stata inviata con successo",
     "reference": "Numero di riferimento",
     "downloadPdf": "Scarica rapporto PDF",
-    "deliveryStatus": "Stato di consegna",
-    "channelSuccess": "{channel}: Consegnato",
-    "channelFailed": "{channel}: Non riuscito",
     "submitAnother": "Invia un'altra segnalazione",
     "errorTitle": "Invio non riuscito",
-    "errorRetry": "Si prega di riprovare"
+    "errorRetry": "Si prega di riprovare",
+    "ticket": "Numero di ticket: {ticket}"
   },
   "steps": {
     "reporter": {

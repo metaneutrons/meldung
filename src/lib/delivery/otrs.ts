@@ -151,7 +151,11 @@ async function deliverOtrs(
       };
     }
 
-    return { success: true, channel };
+    return {
+      success: true,
+      channel,
+      ...(body.TicketNumber ? { ticketNumber: body.TicketNumber } : {}),
+    };
   } catch (err) {
     const message = err instanceof Error ? err.message : `Unknown ${channel} delivery error`;
     return { success: false, channel, error: message };

@@ -64,12 +64,10 @@
     "title": "Olay bildiriminiz başarıyla gönderildi",
     "reference": "Referans Numarası",
     "downloadPdf": "PDF Raporu İndir",
-    "deliveryStatus": "Teslimat Durumu",
-    "channelSuccess": "{channel}: Teslim edildi",
-    "channelFailed": "{channel}: Başarısız",
     "submitAnother": "Başka bir bildirim gönder",
     "errorTitle": "Gönderim başarısız",
-    "errorRetry": "Lütfen tekrar deneyin"
+    "errorRetry": "Lütfen tekrar deneyin",
+    "ticket": "Talep numarası: {ticket}"
   },
   "steps": {
     "reporter": {

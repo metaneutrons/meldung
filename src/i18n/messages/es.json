@@ -64,12 +64,10 @@
     "title": "Su informe de incidente se ha enviado correctamente",
     "reference": "Número de referencia",
     "downloadPdf": "Descargar informe PDF",
-    "deliveryStatus": "Estado de entrega",
-    "channelSuccess": "{channel}: Entregado",
-    "channelFailed": "{channel}: Fallido",
     "submitAnother": "Enviar otro informe",
     "errorTitle": "Error en el envío",
-    "errorRetry": "Por favor, inténtelo de nuevo"
+    "errorRetry": "Por favor, inténtelo de nuevo",
+    "ticket": "Número de ticket: {ticket}"
   },
   "steps": {
     "reporter": {
