@@ -1,22 +1,28 @@
 # Segnalazione di incidenti di protezione dei dati e sicurezza informatica
 
-Benvenuto/a! Qui potete segnalare in modo rapido e sicuro incidenti di sicurezza o violazioni della protezione dei dati al personale responsabile.
+Tramite questo portale può segnalare incidenti di sicurezza e violazioni dei dati personali ai responsabili di {orgName}.
 
-## Quando è necessaria una segnalazione?
-Vi preghiamo di segnalarci in particolare i seguenti eventi:
-* **Sospetto di accessi non autorizzati** a sistemi, account o dati.
-* **Perdita o furto** di dispositivi (laptop, smartphone, chiavette USB) contenenti dati riservati.
-* **Incidenti rilevanti per la sicurezza**, come e-mail di phishing, ingegneria sociale o infezioni da malware (virus, ransomware).
-* **Anomalie**, come comportamenti insoliti del sistema o interruzioni improvvise dell'IT.
-* **Violazioni dei dati**, ad es. l'invio accidentale di informazioni riservate a destinatari sbagliati.
+> **Ha un problema tecnico?** Una password dimenticata, problemi con Wi-Fi, stampante o programma di posta, una richiesta di software o un servizio non raggiungibile non rientrano in questo portale. Per questi si rivolga al suo supporto informatico. Questo portale è riservato esclusivamente agli incidenti di sicurezza e di protezione dei dati. I problemi tecnici non vengono trattati qui.
 
-## Note importanti
-* **La rapidità conta:** Prima ci informate, più efficacemente possiamo limitare i danni. Per gli incidenti che coinvolgono **dati personali**, siamo legalmente obbligati a segnalarli alle autorità di controllo entro **72 ore** (Art. 33 GDPR). Supportateci con una segnalazione il più tempestiva possibile, poiché dopo la vostra segnalazione è necessario tempo per la valutazione e la preparazione delle informazioni prima dell'invio alle autorità.
-* **Salvataggio automatico:** Potete interrompere il modulo in qualsiasi momento; i vostri progressi vengono salvati automaticamente nel browser.
-* **Non dimenticate di inviare:** Riceviamo le informazioni solo dopo l'invio. Potete saltare passaggi intermedi. Completate il processo tempestivamente e comunicate informazioni aggiuntive successivamente se necessario.
+## Che cosa segnalare qui?
+
+- **Accessi non autorizzati** a sistemi, account o dati, anche solo il sospetto. Rientrano anche gli accessi che non ha effettuato lei.
+- **Phishing e malware**, soprattutto se ha cliccato su un link sospetto, inserito credenziali o aperto un allegato, oppure se un dispositivo è infettato da virus o ransomware.
+- **Perdita o furto** di dispositivi e supporti di memoria (laptop, smartphone, chiavetta USB) con dati di lavoro o personali.
+- **Violazioni dei dati**, ad esempio informazioni riservate inviate a destinatari sbagliati o dati resi accessibili per errore a persone non autorizzate.
+- **Segnali di un attacco**, come file improvvisamente cifrati o modificati, programmi o account utente sconosciuti.
+
+Nel dubbio, effettui la segnalazione. Se un problema può essere collegato a un attacco o a dati personali, va segnalato qui.
+
+## Indicazioni importanti
+
+- **Segnali subito.** Prima ne veniamo a conoscenza, meglio possiamo limitare i danni. Di norma dobbiamo notificare le violazioni dei dati personali all'autorità di controllo per la protezione dei dati entro 72 ore dal momento in cui ne veniamo a conoscenza (art. 33 GDPR). Entro questo termine deve rientrare anche la nostra valutazione, quindi segnali subito, anche se non tutto è ancora chiaro.
+- **I progressi vengono salvati.** I dati inseriti vengono salvati automaticamente nel suo browser. Può interrompere in qualsiasi momento e proseguire in seguito.
+- **Non dimentichi di inviare.** Riceviamo la segnalazione solo dopo l'invio. Può saltare dei passaggi e integrare in seguito le informazioni mancanti.
 
 ## Come procedere
-1. **Compilate il modulo:** Fornite quanti più dettagli possibile. I campi obbligatori sono contrassegnati, ma anche informazioni incomplete ci aiutano.
-2. **Inviare:** Assicuratevi di completare il processo cliccando su "Invia", anche se non potete rispondere a tutte le domande.
-3. **Documentazione:** Dopo l'invio, riceverete un numero di ticket e potrete scaricare la vostra segnalazione in formato PDF per la vostra documentazione.
-4. **Reperibilità:** Rimanete raggiungibili tramite i recapiti forniti, nel caso siano necessarie domande di follow-up per l'analisi.
+
+1. **Compili il modulo.** Indichi tutti i dettagli di cui dispone. I campi obbligatori sono contrassegnati, ma anche informazioni incomplete ci sono utili.
+2. **Invii.** Concluda con «Invia», anche se non può rispondere a tutte le domande.
+3. **Conservi il numero di riferimento.** Dopo l'invio riceve un numero di riferimento e può scaricare la segnalazione in PDF.
+4. **Resti raggiungibile.** Resti a disposizione per eventuali domande tramite i recapiti indicati.

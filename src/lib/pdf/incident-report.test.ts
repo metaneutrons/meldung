@@ -26,7 +26,7 @@ describe('IncidentReport PDF', () => {
     const buf = await renderToBuffer(
       IncidentReport({
         referenceNumber: 'INC-20260101-abcd',
-        orgName: 'Hochschule Hannover',
+        orgName: 'Example Organization',
         generatedAt: '2026-01-01 12:00',
         model,
         accentColor: '#38b449',
@@ -40,7 +40,7 @@ describe('IncidentReport PDF', () => {
     const buf = await renderToBuffer(
       IncidentReport({
         referenceNumber: 'INC-20260101-abcd',
-        orgName: 'Hochschule Hannover',
+        orgName: 'Example Organization',
         generatedAt: '2026-01-01 12:00',
         model,
         logo: PNG,

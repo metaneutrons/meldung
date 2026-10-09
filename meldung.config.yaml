@@ -1,8 +1,8 @@
 branding:
-  orgName: "Hochschule Hannover"
+  orgName: 'Example Organization'
   # logoUrl: "/logo.svg"  # Place SVG in public/ folder to enable
-  primaryColor: "#38b449"
-  accentColor: "#333333"
+  primaryColor: '#38b449'
+  accentColor: '#333333'
 
 defaultLocale: de
 
@@ -19,4 +19,4 @@ persistence:
 auth:
   enabled: false
 
-referencePrefix: "INC"
+referencePrefix: 'INC'
