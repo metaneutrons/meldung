@@ -32,6 +32,10 @@ export function buildZammadTicket(
     sender: 'Customer',
     internal: false,
     content_type: 'text/plain',
+    // Zammad skips auto-reply triggers for an article marked like this. Only
+    // an agent token may set article preferences; with a customer token
+    // Zammad drops them and its auto reply goes out regardless.
+    ...(config.autoReply ? {} : { preferences: { 'send-auto-response': false } }),
   };
   if (config.includePdf) {
     article.attachments = [

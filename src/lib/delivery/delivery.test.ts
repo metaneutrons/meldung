@@ -105,6 +105,7 @@ describe('zammad channel', () => {
     group: 'IT-Security',
     includePdf: true,
     timeoutMs: 10000,
+    autoReply: false,
   };
 
   const model: ReportModel = {
@@ -129,6 +130,16 @@ describe('zammad channel', () => {
       filename: 'INC-20260630-aaaa.pdf',
       'mime-type': 'application/pdf',
     });
+  });
+
+  it("keeps Zammad's own auto reply off unless configured", () => {
+    const article = (t: Record<string, unknown>) => t.article as Record<string, unknown>;
+    expect(article(buildZammadTicket(ctx, config, model)).preferences).toEqual({
+      'send-auto-response': false,
+    });
+    expect(
+      article(buildZammadTicket(ctx, { ...config, autoReply: true }, model)),
+    ).not.toHaveProperty('preferences');
   });
 
   it('sends a token-authenticated POST and succeeds on a returned id', async () => {
