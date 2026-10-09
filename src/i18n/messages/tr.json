@@ -132,29 +132,31 @@
       "otherPlaceholder": "Lütfen belirtin"
     },
     "impact": {
-      "functional": "İşlevsel Etki",
-      "information": "Bilgi Etkisi",
-      "recoverability": "Kurtarılabilirlik",
-      "personalData": "Bu olay kişisel verileri içeriyor mu?",
-      "personalDataHint": "Veri koruma değerlendirmesi için ek bir adım eklenecektir.",
-      "functionalOptions": {
-        "none": "Yok – Etki yok",
-        "low": "Düşük – Minimal etki",
-        "medium": "Orta – Önemli etki",
-        "high": "Yüksek – Kritik etki"
+      "work": "Siz ve biriminiz çalışmaya devam edebiliyor musunuz?",
+      "workOptions": {
+        "normal": "Evet, normal şekilde",
+        "limited": "Yalnızca kısıtlı olarak",
+        "stopped": "Hayır, çalışma durdu",
+        "unknown": "Bilmiyorum"
       },
+      "information": "Hangi bilgiler etkilendi?",
+      "multiple": "Birden fazla seçenek işaretlenebilir",
       "informationOptions": {
-        "none": "Yok",
-        "privacy-breach": "Gizlilik İhlali",
-        "proprietary-breach": "Özel Bilgi İhlali",
-        "integrity-loss": "Bütünlük Kaybı"
+        "personal": "Kişisel veriler, yani çalışanlar, müşteriler veya öğrenciler gibi belirli kişilere ilişkin bilgiler",
+        "confidential": "Kuruma ait gizli bilgiler, örneğin araştırma verileri, sözleşmeler veya iç belgeler",
+        "credentials": "Parola, anahtar veya sertifika gibi erişim bilgileri",
+        "none": "Hiçbir bilgi etkilenmedi",
+        "unknown": "Bilmiyorum"
       },
-      "recoverabilityOptions": {
-        "regular": "Normal – mevcut kaynaklar yeterli",
-        "supplemented": "Destekli – ek kaynaklar gerekli",
-        "extended": "Genişletilmiş – önemli zaman/kaynak gerekli",
-        "not-recoverable": "Kurtarılamaz"
-      }
+      "effects": "Bilgilere ne oldu?",
+      "effectOptions": {
+        "disclosed": "Yetkisiz kişiler bunları görebildi veya ele geçirdi",
+        "altered": "Değiştirildi veya tahrif edildi",
+        "unavailable": "Silindi, şifrelendi veya artık erişilemiyor",
+        "unknown": "Bilmiyorum"
+      },
+      "personalData": "Bu olay kişisel verileri içeriyor mu?",
+      "personalDataHint": "Veri koruma değerlendirmesi için ek bir adım eklenecektir."
     },
     "measures": {
       "measuresTaken": "Alınmış önlemler",
