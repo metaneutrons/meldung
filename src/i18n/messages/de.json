@@ -84,7 +84,7 @@
       "contactPlaceholder": "name@beispiel.de",
       "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
       "email": "E-Mail-Adresse",
-      "emailPlaceholder": "vorname.name@hs-hannover.de",
+      "emailPlaceholder": "vorname.nachname@example.com",
       "phone": "Telefonnummer",
       "phonePlaceholder": "+49 511 9296-0"
     },
@@ -209,5 +209,9 @@
       "timestamp": "Der Meldezeitpunkt wird automatisch beim Absenden erfasst.",
       "requiredFields": "Die folgenden Pflichtfelder müssen ausgefüllt werden:"
     }
+  },
+  "meta": {
+    "title": "{orgName} – Meldung von Sicherheits- und Datenschutzvorfällen",
+    "description": "Melden Sie IT-Sicherheitsvorfälle und Datenschutzverletzungen schnell und sicher."
   }
 }

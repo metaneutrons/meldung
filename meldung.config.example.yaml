@@ -12,7 +12,7 @@
 # Colors are hex. Place logo/favicon assets in the public/ folder.
 # Brand values are injected as CSS variables at runtime (no rebuild to rebrand).
 branding:
-  orgName: 'Hochschule Hannover'
+  orgName: 'Example Organization'
   # logoUrl: "/logo.svg"           # web logo (SVG or raster), omit for text-only
   # logoDarkUrl: "/logo-dark.svg"  # optional dark-mode logo variant
   # logoPdfUrl: "/logo.png"        # raster (PNG/JPG) for the PDF — SVG cannot be embedded
@@ -50,20 +50,8 @@ delivery:
       recipients:
         - 'cert@example.com'
         - 'dpo@example.com'
-    # Confirmation to the reporter, sent in the report's language. Every
-    # language has a built-in default; override subject and/or body per
-    # language, languages left out keep their default. Placeholders:
-    # {reference}, {name} (reporter), {orgName} (branding.orgName).
-    # confirmation:
-    #   subject:
-    #     de: 'Ihre Meldung {reference} bei {orgName}'
-    #   body:
-    #     de: |
-    #       Guten Tag {name},
-    #
-    #       vielen Dank für Ihre Meldung. Wir melden uns innerhalb eines Werktags.
-    #
-    #       Referenznummer: {reference}
+    # The confirmation to the reporter uses report.confirmationMail; change
+    # its wording through the custom directory (README "Texts").
 
   # --- Znuny / OTRS Channel ---
   znuny:
@@ -173,32 +161,3 @@ captcha:
 # Prefix for generated incident reference numbers.
 # Format: {prefix}-{YYYYMMDD}-{4 hex chars}, e.g. INC-20260511-a3f2
 referencePrefix: 'INC'
-# -----------------------------------------------------------------------------
-# Taxonomy Override (optional)
-# -----------------------------------------------------------------------------
-# Override the default ENISA RSIT incident taxonomy.
-# If omitted, the built-in 9-category ENISA RSIT taxonomy is used.
-# taxonomy:
-#   - value: "malicious-code"
-#     label: "Malicious Code"
-#     entries:
-#       - value: "ransomware"
-#         label: "Ransomware"
-#         description: "Malware that encrypts data and demands ransom"
-#       - value: "trojan"
-#         label: "Trojan"
-#         description: "Malware disguised as legitimate software"
-
-# -----------------------------------------------------------------------------
-# Affected Systems Override (optional)
-# -----------------------------------------------------------------------------
-# Override the default systems checklist shown in step 5.
-# If omitted, a generic default list is used.
-# systems:
-#   - "Campus-Management-System"
-#   - "Lernplattform (Moodle)"
-#   - "E-Mail-System"
-#   - "Forschungsdatenbank"
-#   - "VPN / Netzwerk"
-#   - "Cloud-Dienste"
-#   - "ERP / SAP"

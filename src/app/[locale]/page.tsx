@@ -1,38 +1,14 @@
-import { readFileSync, existsSync } from 'fs';
-import { resolve } from 'path';
 import { getLocale } from 'next-intl/server';
 import { getConfig } from '@/lib/config';
+import { loadPage } from '@/lib/texts';
 import { IncidentForm } from './incident-form';
-
-function loadWelcomeContent(locale: string): string {
-  const localePath = resolve(process.cwd(), `content/welcome.${locale}.md`);
-  if (existsSync(localePath)) {
-    return readFileSync(localePath, 'utf-8');
-  }
-  const defaultPath = resolve(process.cwd(), 'content/welcome.de.md');
-  if (existsSync(defaultPath)) {
-    return readFileSync(defaultPath, 'utf-8');
-  }
-  return '# IT Security Incident Report\n\nPlease fill out the form to report an incident.';
-}
-
-function loadFooterContent(locale: string): string {
-  const localePath = resolve(process.cwd(), `content/footer.${locale}.md`);
-  if (existsSync(localePath)) {
-    return readFileSync(localePath, 'utf-8');
-  }
-  const defaultPath = resolve(process.cwd(), 'content/footer.md');
-  if (existsSync(defaultPath)) {
-    return readFileSync(defaultPath, 'utf-8');
-  }
-  return '';
-}
 
 export default async function HomePage() {
   const config = getConfig();
   const locale = await getLocale();
-  const welcomeContent = loadWelcomeContent(locale);
-  const footerContent = loadFooterContent(locale);
+  const values = { orgName: config.branding.orgName };
+  const welcomeContent = loadPage('welcome', locale, values);
+  const footerContent = loadPage('footer', locale, values);
 
   return (
     <div className="relative flex min-h-screen flex-col">

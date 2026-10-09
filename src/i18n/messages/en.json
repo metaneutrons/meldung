@@ -209,5 +209,9 @@
       "timestamp": "The report timestamp will be recorded automatically upon submission.",
       "requiredFields": "The following required fields must be filled in:"
     }
+  },
+  "meta": {
+    "title": "{orgName} – Security and Data Protection Incident Reporting",
+    "description": "Report IT security incidents and personal data breaches quickly and securely."
   }
 }

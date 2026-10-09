@@ -1,1 +1,1 @@
-[Privacy Policy](https://www.hs-hannover.de/datenschutz) | [Legal Notice](https://www.hs-hannover.de/impressum)
+Powered by [meldung](https://github.com/metaneutrons/meldung), free software under the AGPL-3.0
