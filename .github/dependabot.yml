@@ -50,3 +50,9 @@ updates:
       # only once that bound widens.
       - dependency-name: typescript
         versions: ['>=6.1']
+      # The types describe the Node.js API the code may use. They follow the
+      # runtime the image ships (Node 24, see Dockerfile and engines), not the
+      # newest Node: types for a later major would let code call APIs that do
+      # not exist at runtime. Raise together with the base image.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
