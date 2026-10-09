@@ -2,6 +2,11 @@ import { getTranslations } from 'next-intl/server';
 import { TAXONOMY_CATEGORY_VALUES, TAXONOMY_ENTRY_VALUES } from '@/lib/taxonomy/enisa-rsit';
 import { SYSTEM_KEYS } from '@/lib/systems';
 import type { FormData } from '@/lib/form/schema';
+import type { ConfirmationMailConfig } from '@/lib/config/schema';
+import type { routing } from '@/i18n/routing';
+import { fillTemplate } from '@/lib/mail-template';
+
+type Locale = (typeof routing.locales)[number];
 
 export interface ReportField {
   label: string;
@@ -153,4 +158,41 @@ export function formatReportText(referenceNumber: string, model: ReportModel): s
     }
   }
   return lines.join('\n');
+}
+
+export interface ConfirmationMail {
+  subject: string;
+  text: string;
+}
+
+/**
+ * The confirmation for the reporter, in the report's language. A text set in
+ * the configuration for that language wins; otherwise the built-in default for
+ * the language is used, so every locale always has a complete mail.
+ */
+export async function buildConfirmationMail(
+  referenceNumber: string,
+  locale: string,
+  values: { name: string; orgName: string },
+  overrides: ConfirmationMailConfig,
+): Promise<ConfirmationMail> {
+  const tr = await getTranslations({ locale, namespace: 'report' });
+  const key = locale as Locale;
+  // raw(): the default is a template with {placeholders}, not an ICU message.
+  const fallback = (key: string): string => {
+    const text: unknown = tr.raw(key);
+    if (typeof text !== 'string') throw new Error(`report.${key} is missing for ${locale}`);
+    return text;
+  };
+  const fill = { reference: referenceNumber, ...values };
+  // The subject is a mail header: a line break typed into the name field must
+  // not reach it, whatever the template places there.
+  const subjectFill = { ...fill, name: values.name.replace(/\s+/g, ' ').trim() };
+  return {
+    subject: fillTemplate(
+      overrides.subject?.[key] ?? fallback('confirmationMail.subject'),
+      subjectFill,
+    ),
+    text: fillTemplate(overrides.body?.[key] ?? fallback('confirmationMail.body'), fill),
+  };
 }

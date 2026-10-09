@@ -2,5 +2,9 @@
   "title": "Meldung eines IT-Sicherheitsvorfalls",
   "reference": "Referenz",
   "generated": "Erstellt",
-  "page": "Seite"
+  "page": "Seite",
+  "confirmationMail": {
+    "subject": "Eingangsbestätigung Ihrer Meldung {reference}",
+    "body": "Guten Tag {name},\n\nIhre Meldung eines IT-Sicherheitsvorfalls ist bei uns eingegangen.\n\nReferenznummer: {reference}\nBitte geben Sie diese Referenznummer bei allen Rückfragen an.\n\n{orgName}"
+  }
 }

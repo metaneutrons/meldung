@@ -77,7 +77,15 @@ export async function POST(request: Request) {
     if (config.delivery.email.enabled && config.delivery.email.smtp) {
       const smtp = config.delivery.email.smtp;
       deliveryPromises.push(deliverEmail(ctx, smtp));
-      deliveryPromises.push(sendConfirmationEmail(ctx, smtp, data.email));
+      deliveryPromises.push(
+        sendConfirmationEmail(
+          ctx,
+          smtp,
+          data.email,
+          config.delivery.email.confirmation,
+          config.branding.orgName,
+        ),
+      );
     }
 
     if (config.delivery.znuny.enabled && config.delivery.znuny.config) {
