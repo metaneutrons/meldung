@@ -1,12 +1,14 @@
+import * as rootParams from 'next/root-params';
+import { hasLocale } from 'next-intl';
 import { getRequestConfig } from 'next-intl/server';
 import { routing } from './routing';
 
-export default getRequestConfig(async ({ requestLocale }) => {
-  let locale = await requestLocale;
-
-  if (!locale || !routing.locales.includes(locale as (typeof routing.locales)[number])) {
-    locale = routing.defaultLocale;
-  }
+export default getRequestConfig(async ({ locale: requested }) => {
+  // Route handlers (the report e-mail, PDF and tickets) pass the report's
+  // locale explicitly: next/root-params is not available there. Everything
+  // rendered under app/[locale] reads the segment through root params.
+  const candidate = requested ?? (await rootParams.locale());
+  const locale = hasLocale(routing.locales, candidate) ? candidate : routing.defaultLocale;
 
   // A dynamic import of JSON resolves to `any`. Naming the shape here keeps
   // the untyped value from spreading into the message object below.
