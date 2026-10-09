@@ -224,7 +224,7 @@
       "timestamp": "Der Meldezeitpunkt wird automatisch beim Absenden erfasst.",
       "requiredFields": "Die folgenden Pflichtfelder müssen ausgefüllt werden:",
       "emergencyTitle": "Möglicherweise läuft ein Angriff. Senden Sie diese Meldung ab.",
-      "emergencyCall": "Rufen Sie zusätzlich sofort an: {phone}",
+      "emergencyCall": "Rufen Sie zusätzlich sofort an: <call>{phone}</call>",
       "emergencyAdvice": "Arbeiten Sie am betroffenen Gerät nicht weiter und warten Sie auf Anweisungen."
     }
   },

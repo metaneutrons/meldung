@@ -224,7 +224,7 @@
       "timestamp": "Il timestamp verrà registrato automaticamente all invio.",
       "requiredFields": "I seguenti campi obbligatori devono essere compilati:",
       "emergencyTitle": "Potrebbe essere in corso un attacco. Invii questa segnalazione.",
-      "emergencyCall": "Chiami inoltre subito: {phone}",
+      "emergencyCall": "Chiami inoltre subito: <call>{phone}</call>",
       "emergencyAdvice": "Smetta di lavorare sul dispositivo interessato e attenda istruzioni."
     }
   },

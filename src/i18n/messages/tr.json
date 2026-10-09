@@ -224,7 +224,7 @@
       "timestamp": "Zaman damgası gönderim sırasında otomatik olarak kaydedilecektir.",
       "requiredFields": "Aşağıdaki zorunlu alanlar doldurulmalıdır:",
       "emergencyTitle": "Bir saldırı devam ediyor olabilir. Lütfen bu bildirimi gönderin.",
-      "emergencyCall": "Ayrıca hemen arayın: {phone}",
+      "emergencyCall": "Ayrıca hemen arayın: <call>{phone}</call>",
       "emergencyAdvice": "Etkilenen cihazda çalışmayı bırakın ve talimatları bekleyin."
     }
   },
