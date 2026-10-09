@@ -2,61 +2,75 @@
 
 import { useTranslations } from 'next-intl';
 import { useFormStore } from '@/lib/store/form-store';
-import { RadioGroup, SegmentedControl } from '@/components/ui';
+import {
+  AFFECTED_INFORMATION,
+  INFORMATION_EFFECTS,
+  WORK_IMPACT,
+  informationAtStake,
+  personalDataFrom,
+  toggleChoice,
+} from '@/lib/form/schema';
+import { CheckboxGroup, RadioGroup } from '@/components/ui';
 
 export function ImpactAssessment() {
   const t = useTranslations('steps');
-  const { functionalImpact, informationImpact, recoverability, personalDataInvolved, update } =
+  const { workImpact, affectedInformation, informationEffects, personalDataInvolved, update } =
     useFormStore();
 
-  const functionalOptions = (['none', 'low', 'medium', 'high'] as const).map((v) => ({
+  const workOptions = WORK_IMPACT.map((v) => ({ value: v, label: t(`impact.workOptions.${v}`) }));
+  const informationOptions = AFFECTED_INFORMATION.map((v) => ({
     value: v,
-    label: t(`impact.functionalOptions.${v}`),
+    label: t(`impact.informationOptions.${v}`),
   }));
-  const informationOptions = (
-    ['none', 'privacy-breach', 'proprietary-breach', 'integrity-loss'] as const
-  ).map((v) => ({ value: v, label: t(`impact.informationOptions.${v}`) }));
-  const recoverabilityOptions = (
-    ['regular', 'supplemented', 'extended', 'not-recoverable'] as const
-  ).map((v) => ({ value: v, label: t(`impact.recoverabilityOptions.${v}`) }));
-  const personalDataOptions = (['yes', 'no', 'unknown'] as const).map((v) => ({
+  const effectOptions = INFORMATION_EFFECTS.map((v) => ({
     value: v,
-    label: t(`options.${v}`),
+    label: t(`impact.effectOptions.${v}`),
   }));
+
+  const toggleInformation = (value: string) => {
+    const next = toggleChoice(affectedInformation, value) as typeof affectedInformation;
+    update({
+      affectedInformation: next,
+      personalDataInvolved: personalDataFrom(next),
+      // Nothing at stake, nothing to describe: drop answers that no longer apply.
+      ...(informationAtStake(next) ? {} : { informationEffects: [] }),
+    });
+  };
 
   return (
     <div className="space-y-6">
       <RadioGroup
-        name="functionalImpact"
-        legend={t('impact.functional')}
+        name="workImpact"
+        legend={t('impact.work')}
         required
-        options={functionalOptions}
-        value={functionalImpact}
-        onChange={(v) => { update({ functionalImpact: v }); }}
+        options={workOptions}
+        value={workImpact}
+        onChange={(v) => {
+          update({ workImpact: v as typeof workImpact });
+        }}
       />
-      <RadioGroup
-        name="informationImpact"
+      <CheckboxGroup
         legend={t('impact.information')}
-        required
+        hint={t('impact.multiple')}
         options={informationOptions}
-        value={informationImpact}
-        onChange={(v) => { update({ informationImpact: v }); }}
+        values={affectedInformation}
+        onToggle={toggleInformation}
+        columns={false}
       />
-      <RadioGroup
-        name="recoverability"
-        legend={t('impact.recoverability')}
-        required
-        options={recoverabilityOptions}
-        value={recoverability}
-        onChange={(v) => { update({ recoverability: v }); }}
-      />
-      <SegmentedControl
-        legend={t('impact.personalData')}
-        required
-        options={personalDataOptions}
-        value={personalDataInvolved}
-        onChange={(v) => { update({ personalDataInvolved: v as 'yes' | 'no' | 'unknown' }); }}
-      />
+      {informationAtStake(affectedInformation) && (
+        <CheckboxGroup
+          legend={t('impact.effects')}
+          hint={t('impact.multiple')}
+          options={effectOptions}
+          values={informationEffects}
+          onToggle={(v) => {
+            update({
+              informationEffects: toggleChoice(informationEffects, v) as typeof informationEffects,
+            });
+          }}
+          columns={false}
+        />
+      )}
       {(personalDataInvolved === 'yes' || personalDataInvolved === 'unknown') && (
         <div className="mt-3 rounded-xl border border-info-border bg-info-bg p-3 text-sm text-info">
           💡 {t('impact.personalDataHint')}
