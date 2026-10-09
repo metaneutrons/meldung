@@ -52,7 +52,7 @@ export async function POST(request: Request) {
     const parsed = submissionSchema.safeParse(body);
     if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Reporter name, valid email address, and phone number are required.' },
+        { error: 'The submission is incomplete or contains values the form does not offer.' },
         { status: 422 },
       );
     }
