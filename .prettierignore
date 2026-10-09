@@ -1,0 +1,3 @@
+# pnpm writes its lockfile in its own layout. Reformatting it turns every
+# dependency update into a diff of thousands of lines that hides the real change.
+pnpm-lock.yaml

@@ -1,7 +1,10 @@
 # syntax=docker/dockerfile:1
 # Pinned by digest, not by tag: a tag moves and would silently change the
 # base of a reproducible build. node:24-slim as of 2026-09-06.
-FROM node:24-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e AS base
+# Pulled from Docker's official-image mirror on AWS ECR Public: the digest
+# names the same bytes as on Docker Hub, but CI runners no longer hit Docker
+# Hub's anonymous pull limit (HTTP 429), which had failed image builds.
+FROM public.ecr.aws/docker/library/node:24-slim@sha256:ba849c60be29959425b8734d57b8b4b7d56f98edd9504c9af091d5281095a71e AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
