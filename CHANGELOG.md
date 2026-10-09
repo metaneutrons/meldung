@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.3.0](https://github.com/metaneutrons/meldung/compare/v0.2.2...v0.3.0) (2026-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **form:** webhook payloads and the audit trail no longer carry `functionalImpact`, `informationImpact` and `recoverability`. They carry `workImpact`, `affectedInformation` and `informationEffects`. `personalDataInvolved` stays.
+* **config:** reject auth.provider saml, which silently ran OIDC; only OIDC is implemented
+* **texts:** let a deployment override every text in every language; the bundled HsH welcome page and footer move to custom/content/
+
+### Features
+
+* **delivery:** quote the helpdesk ticket number; widen the reference number ([#44](https://github.com/metaneutrons/meldung/issues/44)) ([50afdf9](https://github.com/metaneutrons/meldung/commit/50afdf9179adb8403e087512b61142c05798f3b9))
+* **email:** send the confirmation to the reporter in the language of the report ([b4154ec](https://github.com/metaneutrons/meldung/commit/b4154ecef1f80c41b54092193bcd8e24145433e2))
+* **form:** ask what information is affected and what happened to it ([#43](https://github.com/metaneutrons/meldung/issues/43)) ([b052474](https://github.com/metaneutrons/meldung/commit/b0524740b4223d139328b6caf82677f1fd20f143))
+* **texts:** let a deployment override every text in every language; the bundled HsH welcome page and footer move to custom/content/ ([1394c8d](https://github.com/metaneutrons/meldung/commit/1394c8d7dbeb9cd2ec4be783f2502302025432be))
+
+
+### Bug Fixes
+
+* **config:** reject auth.provider saml, which silently ran OIDC; only OIDC is implemented ([1394c8d](https://github.com/metaneutrons/meldung/commit/1394c8d7dbeb9cd2ec4be783f2502302025432be))
+* **deps:** close the open security advisories in next and nodemailer ([#36](https://github.com/metaneutrons/meldung/issues/36)) ([af8471c](https://github.com/metaneutrons/meldung/commit/af8471cb4f1275fc6f1dd2f68fbeb66b23501106))
+* **header:** pick the language from a list of native names ([#45](https://github.com/metaneutrons/meldung/issues/45)) ([a6c348b](https://github.com/metaneutrons/meldung/commit/a6c348bd7968b75919d023c2baa22e0132c939b4))
+* **pdf:** embed Noto Sans so Cyrillic and Turkish reports are readable ([#46](https://github.com/metaneutrons/meldung/issues/46)) ([3c161f1](https://github.com/metaneutrons/meldung/commit/3c161f15c406f418411e9f5c6f4c79dd100a7fd4))
+* **zammad:** create unknown reporters as customers via guess: ([#34](https://github.com/metaneutrons/meldung/issues/34)) ([8e559a7](https://github.com/metaneutrons/meldung/commit/8e559a762e2b464002cf5d0f8a8e2431e3c7da53))
+
 ## [0.2.2](https://github.com/metaneutrons/meldung/compare/v0.2.1...v0.2.2) (2026-09-06)
 
 

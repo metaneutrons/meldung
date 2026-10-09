@@ -2,5 +2,10 @@
   "title": "IT Security Incident Report",
   "reference": "Reference",
   "generated": "Generated",
-  "page": "Page"
+  "page": "Page",
+  "confirmationMail": {
+    "subject": "Confirmation of your incident report {reference}",
+    "body": "Dear {name},\n\nYour IT security incident report has been received.\n\nReference number: {reference}\n{ticketLine}Please quote this reference number in any further correspondence.\n\n{orgName}",
+    "ticketLine": "Ticket number: {ticket}"
+  }
 }

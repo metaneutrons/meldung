@@ -7,14 +7,12 @@ import type { ReportModel } from '@/lib/report/model';
 // buildReportModel needs the next-intl request scope, which isn't available in a
 // unit test — stub the report layer so the channels can be exercised in isolation.
 vi.mock('@/lib/report/model', () => ({
-  buildReportModel: vi.fn(
-    async (): Promise<ReportModel> => ({
-      title: 'Incident Report',
-      category: 'Phishing',
-      meta: { reference: 'INC', generated: 'now', page: 'page' },
-      sections: [{ title: 'Section', fields: [{ label: 'Label', value: 'Value' }] }],
-    }),
-  ),
+  buildReportModel: vi.fn(async (): Promise<ReportModel> => ({
+    title: 'Incident Report',
+    category: 'Phishing',
+    meta: { reference: 'INC', generated: 'now', page: 'page' },
+    sections: [{ title: 'Section', fields: [{ label: 'Label', value: 'Value' }] }],
+  })),
   formatReportText: vi.fn(() => 'PLAINTEXT BODY'),
 }));
 
@@ -121,9 +119,11 @@ describe('zammad channel', () => {
     expect(ticket).toMatchObject({
       title: '[INC-20260630-aaaa] Phishing',
       group: 'IT-Security',
-      customer: 'reporter@example.de',
+      customer_id: 'guess:reporter@example.de',
     });
+    expect(ticket).not.toHaveProperty('customer');
     const article = ticket.article as Record<string, unknown>;
+    expect(article).toMatchObject({ type: 'web', sender: 'Customer', internal: false });
     const attachments = article.attachments as Record<string, unknown>[];
     expect(attachments[0]).toMatchObject({
       filename: 'INC-20260630-aaaa.pdf',
@@ -131,32 +131,59 @@ describe('zammad channel', () => {
     });
   });
 
-  it('falls back to customerEmailFallback when the reporter gave no e-mail', () => {
-    const noEmailCtx = { ...ctx, data: { ...ctx.data, email: '' } };
-    const ticket = buildZammadTicket(
-      noEmailCtx,
-      { ...config, customerEmailFallback: 'cert@x.de' },
-      model,
-    );
-    expect(ticket.customer).toBe('cert@x.de');
-  });
-
   it('sends a token-authenticated POST and succeeds on a returned id', async () => {
     const fetchMock = vi.fn().mockResolvedValue(okJson({ id: 42, number: '67001' }));
     global.fetch = fetchMock;
 
     const res = await deliverZammad(ctx, config);
-    expect(res).toEqual({ success: true, channel: 'zammad' });
+    expect(res).toEqual({ success: true, channel: 'zammad', ticketNumber: '67001' });
 
     const { url, init } = callOf(fetchMock);
     expect(url).toBe('https://zammad.example.com/api/v1/tickets');
     expect((init.headers as Record<string, string>).Authorization).toBe('Token token=tok');
   });
 
-  it('fails when no ticket id is returned', async () => {
-    global.fetch = vi.fn().mockResolvedValue(okJson({ error: 'nope' }));
+  it('does not double the slash when baseUrl ends with one', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(okJson({ id: 42 }));
+    global.fetch = fetchMock;
+    await deliverZammad(ctx, { ...config, baseUrl: 'https://zammad.example.com/' });
+    expect(callOf(fetchMock).url).toBe('https://zammad.example.com/api/v1/tickets');
+  });
+
+  it("surfaces Zammad's error text on a rejected request", async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 422,
+      json: async () => ({ error: 'No lookup value found for \'group\': "Nope"' }),
+    });
     const res = await deliverZammad(ctx, config);
-    expect(res).toMatchObject({ success: false, channel: 'zammad', error: 'nope' });
+    expect(res).toEqual({
+      success: false,
+      channel: 'zammad',
+      error: `Ticket creation failed: HTTP 422 – No lookup value found for 'group': "Nope"`,
+    });
+  });
+
+  it('keeps the status when the error body is not JSON', async () => {
+    global.fetch = vi.fn().mockResolvedValue({
+      ok: false,
+      status: 502,
+      json: async () => {
+        throw new SyntaxError('Unexpected token <');
+      },
+    });
+    const res = await deliverZammad(ctx, config);
+    expect(res).toMatchObject({ success: false, error: 'Ticket creation failed: HTTP 502' });
+  });
+
+  it('fails when no ticket id is returned', async () => {
+    global.fetch = vi.fn().mockResolvedValue(okJson({}));
+    const res = await deliverZammad(ctx, config);
+    expect(res).toMatchObject({
+      success: false,
+      channel: 'zammad',
+      error: 'no ticket id returned',
+    });
   });
 });
 
@@ -185,12 +212,20 @@ describe('otrs channels (znuny + otobo)', () => {
 
   it('labels results with the znuny channel', async () => {
     mockOk();
-    expect(await deliverZnuny(ctx, config)).toEqual({ success: true, channel: 'znuny' });
+    expect(await deliverZnuny(ctx, config)).toEqual({
+      success: true,
+      channel: 'znuny',
+      ticketNumber: '2026063000001',
+    });
   });
 
   it('reuses the same connector for otobo', async () => {
     mockOk();
-    expect(await deliverOtobo(ctx, config)).toEqual({ success: true, channel: 'otobo' });
+    expect(await deliverOtobo(ctx, config)).toEqual({
+      success: true,
+      channel: 'otobo',
+      ticketNumber: '2026063000001',
+    });
   });
 
   it('surfaces an OTRS error payload', async () => {

@@ -2,5 +2,10 @@
   "title": "BT güvenlik olayı bildirimi",
   "reference": "Referans",
   "generated": "Oluşturuldu",
-  "page": "Sayfa"
+  "page": "Sayfa",
+  "confirmationMail": {
+    "subject": "Olay bildiriminizin alındı onayı {reference}",
+    "body": "Sayın {name},\n\nBT güvenlik olayı bildiriminiz alınmıştır.\n\nReferans numarası: {reference}\n{ticketLine}Lütfen sonraki tüm yazışmalarda bu referans numarasını belirtin.\n\n{orgName}",
+    "ticketLine": "Talep numarası: {ticket}"
+  }
 }

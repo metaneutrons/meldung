@@ -1,7 +1,7 @@
 import type { OtrsTicketConfig } from '@/lib/config/schema';
 import { buildReportModel, formatReportText, type ReportModel } from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
-import { fetchWithTimeout } from './http';
+import { fetchWithTimeout, joinUrl } from './http';
 
 /**
  * Dynamic field values come from the untyped form payload. A plain `String()`
@@ -28,7 +28,7 @@ interface OtrsTicketResponse {
 
 async function authenticate(config: OtrsTicketConfig): Promise<string> {
   const res = await fetchWithTimeout(
-    `${config.baseUrl}/Session`,
+    joinUrl(config.baseUrl, '/Session'),
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -125,7 +125,7 @@ async function deliverOtrs(
     const payload = buildPayload(ctx, config, model);
 
     const res = await fetchWithTimeout(
-      `${config.baseUrl}/Ticket?SessionID=${encodeURIComponent(sessionId)}`,
+      joinUrl(config.baseUrl, `/Ticket?SessionID=${encodeURIComponent(sessionId)}`),
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -151,7 +151,11 @@ async function deliverOtrs(
       };
     }
 
-    return { success: true, channel };
+    return {
+      success: true,
+      channel,
+      ...(body.TicketNumber ? { ticketNumber: body.TicketNumber } : {}),
+    };
   } catch (err) {
     const message = err instanceof Error ? err.message : `Unknown ${channel} delivery error`;
     return { success: false, channel, error: message };

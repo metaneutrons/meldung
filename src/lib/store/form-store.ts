@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { formDataSchema, type FormData } from '@/lib/form/schema';
+import { DRAFT_VERSION, migrateDraft } from './draft-migration';
 
 const STORAGE_KEY = 'meldung-draft';
 
@@ -27,6 +28,8 @@ export const useFormStore = create<FormState>()(
     }),
     {
       name: STORAGE_KEY,
+      version: DRAFT_VERSION,
+      migrate: (persisted, version) => migrateDraft(persisted, version),
       partialize: (state) => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { update, reset, clearDraft, ...rest } = state;

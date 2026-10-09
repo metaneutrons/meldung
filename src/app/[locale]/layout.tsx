@@ -1,17 +1,20 @@
 import type { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import { NextIntlClientProvider } from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server';
+import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import { getConfig } from '@/lib/config';
 import { contrastColor } from '@/lib/branding';
 import { ThemeProvider } from '@/components/theme-provider';
 import '@/app/globals.css';
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   const { branding } = getConfig();
+  const t = await getTranslations('meta');
   return {
-    title: branding.appTitle ?? `${branding.orgName} — IT Security Incident Report`,
-    description: branding.appDescription ?? 'IT Security Incident Reporting Application',
+    // appTitle/appDescription predate per-language texts and still win when
+    // set; the localized meta.* texts are the default and the override point.
+    title: branding.appTitle ?? t('title', { orgName: branding.orgName }),
+    description: branding.appDescription ?? t('description'),
     icons: branding.favicon ? { icon: branding.favicon } : undefined,
   };
 }

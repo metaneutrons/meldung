@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { TAXONOMY_CATEGORY_VALUES, TAXONOMY_ENTRY_VALUES } from '@/lib/taxonomy/enisa-rsit';
 import { SYSTEM_KEYS } from '@/lib/systems';
 import type { FormData } from '@/lib/form/schema';
+import { fillTemplate } from '@/lib/mail-template';
 
 export interface ReportField {
   label: string;
@@ -51,6 +52,9 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
     .join(', ');
   const yn = (v: string) => (v ? t(`options.${v}`) : '');
   const opt = (group: string, v: string) => (v ? t(`impact.${group}.${v}`) : '');
+  // One answer per line: the answers are sentences that contain commas themselves.
+  const list = (group: string, values: readonly string[]) =>
+    values.map((v) => t(`impact.${group}.${v}`)).join('\n');
 
   const sections: ReportSection[] = [
     {
@@ -94,15 +98,12 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
     {
       title: tw('impact'),
       fields: [
-        { label: t('impact.functional'), value: opt('functionalOptions', data.functionalImpact) },
+        { label: t('impact.work'), value: opt('workOptions', data.workImpact) },
         {
           label: t('impact.information'),
-          value: opt('informationOptions', data.informationImpact),
+          value: list('informationOptions', data.affectedInformation),
         },
-        {
-          label: t('impact.recoverability'),
-          value: opt('recoverabilityOptions', data.recoverability),
-        },
+        { label: t('impact.effects'), value: list('effectOptions', data.informationEffects) },
         { label: t('impact.personalData'), value: yn(data.personalDataInvolved) },
       ],
     },
@@ -153,4 +154,41 @@ export function formatReportText(referenceNumber: string, model: ReportModel): s
     }
   }
   return lines.join('\n');
+}
+
+export interface ConfirmationMail {
+  subject: string;
+  text: string;
+}
+
+/**
+ * The confirmation for the reporter, in the report's language. Subject and
+ * body come from report.confirmationMail, which a deployment can override like
+ * any other text (see src/lib/texts.ts).
+ */
+export async function buildConfirmationMail(
+  referenceNumber: string,
+  locale: string,
+  values: { name: string; orgName: string },
+  ticketNumbers: readonly string[] = [],
+): Promise<ConfirmationMail> {
+  const tr = await getTranslations({ locale, namespace: 'report' });
+  // raw(): the texts are templates with {placeholders}, not ICU messages.
+  const template = (key: string): string => {
+    const text: unknown = tr.raw(key);
+    if (typeof text !== 'string') throw new Error(`report.${key} is missing for ${locale}`);
+    return text;
+  };
+  // {ticketLine} is one line per helpdesk ticket, or nothing at all, so the
+  // body reads the same whether or not a helpdesk is connected.
+  const ticketLine = ticketNumbers
+    .map((ticket) => `${fillTemplate(template('confirmationMail.ticketLine'), { ticket })}\n`)
+    .join('');
+  const fill = { reference: referenceNumber, ...values, ticketLine };
+  return {
+    // The subject is a mail header: no line break may reach it, neither from
+    // the name field nor from a custom template.
+    subject: fillTemplate(template('confirmationMail.subject'), fill).replace(/\s+/g, ' ').trim(),
+    text: fillTemplate(template('confirmationMail.body'), fill),
+  };
 }

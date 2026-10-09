@@ -11,10 +11,10 @@ subject line on main, and release-please derives the version from it.
 
 <!-- Name what you ran and what came back, not what should happen in theory. -->
 
-- [ ] `npm run lint`
-- [ ] `npm run check`
-- [ ] `npm test`
-- [ ] `npm run build`
+- [ ] `pnpm lint`
+- [ ] `pnpm typecheck`
+- [ ] `pnpm test`
+- [ ] `pnpm build`
 
 ## Notes for the reviewer
 

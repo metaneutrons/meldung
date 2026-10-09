@@ -1,5 +1,56 @@
-import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
+import { resolve } from 'path';
+import { Document, Font, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import type { ReportModel } from '@/lib/report/model';
+
+// The PDF standard fonts (Helvetica & co.) cover Western European characters
+// only: Cyrillic came out as unrelated Latin glyphs and Turkish ı, ğ, ş, İ as
+// digits and punctuation. Noto Sans covers every language the portal offers
+// and is embedded with a Unicode map, so the text can also be copied and
+// searched. It ships in public/fonts, which Docker and Vercel already carry.
+const FONT = 'Noto Sans';
+Font.register({
+  family: FONT,
+  fonts: [
+    { src: resolve(process.cwd(), 'public/fonts/NotoSans-Regular.ttf') },
+    { src: resolve(process.cwd(), 'public/fonts/NotoSans-Bold.ttf'), fontWeight: 'bold' },
+  ],
+});
+
+interface GlyphCache {
+  characterSet: number[];
+  glyphForCodePoint: (codePoint: number) => unknown;
+}
+
+let primed: Promise<void> | undefined;
+
+/**
+ * Fills fontkit's glyph cache once, every glyph with the characters it stands
+ * for, before the first PDF is built.
+ *
+ * Noto draws some Cyrillic letters from Latin parts (Т from T, А from A).
+ * When a subset embeds such a letter, fontkit caches the Latin part without
+ * its character, and the cache outlives the document: in a later PDF that
+ * Latin letter lost its text mapping, so it could not be copied or searched,
+ * and sometimes did not render at all. With the cache filled first, every
+ * entry carries its character from the start.
+ */
+export function primePdfFonts(): Promise<void> {
+  primed ??= (async () => {
+    // Numeric weights: getFont() does not resolve 'bold' and would hand back
+    // the regular face twice.
+    for (const fontWeight of [400, 700]) {
+      const source = Font.getFont({ fontFamily: FONT, fontWeight });
+      await source.load();
+      const font = source.data as unknown as GlyphCache;
+      for (const codePoint of font.characterSet) font.glyphForCodePoint(codePoint);
+    }
+  })();
+  return primed;
+}
+
+// The built-in hyphenation follows English rules and split German words in
+// the wrong places ("weit-erarbeiten"). Long words wrap whole instead.
+Font.registerHyphenationCallback((word) => [word]);
 
 interface IncidentReportProps {
   referenceNumber: string;
@@ -13,16 +64,19 @@ interface IncidentReportProps {
 }
 
 const styles = StyleSheet.create({
-  page: { padding: 40, fontSize: 10, fontFamily: 'Helvetica', lineHeight: 1.4 },
+  page: { padding: 40, fontSize: 10, fontFamily: FONT, lineHeight: 1.4 },
   header: { marginBottom: 20, borderBottomWidth: 2, borderBottomStyle: 'solid', paddingBottom: 12 },
   logo: { height: 32, marginBottom: 8, objectFit: 'contain' },
-  orgName: { fontSize: 14, fontFamily: 'Helvetica-Bold', marginBottom: 4 },
-  title: { fontSize: 18, fontFamily: 'Helvetica-Bold', marginBottom: 4 },
+  // Larger text sets its own line height: inherited from the page it would be
+  // 1.4 × 10 pt and too low for these sizes, so the title ran into the meta line.
+  orgName: { fontSize: 14, fontWeight: 'bold', lineHeight: 1.3, marginBottom: 4 },
+  title: { fontSize: 18, fontWeight: 'bold', lineHeight: 1.3, marginBottom: 6 },
   meta: { fontSize: 9, color: '#666' },
   section: { marginBottom: 14 },
   sectionTitle: {
     fontSize: 12,
-    fontFamily: 'Helvetica-Bold',
+    fontWeight: 'bold',
+    lineHeight: 1.3,
     marginBottom: 6,
     borderBottomWidth: 1,
     borderBottomStyle: 'solid',
@@ -30,7 +84,7 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
   row: { flexDirection: 'row', marginBottom: 3 },
-  label: { width: 160, fontFamily: 'Helvetica-Bold', color: '#333' },
+  label: { width: 160, fontWeight: 'bold', color: '#333' },
   value: { flex: 1, color: '#111' },
   footer: {
     position: 'absolute',

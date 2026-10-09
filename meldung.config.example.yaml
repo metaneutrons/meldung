@@ -12,7 +12,7 @@
 # Colors are hex. Place logo/favicon assets in the public/ folder.
 # Brand values are injected as CSS variables at runtime (no rebuild to rebrand).
 branding:
-  orgName: 'Hochschule Hannover'
+  orgName: 'Example Organization'
   # logoUrl: "/logo.svg"           # web logo (SVG or raster), omit for text-only
   # logoDarkUrl: "/logo-dark.svg"  # optional dark-mode logo variant
   # logoPdfUrl: "/logo.png"        # raster (PNG/JPG) for the PDF — SVG cannot be embedded
@@ -50,6 +50,8 @@ delivery:
       recipients:
         - 'cert@example.com'
         - 'dpo@example.com'
+    # The confirmation to the reporter uses report.confirmationMail; change
+    # its wording through the custom directory (README "Texts").
 
   # --- Znuny / OTRS Channel ---
   znuny:
@@ -110,14 +112,15 @@ delivery:
 
   # --- Zammad Channel ---
   # Creates a ticket via the Zammad REST API (token auth). The report becomes the
-  # first article; the PDF is attached when includePdf is true.
+  # first article; the PDF is attached when includePdf is true. The reporter is
+  # matched by e-mail and created as a Zammad customer if unknown. The token
+  # needs ticket.agent permission on the group.
   # zammad:
   #   enabled: false
   #   config:
   #     baseUrl: 'https://zammad.example.com'
   #     token: 'your-api-token'          # prefer ZAMMAD_TOKEN env
   #     group: 'IT-Security'
-  #     customerEmailFallback: 'cert@example.com'  # used when reporter gave no e-mail
   #     includePdf: true
 
 # -----------------------------------------------------------------------------
@@ -158,32 +161,3 @@ captcha:
 # Prefix for generated incident reference numbers.
 # Format: {prefix}-{YYYYMMDD}-{4 hex chars}, e.g. INC-20260511-a3f2
 referencePrefix: 'INC'
-# -----------------------------------------------------------------------------
-# Taxonomy Override (optional)
-# -----------------------------------------------------------------------------
-# Override the default ENISA RSIT incident taxonomy.
-# If omitted, the built-in 9-category ENISA RSIT taxonomy is used.
-# taxonomy:
-#   - value: "malicious-code"
-#     label: "Malicious Code"
-#     entries:
-#       - value: "ransomware"
-#         label: "Ransomware"
-#         description: "Malware that encrypts data and demands ransom"
-#       - value: "trojan"
-#         label: "Trojan"
-#         description: "Malware disguised as legitimate software"
-
-# -----------------------------------------------------------------------------
-# Affected Systems Override (optional)
-# -----------------------------------------------------------------------------
-# Override the default systems checklist shown in step 5.
-# If omitted, a generic default list is used.
-# systems:
-#   - "Campus-Management-System"
-#   - "Lernplattform (Moodle)"
-#   - "E-Mail-System"
-#   - "Forschungsdatenbank"
-#   - "VPN / Netzwerk"
-#   - "Cloud-Dienste"
-#   - "ERP / SAP"

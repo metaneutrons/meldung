@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import type { SmtpConfig } from '@/lib/config/schema';
-import { buildReportModel, formatReportText } from '@/lib/report/model';
+import { buildConfirmationMail, buildReportModel, formatReportText } from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
 
 function transport(smtp: SmtpConfig) {
@@ -36,18 +36,21 @@ export async function sendConfirmationEmail(
   ctx: DeliveryContext,
   smtp: SmtpConfig,
   reporterEmail: string,
+  orgName: string,
+  ticketNumbers: readonly string[] = [],
 ): Promise<DeliveryResult> {
   try {
+    const mail = await buildConfirmationMail(
+      ctx.referenceNumber,
+      ctx.locale,
+      { name: ctx.data.reporterName, orgName },
+      ticketNumbers,
+    );
     await transport(smtp).sendMail({
       from: smtp.from,
       to: reporterEmail,
-      subject: `Confirmation: Your incident report ${ctx.referenceNumber}`,
-      text: [
-        `Your incident report has been received.`,
-        `Reference number: ${ctx.referenceNumber}`,
-        '',
-        'Please keep this reference number for future correspondence.',
-      ].join('\n'),
+      subject: mail.subject,
+      text: mail.text,
     });
     return { success: true, channel: 'email-confirmation' };
   } catch (err) {

@@ -71,7 +71,6 @@ const ZammadSchema = z.object({
   baseUrl: z.url(),
   token: z.string(),
   group: z.string().default('Users'),
-  customerEmailFallback: z.email().optional(),
   includePdf: z.boolean().default(true),
   timeoutMs: z.number().int().min(1000).max(30000).default(10000),
 });
@@ -80,7 +79,10 @@ const ZammadSchema = z.object({
 // The ticket/webhook blocks are defaulted so configs may omit them (absent →
 // disabled), keeping the delivery section backward-compatible as channels grow.
 const DeliverySchema = z.object({
-  email: z.object({ enabled: z.boolean().default(false), smtp: SmtpSchema.optional() }),
+  email: z.object({
+    enabled: z.boolean().default(false),
+    smtp: SmtpSchema.optional(),
+  }),
   znuny: z
     .object({ enabled: z.boolean().default(false), config: OtrsTicketSchema.optional() })
     .prefault({}),
@@ -103,7 +105,9 @@ const PersistenceSchema = z.object({
 
 const AuthSchema = z.object({
   enabled: z.boolean().default(false),
-  provider: z.enum(['saml', 'oidc']).default('oidc'),
+  // Only OIDC is implemented (src/app/api/auth). Anything else is rejected
+  // instead of silently falling back to OIDC.
+  provider: z.literal('oidc').default('oidc'),
   issuer: z.string().optional(),
   clientId: z.string().optional(),
   clientSecret: z.string().optional(),
@@ -115,18 +119,6 @@ const CaptchaSchema = z.object({
   difficulty: z.number().int().min(1000).max(5_000_000).default(120_000),
 });
 
-const TaxonomyEntrySchema = z.object({
-  value: z.string(),
-  label: z.string(),
-  description: z.string().optional(),
-});
-
-const TaxonomyCategorySchema = z.object({
-  value: z.string(),
-  label: z.string(),
-  entries: z.array(TaxonomyEntrySchema),
-});
-
 export const AppConfigSchema = z.object({
   branding: BrandingSchema,
   defaultLocale: z.enum(routing.locales).default(routing.defaultLocale),
@@ -134,10 +126,6 @@ export const AppConfigSchema = z.object({
   persistence: PersistenceSchema.prefault({}),
   auth: AuthSchema.prefault({}),
   captcha: CaptchaSchema.prefault({}),
-  taxonomy: z.array(TaxonomyCategorySchema).optional(),
-  systems: z.array(z.string()).optional(),
-  dataCategories: z.array(z.string()).optional(),
-  personCategories: z.array(z.string()).optional(),
   referencePrefix: z.string().default('INC'),
 });
 

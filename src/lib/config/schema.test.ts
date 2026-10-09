@@ -38,22 +38,11 @@ describe('AppConfigSchema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('rejects an invalid customerEmailFallback (z.email)', () => {
-    const result = AppConfigSchema.safeParse({
-      ...minimal,
-      delivery: {
-        email: { enabled: false },
-        zammad: {
-          enabled: true,
-          config: {
-            baseUrl: 'https://zammad.example.com',
-            token: 't',
-            customerEmailFallback: 'nope',
-          },
-        },
-      },
-    });
+  it('rejects an auth provider other than OIDC', () => {
+    const result = AppConfigSchema.safeParse({ ...minimal, auth: { provider: 'saml' } });
     expect(result.success).toBe(false);
+    if (result.success) return;
+    expect(result.error.issues[0]?.path).toEqual(['auth', 'provider']);
   });
 
   it('rejects an invalid hex brand colour', () => {

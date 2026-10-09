@@ -1,1 +1,1 @@
-[Политика конфиденциальности](https://www.hs-hannover.de/datenschutz) | [Выходные данные](https://www.hs-hannover.de/impressum)
+Работает на [meldung](https://github.com/metaneutrons/meldung), свободное ПО под лицензией AGPL-3.0

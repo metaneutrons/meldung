@@ -1,1 +1,1 @@
-[Protección de datos](https://www.hs-hannover.de/datenschutz) | [Aviso legal](https://www.hs-hannover.de/impressum)
+Funciona con [meldung](https://github.com/metaneutrons/meldung), software libre bajo la AGPL-3.0

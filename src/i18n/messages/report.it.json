@@ -2,5 +2,10 @@
   "title": "Rapporto di incidente di sicurezza informatica",
   "reference": "Riferimento",
   "generated": "Generato",
-  "page": "Pagina"
+  "page": "Pagina",
+  "confirmationMail": {
+    "subject": "Conferma di ricezione della segnalazione {reference}",
+    "body": "Gentile {name},\n\nabbiamo ricevuto la sua segnalazione di incidente di sicurezza informatica.\n\nNumero di riferimento: {reference}\n{ticketLine}La preghiamo di indicare questo numero di riferimento in ogni comunicazione successiva.\n\n{orgName}",
+    "ticketLine": "Numero di ticket: {ticket}"
+  }
 }

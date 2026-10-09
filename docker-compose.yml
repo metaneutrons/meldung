@@ -5,6 +5,8 @@ services:
       - '3000:3000'
     volumes:
       - ./meldung.config.yaml:/app/meldung.config.yaml:ro
+      # Per-deployment texts (welcome page, footer, any UI or e-mail text).
+      - ./custom:/app/custom:ro
       - app-data:/app/data
     environment:
       - NODE_ENV=production

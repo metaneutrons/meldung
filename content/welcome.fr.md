@@ -1,22 +1,28 @@
 # Signalement d'incidents de protection des données et de sécurité informatique
 
-Bienvenue ! Vous pouvez ici signaler rapidement et en toute sécurité des incidents de sécurité ou des violations de la protection des données au personnel responsable.
+Ce portail vous permet de signaler des incidents de sécurité et des violations de données à caractère personnel aux personnes compétentes de {orgName}.
 
-## Quand un signalement est-il nécessaire ?
-Veuillez nous signaler en particulier les événements suivants :
-* **Suspicion d'accès non autorisés** à des systèmes, comptes ou données.
-* **Perte ou vol** d'appareils (ordinateurs portables, smartphones, clés USB) contenant des données confidentielles.
-* **Incidents liés à la sécurité**, tels que des e-mails de phishing, de l'ingénierie sociale ou des infections par des logiciels malveillants (virus, ransomware).
-* **Anomalies**, comme un comportement inhabituel du système ou des pannes informatiques soudaines.
-* **Violations de données**, par ex. l'envoi accidentel d'informations confidentielles à de mauvais destinataires.
+> **Vous avez un problème technique ?** Un mot de passe oublié, un souci de Wi-Fi, d'imprimante ou de messagerie, une demande de logiciel ou un service indisponible ne relèvent pas de ce portail. Adressez-vous pour cela à votre support informatique. Ce portail est réservé aux incidents de sécurité et de protection des données. Les problèmes techniques n'y sont pas traités.
 
-## Notes importantes
-* **La rapidité compte :** Plus vous nous informez tôt, plus nous pouvons limiter efficacement les dommages. Pour les incidents impliquant des **données personnelles**, nous sommes légalement tenus de les signaler aux autorités de contrôle dans un délai de **72 heures** (Art. 33 RGPD). Soutenez-nous en signalant le plus tôt possible, car du temps est nécessaire après votre signalement pour l'évaluation et la préparation des informations avant la transmission aux autorités.
-* **Sauvegarde automatique :** Vous pouvez interrompre le formulaire à tout moment ; votre progression est automatiquement sauvegardée dans votre navigateur.
-* **N'oubliez pas d'envoyer :** Nous ne recevons les informations qu'une fois que vous les soumettez. Vous pouvez sauter des étapes intermédiaires. Veuillez terminer le processus rapidement et communiquer des informations supplémentaires ultérieurement si nécessaire.
+## Que signaler ici ?
+
+- **Accès non autorisés** à des systèmes, comptes ou données, y compris un simple soupçon. Cela comprend les connexions que vous n'avez pas effectuées vous-même.
+- **Hameçonnage et logiciels malveillants**, surtout si vous avez cliqué sur un lien suspect, saisi des identifiants ou ouvert une pièce jointe, ou si un appareil est infecté par un virus ou un rançongiciel.
+- **Perte ou vol** d'appareils et de supports de données (ordinateur portable, smartphone, clé USB) contenant des données professionnelles ou personnelles.
+- **Fuites de données**, par exemple des informations confidentielles envoyées aux mauvais destinataires ou des données rendues accessibles par erreur à des personnes non autorisées.
+- **Signes d'une attaque**, comme des fichiers soudainement chiffrés ou modifiés, des programmes ou des comptes utilisateurs inconnus.
+
+En cas de doute, signalez-le. Si un problème peut être lié à une attaque ou à des données personnelles, il a sa place ici.
+
+## Points importants
+
+- **Signalez rapidement.** Plus tôt nous sommes informés, mieux nous pouvons limiter les dégâts. En règle générale, nous devons notifier les violations de données à caractère personnel à l'autorité de contrôle dans les meilleurs délais et, si possible, 72 heures au plus tard après en avoir pris connaissance (art. 33 RGPD). Notre évaluation doit aussi tenir dans ce délai. Signalez donc immédiatement, même si tout n'est pas encore clair.
+- **Votre progression est enregistrée.** Vos saisies sont enregistrées automatiquement dans votre navigateur. Vous pouvez vous interrompre à tout moment et reprendre plus tard.
+- **N'oubliez pas d'envoyer.** Nous ne recevons votre signalement qu'une fois envoyé. Vous pouvez sauter des étapes et compléter les informations manquantes plus tard.
 
 ## Comment procéder
-1. **Remplissez le formulaire :** Fournissez autant de détails que possible. Les champs obligatoires sont marqués, mais même des informations incomplètes nous aident.
-2. **Envoyer :** Assurez-vous de terminer le processus en cliquant sur « Envoyer », même si vous ne pouvez pas répondre à toutes les questions.
-3. **Documentation :** Après l'envoi, vous recevrez un numéro de ticket et pourrez télécharger votre signalement au format PDF pour vos archives.
-4. **Disponibilité :** Veuillez rester joignable via les coordonnées que vous avez fournies, au cas où des questions de suivi seraient nécessaires pour l'analyse.
+
+1. **Remplissez le formulaire.** Donnez autant de détails que possible. Les champs obligatoires sont signalés, mais des informations incomplètes nous aident aussi.
+2. **Envoyez.** Terminez par « Envoyer », même si vous ne pouvez pas répondre à toutes les questions.
+3. **Conservez le numéro de référence.** Après l'envoi, vous recevez un numéro de référence et pouvez télécharger votre signalement au format PDF.
+4. **Restez joignable.** Restez disponible pour d'éventuelles questions via les coordonnées indiquées.

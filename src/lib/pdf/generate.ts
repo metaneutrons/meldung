@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 import { renderToBuffer } from '@react-pdf/renderer';
-import { IncidentReport } from './incident-report';
+import { IncidentReport, primePdfFonts } from './incident-report';
 import { getConfig } from '@/lib/config';
 import { buildReportModel } from '@/lib/report/model';
 import type { FormData } from './types';
@@ -45,6 +45,7 @@ export async function generatePdf(
   if (config.branding.appTitle) model.title = config.branding.appTitle;
   const logo = loadPdfLogo(config.branding.logoPdfUrl, config.branding.logoUrl);
 
+  await primePdfFonts();
   const buffer = await renderToBuffer(
     IncidentReport({
       referenceNumber,
