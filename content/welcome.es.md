@@ -1,22 +1,28 @@
 # Notificación de incidentes de protección de datos y seguridad informática
 
-¡Bienvenido/a! Aquí puede comunicar de forma rápida y segura incidentes de seguridad o violaciones de la protección de datos al personal responsable.
+A través de este portal puede notificar incidentes de seguridad y violaciones de la seguridad de los datos personales a los servicios competentes de la Hochschule Hannover.
 
-## ¿Cuándo es necesaria una notificación?
-Por favor, infórmenos especialmente de los siguientes eventos:
-* **Sospecha de accesos no autorizados** a sistemas, cuentas o datos.
-* **Pérdida o robo** de dispositivos (portátiles, smartphones, memorias USB) con datos confidenciales.
-* **Incidentes relevantes para la seguridad**, como correos de phishing, ingeniería social o infecciones de malware (virus, ransomware).
-* **Anomalías**, como comportamiento inusual del sistema o interrupciones repentinas de TI.
-* **Violaciones de datos**, p. ej., el envío accidental de información confidencial a destinatarios incorrectos.
+> **¿Tiene un problema técnico?** Una contraseña olvidada, problemas con la wifi, la impresora o el programa de correo, una solicitud de software o un servicio que no funciona no corresponden a este portal. En las [páginas de servicio de Hochschul-IT](https://service.it.hs-hannover.de/) encontrará guías, incidencias actuales y el contacto con el soporte. Este portal está destinado exclusivamente a incidentes de seguridad y de protección de datos. Aquí no se tramitan problemas técnicos.
 
-## Notas importantes
-* **La rapidez cuenta:** Cuanto antes nos informe, más eficazmente podremos limitar el daño. En incidentes con **datos personales**, estamos legalmente obligados a notificarlos a las autoridades de supervisión en un plazo de **72 horas** (Art. 33 RGPD). Apóyenos con una notificación lo más temprana posible, ya que tras su informe se necesita tiempo para la evaluación y preparación de la información antes del envío a las autoridades.
-* **Guardado automático:** Puede interrumpir el formulario en cualquier momento; su progreso se guarda automáticamente en su navegador.
-* **No olvide enviar:** Solo recibimos la información una vez que la envía. Puede omitir pasos intermedios. Complete el proceso a tiempo y comunique información adicional posteriormente si es necesario.
+## ¿Qué debe notificar aquí?
+
+- **Accesos no autorizados** a sistemas, cuentas o datos, incluida la mera sospecha. Esto incluye inicios de sesión que usted no ha realizado.
+- **Phishing y software malicioso**, sobre todo si ha hecho clic en un enlace sospechoso, ha introducido credenciales o ha abierto un archivo adjunto, o si un dispositivo está infectado con virus o ransomware.
+- **Pérdida o robo** de dispositivos y soportes de datos (portátil, smartphone, memoria USB) con datos de trabajo o personales.
+- **Brechas de datos**, por ejemplo información confidencial enviada a destinatarios equivocados o datos que por error han quedado accesibles a personas no autorizadas.
+- **Indicios de un ataque**, como archivos cifrados o modificados de repente, programas o cuentas de usuario desconocidos.
+
+En caso de duda, notifíquelo. Si un problema puede estar relacionado con un ataque o con datos personales, corresponde a este portal.
+
+## Indicaciones importantes
+
+- **Notifique cuanto antes.** Cuanto antes lo sepamos, mejor podremos limitar los daños. Por regla general, la universidad debe notificar las violaciones de la seguridad de los datos personales a la autoridad de control de protección de datos en un plazo de 72 horas desde que tenga constancia de ellas (art. 33 RGPD). En ese plazo también debe caber nuestra evaluación, así que notifíquelo de inmediato, aunque todavía no esté todo claro.
+- **Su progreso se guarda.** Sus datos se guardan automáticamente en su navegador. Puede interrumpir en cualquier momento y continuar más tarde.
+- **No olvide enviar.** Solo recibimos su notificación cuando la envía. Puede saltarse pasos y completar los datos que falten más adelante.
 
 ## Cómo proceder
-1. **Rellene el formulario:** Proporcione tantos detalles como sea posible. Los campos obligatorios están marcados, pero incluso la información incompleta nos ayuda.
-2. **Enviar:** Asegúrese de completar el proceso haciendo clic en "Enviar", aunque no pueda responder a todas las preguntas.
-3. **Documentación:** Tras el envío, recibirá un número de ticket y podrá descargar su notificación como PDF para su documentación.
-4. **Disponibilidad:** Por favor, permanezca localizable a través de los datos de contacto proporcionados, en caso de que se necesiten consultas de seguimiento para el análisis.
+
+1. **Rellene el formulario.** Indique todos los detalles que tenga. Los campos obligatorios están marcados, pero la información incompleta también nos ayuda.
+2. **Envíe.** Termine con «Enviar», aunque no pueda responder a todas las preguntas.
+3. **Guarde el número de referencia.** Tras el envío recibirá un número de referencia y podrá descargar su notificación en PDF.
+4. **Esté localizable.** Permanezca disponible para posibles consultas a través de los datos de contacto que ha indicado.

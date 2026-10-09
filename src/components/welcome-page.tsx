@@ -40,6 +40,17 @@ export function WelcomePage({ content, onStart }: WelcomePageProps) {
                 <span className="text-fg-muted">{children}</span>
               </li>
             ),
+            // A Markdown quote ("> …") is the welcome text's notice box, e.g. where
+            // to go for ordinary IT problems. It is not a quotation, so it renders
+            // as a note for assistive technology.
+            blockquote: ({ children }) => (
+              <aside
+                role="note"
+                className="mb-6 rounded-xl border border-info-border bg-info-bg px-4 pt-3 pb-px [&_p]:mb-3 [&_p]:text-fg"
+              >
+                {children}
+              </aside>
+            ),
             strong: ({ children }) => <strong className="font-semibold text-fg">{children}</strong>,
             a: ({ children, href }) => (
               <a href={href} className="text-brand underline">
