@@ -84,7 +84,7 @@
       "contactPlaceholder": "isim@ornek.com",
       "invalidEmail": "Lütfen geçerli bir e-posta adresi girin",
       "email": "E-posta adresi",
-      "emailPlaceholder": "isim@ornek.com",
+      "emailPlaceholder": "isim@example.com",
       "phone": "Telefon numarası",
       "phonePlaceholder": "+49 511 9296-0"
     },
@@ -209,5 +209,9 @@
       "timestamp": "Zaman damgası gönderim sırasında otomatik olarak kaydedilecektir.",
       "requiredFields": "Aşağıdaki zorunlu alanlar doldurulmalıdır:"
     }
+  },
+  "meta": {
+    "title": "{orgName} – Güvenlik ve Veri Koruma Olayı Bildirimi",
+    "description": "BT güvenlik olaylarını ve kişisel veri ihlallerini hızlı ve güvenli bir şekilde bildirin."
   }
 }

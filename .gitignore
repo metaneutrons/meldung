@@ -42,3 +42,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Per-deployment texts belong to the deployment, not to the product
+custom/

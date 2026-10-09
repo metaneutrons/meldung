@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import type { ConfirmationMailConfig, SmtpConfig } from '@/lib/config/schema';
+import type { SmtpConfig } from '@/lib/config/schema';
 import { buildConfirmationMail, buildReportModel, formatReportText } from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
 
@@ -36,16 +36,13 @@ export async function sendConfirmationEmail(
   ctx: DeliveryContext,
   smtp: SmtpConfig,
   reporterEmail: string,
-  texts: ConfirmationMailConfig,
   orgName: string,
 ): Promise<DeliveryResult> {
   try {
-    const mail = await buildConfirmationMail(
-      ctx.referenceNumber,
-      ctx.locale,
-      { name: ctx.data.reporterName, orgName },
-      texts,
-    );
+    const mail = await buildConfirmationMail(ctx.referenceNumber, ctx.locale, {
+      name: ctx.data.reporterName,
+      orgName,
+    });
     await transport(smtp).sendMail({
       from: smtp.from,
       to: reporterEmail,

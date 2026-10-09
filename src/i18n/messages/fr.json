@@ -84,7 +84,7 @@
       "contactPlaceholder": "nom@exemple.fr",
       "invalidEmail": "Veuillez saisir une adresse e-mail valide",
       "email": "Adresse e-mail",
-      "emailPlaceholder": "nom@exemple.fr",
+      "emailPlaceholder": "nom@example.com",
       "phone": "Téléphone",
       "phonePlaceholder": "+49 511 9296-0"
     },
@@ -209,5 +209,9 @@
       "timestamp": "L horodatage sera enregistré automatiquement lors de l envoi.",
       "requiredFields": "Les champs obligatoires suivants doivent être remplis :"
     }
+  },
+  "meta": {
+    "title": "{orgName} – Signalement d'incidents de sécurité et de protection des données",
+    "description": "Signalez rapidement et en toute sécurité les incidents de sécurité informatique et les violations de données personnelles."
   }
 }

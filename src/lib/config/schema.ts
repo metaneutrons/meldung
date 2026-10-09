@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { routing } from '@/i18n/routing';
-import { MAIL_PLACEHOLDERS, unknownPlaceholders } from '@/lib/mail-template';
 
 const HEX = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
 const hexColor = (msg: string) => z.string().regex(HEX, msg);
@@ -25,29 +24,6 @@ const BrandingSchema = z.object({
   // Optional browser-tab + PDF title and meta description.
   appTitle: z.string().optional(),
   appDescription: z.string().optional(),
-});
-
-// A mail text per locale. Locales left out fall back to the built-in default
-// for that language, so an operator can override one language without
-// restating the other seven.
-const mailText = (singleLine: boolean) =>
-  z.partialRecord(
-    z.enum(routing.locales),
-    z
-      .string()
-      .trim()
-      .min(1)
-      .refine((v) => unknownPlaceholders(v).length === 0, {
-        message: `unknown placeholder; allowed are ${MAIL_PLACEHOLDERS.map((p) => `{${p}}`).join(', ')}`,
-      })
-      .refine((v) => !singleLine || !/[\r\n]/.test(v), { message: 'must be a single line' }),
-  );
-
-// The confirmation sent to the reporter. Placeholders: {reference}, {name}
-// (the reporter's name) and {orgName} (branding.orgName).
-const ConfirmationMailSchema = z.object({
-  subject: mailText(true).optional(),
-  body: mailText(false).optional(),
 });
 
 const SmtpSchema = z.object({
@@ -106,7 +82,6 @@ const DeliverySchema = z.object({
   email: z.object({
     enabled: z.boolean().default(false),
     smtp: SmtpSchema.optional(),
-    confirmation: ConfirmationMailSchema.prefault({}),
   }),
   znuny: z
     .object({ enabled: z.boolean().default(false), config: OtrsTicketSchema.optional() })
@@ -142,18 +117,6 @@ const CaptchaSchema = z.object({
   difficulty: z.number().int().min(1000).max(5_000_000).default(120_000),
 });
 
-const TaxonomyEntrySchema = z.object({
-  value: z.string(),
-  label: z.string(),
-  description: z.string().optional(),
-});
-
-const TaxonomyCategorySchema = z.object({
-  value: z.string(),
-  label: z.string(),
-  entries: z.array(TaxonomyEntrySchema),
-});
-
 export const AppConfigSchema = z.object({
   branding: BrandingSchema,
   defaultLocale: z.enum(routing.locales).default(routing.defaultLocale),
@@ -161,10 +124,6 @@ export const AppConfigSchema = z.object({
   persistence: PersistenceSchema.prefault({}),
   auth: AuthSchema.prefault({}),
   captcha: CaptchaSchema.prefault({}),
-  taxonomy: z.array(TaxonomyCategorySchema).optional(),
-  systems: z.array(z.string()).optional(),
-  dataCategories: z.array(z.string()).optional(),
-  personCategories: z.array(z.string()).optional(),
   referencePrefix: z.string().default('INC'),
 });
 
@@ -177,4 +136,3 @@ export type ZnunyConfig = OtrsTicketConfig;
 export type WebhookConfig = z.infer<typeof WebhookSchema>;
 export type ZammadConfig = z.infer<typeof ZammadSchema>;
 export type SmtpConfig = z.infer<typeof SmtpSchema>;
-export type ConfirmationMailConfig = z.infer<typeof ConfirmationMailSchema>;

@@ -22,6 +22,7 @@ taxonomy and includes a **GDPR Art. 33** personal-data-breach assessment.
 - [Configuration](#configuration)
   - [Branding](#branding)
   - [Localization](#localization)
+  - [Texts](#texts)
   - [Delivery channels](#delivery-channels)
     - [E-mail (SMTP)](#e-mail-smtp)
     - [Znuny / OTRS & OTOBO](#znuny--otrs--otobo)
@@ -30,7 +31,6 @@ taxonomy and includes a **GDPR Art. 33** personal-data-breach assessment.
   - [Anti-bot captcha](#anti-bot-captcha)
   - [Persistence (audit trail)](#persistence-audit-trail)
   - [Authentication (SSO)](#authentication-sso)
-  - [Taxonomy, systems & GDPR categories](#taxonomy-systems--gdpr-categories)
   - [Reference numbers](#reference-numbers)
 - [Environment variables](#environment-variables)
 - [Deployment](#deployment)
@@ -52,7 +52,7 @@ taxonomy and includes a **GDPR Art. 33** personal-data-breach assessment.
 - **Bot protection** — invisible, GDPR-clean proof-of-work captcha, honeypot, and rate limiting.
 - **Optional SSO** via any OIDC-compatible provider.
 - **Runtime white-label branding** — colors and logos are injected as CSS variables, no rebuild
-  required. Welcome page and footer are authored in Markdown.
+  required. Every text, in every language, can be overridden per deployment.
 - **Accessible, responsive, dark-mode** UI.
 - **Enterprise-grade foundation** — a single Zod schema as the source of truth for the form
   (client + server), typed YAML/env configuration, and a Vercel-ready build.
@@ -121,7 +121,8 @@ src/
     config/            YAML + environment configuration loader
     persistence/       Optional audit trail (JSONL / Postgres)
   i18n/                Messages, ENISA taxonomy, routing
-content/               Welcome page and footer (Markdown)
+content/               Default welcome page and footer (Markdown)
+custom/                Per-deployment text overrides (git-ignored, see Texts)
 ```
 
 ## Configuration
@@ -139,25 +140,78 @@ Configuration comes from two layers, with **environment variables always overrid
 White-label the portal via the `branding:` block — values are injected as CSS variables at
 runtime, so no rebuild is needed to rebrand.
 
-| Key                           | Purpose                                                         |
-| ----------------------------- | --------------------------------------------------------------- |
-| `orgName`                     | Organization name (shown when no logo is set)                   |
-| `logoUrl` / `logoDarkUrl`     | Web logo (SVG ok) and optional dark-mode variant                |
-| `logoPdfUrl`                  | Raster logo (PNG/JPG) for the PDF — SVG cannot be embedded      |
-| `favicon`                     | Browser-tab icon                                                |
-| `primaryColor`                | Brand color (hex); drives buttons, accents and the PDF          |
-| `brandForeground`             | Text-on-brand color (auto-derived for WCAG contrast if omitted) |
-| `accentColor`                 | Secondary accent (hex)                                          |
-| `appTitle` / `appDescription` | Browser-tab + PDF title and meta description                    |
+| Key                           | Purpose                                                             |
+| ----------------------------- | ------------------------------------------------------------------- |
+| `orgName`                     | Organization name (shown when no logo is set)                       |
+| `logoUrl` / `logoDarkUrl`     | Web logo (SVG ok) and optional dark-mode variant                    |
+| `logoPdfUrl`                  | Raster logo (PNG/JPG) for the PDF — SVG cannot be embedded          |
+| `favicon`                     | Browser-tab icon                                                    |
+| `primaryColor`                | Brand color (hex); drives buttons, accents and the PDF              |
+| `brandForeground`             | Text-on-brand color (auto-derived for WCAG contrast if omitted)     |
+| `accentColor`                 | Secondary accent (hex)                                              |
+| `appTitle` / `appDescription` | Fixed title and description for all languages (see [Texts](#texts)) |
 
-Place logo and favicon assets in `public/`. The welcome page and footer are Markdown files under
-`content/`.
+Place logo and favicon assets in `public/`. All wording, including the welcome page and footer, is
+covered under [Texts](#texts).
 
 ### Localization
 
 The UI ships in **DE, EN, ES, FR, IT, TR, RU, UK**. Set the default with `defaultLocale:` (one of
-those codes); reporters can switch language in the header. Translations live in
-`src/i18n/messages/`, with the ENISA taxonomy and report strings localized alongside.
+those codes); reporters can switch language in the header.
+
+### Texts
+
+Every text the portal shows or sends has a neutral default in all eight languages, and every one
+of them can be replaced per deployment without rebuilding the image. That covers the welcome page
+and footer, every label, hint and error in the form, the classification, the PDF and the e-mails.
+
+Overrides live in a **custom directory**, `./custom` by default (`MELDUNG_CUSTOM_DIR` to move it).
+It mirrors where the defaults live:
+
+| File in `custom/`                 | Replaces                                         | Defaults in          |
+| --------------------------------- | ------------------------------------------------ | -------------------- |
+| `content/welcome.<locale>.md`     | the welcome page, completely                     | `content/`           |
+| `content/footer.<locale>.md`      | the footer, completely                           | `content/`           |
+| `messages/<locale>.json`          | UI texts, only the keys you list                 | `src/i18n/messages/` |
+| `messages/taxonomy.<locale>.json` | classification labels and descriptions           | `src/i18n/messages/` |
+| `messages/report.<locale>.json`   | PDF, report e-mail, confirmation e-mail, tickets | `src/i18n/messages/` |
+
+A Markdown page without a language suffix (`custom/content/welcome.md`) serves every language
+that has no page of its own. `{orgName}` in a page is replaced with `branding.orgName`. A Markdown
+quote (`> …`) renders as a highlighted note.
+
+A JSON override names only what it changes; everything else keeps its default. To reword the
+submit button and the German confirmation e-mail:
+
+`custom/messages/de.json`:
+
+```json
+{ "common": { "submit": "Meldung absenden" } }
+```
+
+`custom/messages/report.de.json`:
+
+```json
+{
+  "confirmationMail": {
+    "subject": "Ihre Meldung {reference} bei {orgName}",
+    "body": "Guten Tag {name},\n\nwir haben Ihre Meldung erhalten.\n\nReferenznummer: {reference}"
+  }
+}
+```
+
+Overrides are checked when they are loaded. A key the defaults do not have, a text where the
+default has a group of texts, or a placeholder the default does not offer is rejected with the
+file and the key, for example `custom/messages/de.json: common.sumbit does not exist in the default
+texts`. Look up the available keys and placeholders in the default file of the same name. Edited
+files take effect on the next request; no restart is needed.
+
+The footer default only links to the source code. Replace it with your own legal notice and
+privacy policy, and keep a link to the source if you change the code: the AGPL-3.0 requires
+offering it to the people who use the portal over a network.
+
+With Docker, mount the directory (the [compose file](docker-compose.yml) does this). On Vercel,
+commit it to your deployment's repository; it is bundled into the build.
 
 ### Delivery channels
 
@@ -189,32 +243,9 @@ delivery:
         - 'dpo@example.com'
 ```
 
-The confirmation to the reporter is sent in the language the report was filed in. Every language
-ships with a default subject and body; you can override either one per language, and any language
-you leave out keeps its default. The defaults live in `src/i18n/messages/report.<locale>.json`
-under `confirmationMail`.
-
-Three placeholders are available: `{reference}` (the reference number), `{name}` (the reporter's
-name) and `{orgName}` (`branding.orgName`). An unknown placeholder, an unsupported language or a
-subject spanning several lines is rejected as a configuration error that names the key, so a typo
-never reaches a reporter.
-
-```yaml
-delivery:
-  email:
-    confirmation:
-      subject:
-        de: 'Ihre Meldung {reference} bei {orgName}'
-      body:
-        de: |
-          Guten Tag {name},
-
-          vielen Dank für Ihre Meldung. Wir melden uns innerhalb eines Werktags.
-
-          Referenznummer: {reference}
-
-          CERT der {orgName}
-```
+The confirmation to the reporter is sent in the language the report was filed in. Its subject and
+body are ordinary texts (`report.confirmationMail`, see [Texts](#texts)) with the placeholders
+`{reference}`, `{name}` and `{orgName}`.
 
 #### Znuny / OTRS & OTOBO
 
@@ -276,9 +307,7 @@ system that can receive an HTTP request.
   "referenceNumber": "INC-20260630-a3f2",
   "locale": "de",
   "submittedAt": "2026-06-30T12:34:56.000Z",
-  "data": {
-    /* raw form fields — stable keys, machine-parseable */
-  },
+  "data": {/* raw form fields — stable keys, machine-parseable */},
   "report": {
     "title": "…",
     "category": "…",
@@ -396,17 +425,6 @@ auth:
 
 Set `AUTH_ENABLED=true` and `AUTH_SECRET` in the environment to activate it.
 
-### Taxonomy, systems & GDPR categories
-
-These default to sensible built-ins and can be fully overridden in YAML:
-
-- **`taxonomy`** — incident classification; defaults to the built-in 9-category ENISA RSIT
-  taxonomy.
-- **`systems`** — the affected-systems checklist.
-- **`dataCategories`** / **`personCategories`** — option lists for the GDPR breach step.
-
-See [`meldung.config.example.yaml`](meldung.config.example.yaml) for the exact shapes.
-
 ### Reference numbers
 
 Every report gets an identifier of the form `{prefix}-{YYYYMMDD}-{4 hex}`, e.g.
@@ -438,7 +456,8 @@ delivery channel via env, set its `*_ENABLED=true` **and** provide its connectio
 ```bash
 docker pull ghcr.io/metaneutrons/meldung:latest
 docker run -p 3000:3000 \
-  -v ./meldung.config.yaml:/app/meldung.config.yaml \
+  -v ./meldung.config.yaml:/app/meldung.config.yaml:ro \
+  -v ./custom:/app/custom:ro \
   ghcr.io/metaneutrons/meldung:latest
 ```
 
@@ -457,7 +476,9 @@ Deploy directly from the repository. Keep these in mind:
   across serverless instances.
 - For an audit trail, use `PERSISTENCE_DRIVER=postgres` with a `DATABASE_URL` — the serverless
   filesystem is ephemeral, so the JSONL driver is not durable there.
-- `meldung.config.yaml` is bundled into the deployment automatically; provide all secrets via env.
+- `meldung.config.yaml` and the `custom/` directory are bundled into the deployment automatically;
+  provide all secrets via env. `custom/` is git-ignored in this repository, so keep it in your own
+  deployment repository.
 
 ## Standards
 

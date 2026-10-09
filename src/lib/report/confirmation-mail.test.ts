@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
 import { routing } from '@/i18n/routing';
-import { unknownPlaceholders } from '@/lib/mail-template';
 import reportDe from '@/i18n/messages/report.de.json';
 import reportEn from '@/i18n/messages/report.en.json';
 import reportEs from '@/i18n/messages/report.es.json';
@@ -57,38 +56,30 @@ describe('confirmation mail defaults', () => {
       expect(subject).toContain('{reference}');
       expect(subject).not.toMatch(/[\r\n]/);
       expect(body).toContain('{reference}');
-      expect(unknownPlaceholders(subject + body)).toEqual([]);
+      const used = [...(subject + body).matchAll(/\{(\w+)\}/g)].map((m) => m[1]);
+      expect(used.every((p) => ['reference', 'name', 'orgName'].includes(p ?? ''))).toBe(true);
     },
   );
 });
 
 describe('buildConfirmationMail', () => {
   it("uses the report language's default when nothing is configured", async () => {
-    const mail = await buildConfirmationMail('INC-1', 'de', values, {});
+    const mail = await buildConfirmationMail('INC-1', 'de', values);
     expect(mail.subject).toBe('Eingangsbestätigung Ihrer Meldung INC-1');
     expect(mail.text).toContain('Guten Tag Ada Lovelace,');
     expect(mail.text).toContain('Referenznummer: INC-1');
     expect(mail.text.trimEnd().endsWith('ACME')).toBe(true);
   });
 
-  it('prefers the configured text and falls back per locale', async () => {
-    const overrides = { subject: { de: 'Ihre Meldung {reference} bei {orgName}' } };
-    const de = await buildConfirmationMail('INC-1', 'de', values, overrides);
-    expect(de.subject).toBe('Ihre Meldung INC-1 bei ACME');
-    // The body has no override, so it stays the German default.
-    expect(de.text).toContain('Referenznummer: INC-1');
-    // English has no override at all.
-    const en = await buildConfirmationMail('INC-1', 'en', values, overrides);
-    expect(en.subject).toBe('Confirmation of your incident report INC-1');
-  });
-
   it('keeps a line break from the name field out of the subject', async () => {
-    const mail = await buildConfirmationMail(
-      'INC-1',
-      'en',
-      { ...values, name: 'Ada\r\nBcc: x@y.z' },
-      { subject: { en: 'Report {reference} from {name}' } },
-    );
+    reports.en = {
+      confirmationMail: { subject: 'Report {reference} from {name}', body: 'x' },
+    };
+    const mail = await buildConfirmationMail('INC-1', 'en', {
+      ...values,
+      name: 'Ada\r\nBcc: x@y.z',
+    });
     expect(mail.subject).toBe('Report INC-1 from Ada Bcc: x@y.z');
+    reports.en = reportEn;
   });
 });
