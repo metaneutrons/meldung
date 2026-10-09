@@ -91,7 +91,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ needs.metadata.outputs.tag }}
-      - uses: docker/setup-buildx-action@37fe631027851001ddb9b187196cc803df7f5f0e # v4.3.0
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
 
       - id: names
         run: echo "sbom=meldung-${{ needs.metadata.outputs.version }}.spdx.json" >> "$GITHUB_OUTPUT"
@@ -100,7 +100,7 @@ jobs:
       # preflight, so the bytes that get tested here are the bytes published
       # later, rather than a rebuild that merely used the same inputs.
       - name: Build linux/amd64 and linux/arm64 into an OCI archive
-        uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -140,7 +140,7 @@ jobs:
           exit 1
 
       - name: Generate the SBOM
-        uses: anchore/sbom-action@3ad7283483fc7af8ff2b4ea19663c2d5ca935e26 # v0.24.2
+        uses: anchore/sbom-action@66cbf4bc1f1c0d2edc94016e65bc221b6bb0ad6c # v0.24.3
         with:
           image: meldung:smoke
           format: spdx-json
