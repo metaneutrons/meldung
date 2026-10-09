@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.4.0](https://github.com/metaneutrons/meldung/compare/v0.3.0...v0.4.0) (2026-10-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* **triage:** the webhook and audit field estimatedRecords becomes affectedPersons
+* **triage:** ticket and e-mail titles now start with the priority level
+* **triage:** Znuny/OTOBO tickets take their priority from the level unless priority is set, before every ticket defaulted to 3 normal
+
+### Features
+
+* **summary:** make the emergency number tappable ([#55](https://github.com/metaneutrons/meldung/issues/55)) ([5a91601](https://github.com/metaneutrons/meldung/commit/5a916014157d981177855374823955a0f005b029))
+* **triage:** sort reports by a preliminary priority for the team ([2f307f4](https://github.com/metaneutrons/meldung/commit/2f307f4759395b5a3b8fc760f06560d4b2877f31))
+* **triage:** the webhook and audit field estimatedRecords becomes affectedPersons ([2f307f4](https://github.com/metaneutrons/meldung/commit/2f307f4759395b5a3b8fc760f06560d4b2877f31))
+* **triage:** ticket and e-mail titles now start with the priority level ([2f307f4](https://github.com/metaneutrons/meldung/commit/2f307f4759395b5a3b8fc760f06560d4b2877f31))
+* **triage:** Znuny/OTOBO tickets take their priority from the level unless priority is set, before every ticket defaulted to 3 normal ([2f307f4](https://github.com/metaneutrons/meldung/commit/2f307f4759395b5a3b8fc760f06560d4b2877f31))
+
+
+### Bug Fixes
+
+* **zammad:** keep Zammad's own auto reply from reaching the reporter ([#52](https://github.com/metaneutrons/meldung/issues/52)) ([346a8a7](https://github.com/metaneutrons/meldung/commit/346a8a7408d3a0ee35d47a9794e13e9264546151))
+
 ## [0.3.0](https://github.com/metaneutrons/meldung/compare/v0.2.2...v0.3.0) (2026-10-09)
 
 
