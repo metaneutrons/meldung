@@ -122,6 +122,7 @@ delivery:
   #     token: 'your-api-token'          # prefer ZAMMAD_TOKEN env
   #     group: 'IT-Security'
   #     includePdf: true
+  #     autoReply: false    # true lets Zammad send its own auto reply too
 
 # -----------------------------------------------------------------------------
 # Persistence (optional)

@@ -373,6 +373,12 @@ not yet known to Zammad therefore ends up as a user there; plan your retention r
 The token needs the `ticket.agent` permission for the target group. With a customer-level token
 Zammad ignores the given customer and files every ticket under the token's own user.
 
+Zammad ships a trigger, "auto reply (on new tickets)", that answers every new customer web ticket
+with its own English e-mail and a link to its customer portal. meldung already confirms in the
+reporter's language, so it marks the article to skip that trigger. Set `autoReply: true` to let
+Zammad's reply go out as well. The marker needs the agent-level token; with a customer-level token
+Zammad drops it.
+
 The ticket title starts with the triage level (`[P1] [INC-…]`). `priorities` maps the levels to
 Zammad priority names; the defaults `3 high` (P1, P2), `2 normal` (P3) and `1 low` (P4) are those
 of a fresh installation. A name Zammad does not know fails the ticket with HTTP 422. The reasons go
@@ -385,7 +391,8 @@ into an internal note on the ticket.
 | `group`      | `Users`   | Target group                          |
 | `includePdf` | `true`    | Attach the PDF to the article         |
 | `timeoutMs`  | `10000`   | Request timeout                       |
-| `priorities` | see below | Zammad priority per triage level      |
+| `autoReply`  | `false`   | Let Zammad send its own auto reply    |
+| `priorities` | see above | Zammad priority per triage level      |
 
 ```yaml
 delivery:

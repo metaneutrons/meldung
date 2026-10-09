@@ -83,6 +83,11 @@ const ZammadSchema = z.object({
   group: z.string().default('Users'),
   includePdf: z.boolean().default(true),
   timeoutMs: z.number().int().min(1000).max(30000).default(10000),
+  // Zammad's default trigger "auto reply (on new tickets)" answers every new
+  // customer web ticket with its own English mail and a link to its customer
+  // portal. meldung confirms in the reporter's language itself, so the Zammad
+  // reply stays off unless a deployment wants it.
+  autoReply: z.boolean().default(false),
   // Zammad priority names per triage level; the defaults are the priorities
   // of a fresh Zammad installation. A name Zammad does not know fails the
   // ticket with HTTP 422.
