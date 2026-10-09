@@ -476,12 +476,22 @@ The priority goes to the team only: as `[P1 · INC-…]` at the start of the rep
 reasons above the report, as the ticket priority and an internal note in Zammad, as the ticket
 priority and the top of the article in Znuny/OTOBO, as `triage` in the webhook payload and in the
 audit trail. The reporter never sees it. When an attack may be in progress or work has stopped, the
-summary step asks the reporter to stop working on the device and, if configured, to call:
+summary step asks the reporter to stop working on the device and wait for instructions. With an
+emergency number configured, it also asks them to call it:
 
 ```yaml
 contact:
   emergencyPhone: '+49 511 000000'
 ```
+
+`emergencyPhone` is optional. Without it, the hint leaves out the call and nothing else changes. The
+number is shown exactly as written and becomes a `tel:` link, so it can be tapped on a phone, as long
+as it consists only of digits, spaces, `-`, `/`, `.` and a leading `+`. Anything else, such as
+`+49 511 1234 (24/7)` or `+49 (0)511 1234`, is shown as plain text, because dialling only its digits
+would reach a different number. Write the number in international form to make it dialable from
+abroad and from mobile phones. Pick a line that is answered when the hint appears, which includes
+evenings and weekends. When you reword `steps.summary.emergencyCall`, keep `<call>{phone}</call>`
+around the number, otherwise it stays text.
 
 The team-facing texts are written in `defaultLocale` and can be reworded like any other text
 (`report.triage`, see [Texts](#texts)).

@@ -168,6 +168,7 @@ referencePrefix: 'INC'
 # -----------------------------------------------------------------------------
 # Number the reporter is asked to call when an attack may be in progress or
 # work has stopped. Without it, the hint only asks them to stop working on the
-# device and wait for instructions.
+# device and wait for instructions. Digits, spaces, '-', '/', '.' and a leading
+# '+' make a tappable tel: link; anything else is shown as plain text.
 # contact:
 #   emergencyPhone: '+49 511 000000'

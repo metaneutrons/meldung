@@ -1,5 +1,6 @@
 'use client';
 
+import type { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
 import { AlertTriangle, PhoneCall } from 'lucide-react';
 import { useFormStore } from '@/lib/store/form-store';
@@ -229,10 +230,39 @@ export function EmergencyHint({ phone }: { phone?: string | undefined }) {
         <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
         <div className="space-y-1 text-sm text-danger">
           <p className="font-semibold">{t('summary.emergencyTitle')}</p>
-          {phone && <p>{t('summary.emergencyCall', { phone })}</p>}
+          {phone && (
+            <p>
+              {t.rich('summary.emergencyCall', {
+                phone,
+                call: (chunks) => <PhoneLink phone={phone}>{chunks}</PhoneLink>,
+              })}
+            </p>
+          )}
           <p>{t('summary.emergencyAdvice')}</p>
         </div>
       </div>
     </div>
   );
+}
+
+/** Links the number when it can be dialled as written, otherwise leaves it as text. */
+function PhoneLink({ phone, children }: { phone: string; children: ReactNode }) {
+  const href = telHref(phone);
+  if (!href) return <>{children}</>;
+  return (
+    <a href={href} className="font-semibold underline underline-offset-2 hover:no-underline">
+      {children}
+    </a>
+  );
+}
+
+/**
+ * A dialable `tel:` URI, or null when the configured value is more than a bare
+ * number (e.g. "+49 511 1234 (24/7)" or "+49 (0)511 1234"): stripping such a
+ * value down to its digits would dial a different number, so it stays text.
+ */
+export function telHref(phone: string): string | null {
+  if (!/^\+?[\d\s/.-]+$/.test(phone)) return null;
+  const dial = phone.replace(/[^\d+]/g, '');
+  return dial.replace('+', '').length >= 3 ? `tel:${dial}` : null;
 }

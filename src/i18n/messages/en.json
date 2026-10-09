@@ -224,7 +224,7 @@
       "timestamp": "The report timestamp will be recorded automatically upon submission.",
       "requiredFields": "The following required fields must be filled in:",
       "emergencyTitle": "An attack may be in progress. Please submit this report.",
-      "emergencyCall": "Also call right away: {phone}",
+      "emergencyCall": "Also call right away: <call>{phone}</call>",
       "emergencyAdvice": "Stop working on the affected device and wait for instructions."
     }
   },

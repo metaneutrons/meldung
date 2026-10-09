@@ -224,7 +224,7 @@
       "timestamp": "L horodatage sera enregistré automatiquement lors de l envoi.",
       "requiredFields": "Les champs obligatoires suivants doivent être remplis :",
       "emergencyTitle": "Une attaque est peut-être en cours. Envoyez ce signalement.",
-      "emergencyCall": "Appelez aussi immédiatement : {phone}",
+      "emergencyCall": "Appelez aussi immédiatement : <call>{phone}</call>",
       "emergencyAdvice": "Cessez de travailler sur l'appareil concerné et attendez les instructions."
     }
   },
