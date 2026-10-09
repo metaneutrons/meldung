@@ -16,7 +16,7 @@ Nel dubbio, effettui la segnalazione. Se un problema può essere collegato a un 
 
 ## Indicazioni importanti
 
-- **Segnali subito.** Prima ne veniamo a conoscenza, meglio possiamo limitare i danni. Di norma dobbiamo notificare le violazioni dei dati personali all'autorità di controllo per la protezione dei dati entro 72 ore dal momento in cui ne veniamo a conoscenza (art. 33 GDPR). Entro questo termine deve rientrare anche la nostra valutazione, quindi segnali subito, anche se non tutto è ancora chiaro.
+- **Segnali subito.** Prima ne veniamo a conoscenza, meglio possiamo limitare i danni. Di norma dobbiamo notificare le violazioni dei dati personali all'autorità di controllo per la protezione dei dati senza ingiustificato ritardo e, ove possibile, entro 72 ore dal momento in cui ne veniamo a conoscenza (art. 33 GDPR). Entro questo termine deve rientrare anche la nostra valutazione, quindi segnali subito, anche se non tutto è ancora chiaro.
 - **I progressi vengono salvati.** I dati inseriti vengono salvati automaticamente nel suo browser. Può interrompere in qualsiasi momento e proseguire in seguito.
 - **Non dimentichi di inviare.** Riceviamo la segnalazione solo dopo l'invio. Può saltare dei passaggi e integrare in seguito le informazioni mancanti.
 

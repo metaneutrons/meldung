@@ -105,7 +105,9 @@ const PersistenceSchema = z.object({
 
 const AuthSchema = z.object({
   enabled: z.boolean().default(false),
-  provider: z.enum(['saml', 'oidc']).default('oidc'),
+  // Only OIDC is implemented (src/app/api/auth). Anything else is rejected
+  // instead of silently falling back to OIDC.
+  provider: z.literal('oidc').default('oidc'),
   issuer: z.string().optional(),
   clientId: z.string().optional(),
   clientSecret: z.string().optional(),

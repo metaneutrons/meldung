@@ -16,7 +16,7 @@ Im Zweifel melden Sie lieber einmal zu viel. Wenn eine Störung mit einem Angrif
 
 ## Wichtige Hinweise
 
-- **Schnell melden.** Je früher wir Bescheid wissen, desto besser lässt sich der Schaden begrenzen. Verletzungen des Schutzes personenbezogener Daten müssen wir in der Regel binnen 72 Stunden, nachdem wir davon erfahren haben, der Datenschutz-Aufsichtsbehörde melden (Art. 33 DSGVO). In diese Zeit fällt auch unsere Bewertung. Melden Sie deshalb sofort, auch wenn noch nicht alles geklärt ist.
+- **Schnell melden.** Je früher wir Bescheid wissen, desto besser lässt sich der Schaden begrenzen. Verletzungen des Schutzes personenbezogener Daten müssen wir in der Regel unverzüglich und möglichst binnen 72 Stunden, nachdem wir davon erfahren haben, der Datenschutz-Aufsichtsbehörde melden (Art. 33 DSGVO). In diese Zeit fällt auch unsere Bewertung. Melden Sie deshalb sofort, auch wenn noch nicht alles geklärt ist.
 - **Zwischenspeichern.** Ihre Eingaben werden automatisch in Ihrem Browser gespeichert. Sie können jederzeit unterbrechen und später weitermachen.
 - **Absenden nicht vergessen.** Wir erhalten Ihre Meldung erst, wenn Sie sie absenden. Sie können Schritte überspringen und fehlende Angaben später nachreichen.
 

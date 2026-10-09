@@ -16,7 +16,7 @@ If in doubt, report it. If a problem might be connected to an attack or to perso
 
 ## Important notes
 
-- **Report quickly.** The sooner we know, the better we can limit the damage. As a rule, we must notify personal data breaches to the data protection supervisory authority within 72 hours of becoming aware of them (Art. 33 GDPR). Our assessment has to fit into that time as well, so please report right away, even if not everything is clear yet.
+- **Report quickly.** The sooner we know, the better we can limit the damage. As a rule, we must notify personal data breaches to the data protection supervisory authority without undue delay and, where feasible, within 72 hours of becoming aware of them (Art. 33 GDPR). Our assessment has to fit into that time as well, so please report right away, even if not everything is clear yet.
 - **Your progress is saved.** Your entries are stored automatically in your browser. You can stop at any time and continue later.
 - **Don't forget to submit.** We only receive your report once you submit it. You can skip steps and add missing details later.
 

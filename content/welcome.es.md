@@ -16,7 +16,7 @@ En caso de duda, notifíquelo. Si un problema puede estar relacionado con un ata
 
 ## Indicaciones importantes
 
-- **Notifique cuanto antes.** Cuanto antes lo sepamos, mejor podremos limitar los daños. Por regla general, debemos notificar las violaciones de la seguridad de los datos personales a la autoridad de control de protección de datos en un plazo de 72 horas desde que tengamos constancia de ellas (art. 33 RGPD). En ese plazo también debe caber nuestra evaluación, así que notifíquelo de inmediato, aunque todavía no esté todo claro.
+- **Notifique cuanto antes.** Cuanto antes lo sepamos, mejor podremos limitar los daños. Por regla general, debemos notificar las violaciones de la seguridad de los datos personales a la autoridad de control de protección de datos sin dilación indebida y, de ser posible, en un plazo de 72 horas desde que tengamos constancia de ellas (art. 33 RGPD). En ese plazo también debe caber nuestra evaluación, así que notifíquelo de inmediato, aunque todavía no esté todo claro.
 - **Su progreso se guarda.** Sus datos se guardan automáticamente en su navegador. Puede interrumpir en cualquier momento y continuar más tarde.
 - **No olvide enviar.** Solo recibimos su notificación cuando la envía. Puede saltarse pasos y completar los datos que falten más adelante.
 

@@ -489,7 +489,7 @@ Deploy directly from the repository. Keep these in mind:
 
 - [ENISA RSIT](https://www.enisa.europa.eu/publications/reference-incident-classification-taxonomy) — Incident classification taxonomy
 - [NIST SP 800-61](https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final) — Computer Security Incident Handling Guide
-- [GDPR Art. 33](https://gdpr-info.eu/art-33-gdpr/) — Notification of personal data breach
+- [GDPR Art. 33](https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng#art_33) — Notification of a personal data breach (official text on EUR-Lex)
 
 ## License
 

@@ -16,7 +16,7 @@ Emin değilseniz bildirin. Bir sorun bir saldırıyla veya kişisel verilerle ba
 
 ## Önemli bilgiler
 
-- **Hızlı bildirin.** Ne kadar erken haberdar olursak, zararı o kadar iyi sınırlayabiliriz. Kişisel veri ihlallerini kural olarak, öğrendiğimiz andan itibaren 72 saat içinde veri koruma denetim makamına bildirmek zorundayız (AB Genel Veri Koruma Tüzüğü, md. 33). Bizim değerlendirmemiz de bu süreye sığmalıdır. Bu nedenle her şey henüz netleşmemiş olsa bile hemen bildirin.
+- **Hızlı bildirin.** Ne kadar erken haberdar olursak, zararı o kadar iyi sınırlayabiliriz. Kişisel veri ihlallerini kural olarak, öğrendiğimiz andan itibaren gecikmeksizin ve mümkünse en geç 72 saat içinde veri koruma denetim makamına bildirmek zorundayız (AB Genel Veri Koruma Tüzüğü, md. 33). Bizim değerlendirmemiz de bu süreye sığmalıdır. Bu nedenle her şey henüz netleşmemiş olsa bile hemen bildirin.
 - **İlerlemeniz kaydedilir.** Girdikleriniz tarayıcınızda otomatik olarak kaydedilir. İstediğiniz zaman ara verip daha sonra devam edebilirsiniz.
 - **Göndermeyi unutmayın.** Bildiriminizi ancak gönderdiğinizde alırız. Adımları atlayabilir ve eksik bilgileri daha sonra tamamlayabilirsiniz.
 

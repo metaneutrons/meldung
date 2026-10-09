@@ -16,7 +16,7 @@ En cas de doute, signalez-le. Si un problème peut être lié à une attaque ou 
 
 ## Points importants
 
-- **Signalez rapidement.** Plus tôt nous sommes informés, mieux nous pouvons limiter les dégâts. En règle générale, nous devons notifier les violations de données à caractère personnel à l'autorité de contrôle dans les 72 heures après en avoir pris connaissance (art. 33 RGPD). Notre évaluation doit aussi tenir dans ce délai. Signalez donc immédiatement, même si tout n'est pas encore clair.
+- **Signalez rapidement.** Plus tôt nous sommes informés, mieux nous pouvons limiter les dégâts. En règle générale, nous devons notifier les violations de données à caractère personnel à l'autorité de contrôle dans les meilleurs délais et, si possible, 72 heures au plus tard après en avoir pris connaissance (art. 33 RGPD). Notre évaluation doit aussi tenir dans ce délai. Signalez donc immédiatement, même si tout n'est pas encore clair.
 - **Votre progression est enregistrée.** Vos saisies sont enregistrées automatiquement dans votre navigateur. Vous pouvez vous interrompre à tout moment et reprendre plus tard.
 - **N'oubliez pas d'envoyer.** Nous ne recevons votre signalement qu'une fois envoyé. Vous pouvez sauter des étapes et compléter les informations manquantes plus tard.
 
