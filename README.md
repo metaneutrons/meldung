@@ -494,3 +494,7 @@ Deploy directly from the repository. Keep these in mind:
 ## License
 
 [AGPL-3.0-or-later](LICENSE)
+
+The PDF report embeds [Noto Sans](https://notofonts.github.io/) so that every supported language,
+including Cyrillic and Turkish, renders and can be copied and searched. The font files in
+`public/fonts/` are licensed under the [SIL Open Font License 1.1](public/fonts/OFL.txt).
