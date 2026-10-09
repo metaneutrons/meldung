@@ -366,6 +366,12 @@ not yet known to Zammad therefore ends up as a user there; plan your retention r
 The token needs the `ticket.agent` permission for the target group. With a customer-level token
 Zammad ignores the given customer and files every ticket under the token's own user.
 
+Zammad ships a trigger, "auto reply (on new tickets)", that answers every new customer web ticket
+with its own English e-mail and a link to its customer portal. meldung already confirms in the
+reporter's language, so it marks the article to skip that trigger. Set `autoReply: true` to let
+Zammad's reply go out as well. The marker needs the agent-level token; with a customer-level token
+Zammad drops it.
+
 | Key          | Default | Purpose                               |
 | ------------ | ------- | ------------------------------------- |
 | `baseUrl`    | —       | Zammad base URL                       |
@@ -373,6 +379,7 @@ Zammad ignores the given customer and files every ticket under the token's own u
 | `group`      | `Users` | Target group                          |
 | `includePdf` | `true`  | Attach the PDF to the article         |
 | `timeoutMs`  | `10000` | Request timeout                       |
+| `autoReply`  | `false` | Let Zammad send its own auto reply    |
 
 ```yaml
 delivery:
