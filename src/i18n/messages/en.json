@@ -64,12 +64,10 @@
     "title": "Your incident report has been submitted successfully",
     "reference": "Reference Number",
     "downloadPdf": "Download PDF Report",
-    "deliveryStatus": "Delivery Status",
-    "channelSuccess": "{channel}: Delivered",
-    "channelFailed": "{channel}: Failed",
     "submitAnother": "Submit another report",
     "errorTitle": "Submission failed",
-    "errorRetry": "Please try again"
+    "errorRetry": "Please try again",
+    "ticket": "Ticket number: {ticket}"
   },
   "steps": {
     "reporter": {

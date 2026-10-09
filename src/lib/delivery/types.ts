@@ -4,6 +4,8 @@ export interface DeliveryResult {
   success: boolean;
   channel: string;
   error?: string;
+  /** The ticket number a helpdesk assigned, for the reporter to quote. */
+  ticketNumber?: string;
 }
 
 export interface DeliveryContext {

@@ -5,6 +5,7 @@
   "page": "Seite",
   "confirmationMail": {
     "subject": "Eingangsbestätigung Ihrer Meldung {reference}",
-    "body": "Guten Tag {name},\n\nIhre Meldung eines IT-Sicherheitsvorfalls ist bei uns eingegangen.\n\nReferenznummer: {reference}\nBitte geben Sie diese Referenznummer bei allen Rückfragen an.\n\n{orgName}"
+    "body": "Guten Tag {name},\n\nIhre Meldung eines IT-Sicherheitsvorfalls ist bei uns eingegangen.\n\nReferenznummer: {reference}\n{ticketLine}Bitte geben Sie diese Referenznummer bei allen Rückfragen an.\n\n{orgName}",
+    "ticketLine": "Ticketnummer: {ticket}"
   }
 }

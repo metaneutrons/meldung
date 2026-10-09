@@ -100,7 +100,11 @@ export async function deliverZammad(
       return { success: false, channel: CHANNEL, error: 'no ticket id returned' };
     }
 
-    return { success: true, channel: CHANNEL };
+    return {
+      success: true,
+      channel: CHANNEL,
+      ...(body.number ? { ticketNumber: body.number } : {}),
+    };
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown Zammad delivery error';
     return { success: false, channel: CHANNEL, error: message };

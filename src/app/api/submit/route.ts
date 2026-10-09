@@ -12,12 +12,7 @@ import { rateLimit } from '@/lib/rate-limit';
 import { verifySolution } from '@/lib/captcha';
 import { routing } from '@/i18n/routing';
 import type { DeliveryResult } from '@/lib/delivery/types';
-
-function generateReferenceNumber(prefix: string): string {
-  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const rand = crypto.randomBytes(2).toString('hex');
-  return `${prefix}-${date}-${rand}`;
-}
+import { generateReferenceNumber } from '@/lib/reference';
 
 function clientIp(request: Request): string {
   const fwd = request.headers.get('x-forwarded-for');
@@ -74,10 +69,9 @@ export async function POST(request: Request) {
     const ctx = { data, referenceNumber, pdfBuffer, locale, submittedAt };
     const deliveryPromises: Promise<DeliveryResult>[] = [];
 
-    if (config.delivery.email.enabled && config.delivery.email.smtp) {
-      const smtp = config.delivery.email.smtp;
+    const smtp = config.delivery.email.enabled ? config.delivery.email.smtp : undefined;
+    if (smtp) {
       deliveryPromises.push(deliverEmail(ctx, smtp));
-      deliveryPromises.push(sendConfirmationEmail(ctx, smtp, data.email, config.branding.orgName));
     }
 
     if (config.delivery.znuny.enabled && config.delivery.znuny.config) {
@@ -102,6 +96,15 @@ export async function POST(request: Request) {
         ? r.value
         : { success: false, channel: 'unknown', error: String(r.reason) },
     );
+
+    // The confirmation goes out after the helpdesk channels so it can quote the
+    // ticket numbers they assigned.
+    const ticketNumbers = deliveryResults.flatMap((r) => (r.ticketNumber ? [r.ticketNumber] : []));
+    if (smtp) {
+      deliveryResults.push(
+        await sendConfirmationEmail(ctx, smtp, data.email, config.branding.orgName, ticketNumbers),
+      );
+    }
 
     // A failed channel does not fail the submission, so the log is the only place
     // an operator learns about it. The detail stays server-side: it can name
@@ -131,7 +134,11 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       referenceNumber,
-      deliveryResults: deliveryResults.map(({ channel, success }) => ({ channel, success })),
+      deliveryResults: deliveryResults.map(({ channel, success, ticketNumber }) => ({
+        channel,
+        success,
+        ...(ticketNumber ? { ticketNumber } : {}),
+      })),
       pdfBase64: pdfBuffer.toString('base64'),
     });
   } catch (err) {

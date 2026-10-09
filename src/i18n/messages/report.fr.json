@@ -5,6 +5,7 @@
   "page": "Page",
   "confirmationMail": {
     "subject": "Accusé de réception de votre signalement {reference}",
-    "body": "Bonjour {name},\n\nNous avons bien reçu votre signalement d'incident de sécurité informatique.\n\nNuméro de référence : {reference}\nVeuillez indiquer ce numéro de référence dans toute correspondance ultérieure.\n\n{orgName}"
+    "body": "Bonjour {name},\n\nNous avons bien reçu votre signalement d'incident de sécurité informatique.\n\nNuméro de référence : {reference}\n{ticketLine}Veuillez indiquer ce numéro de référence dans toute correspondance ultérieure.\n\n{orgName}",
+    "ticketLine": "Numéro de ticket : {ticket}"
   }
 }

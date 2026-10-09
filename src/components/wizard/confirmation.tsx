@@ -14,6 +14,7 @@ export function Confirmation({
   onAnother: () => void;
 }) {
   const tConf = useTranslations('confirmation');
+  const tickets = result.deliveryResults.flatMap((r) => (r.ticketNumber ? [r.ticketNumber] : []));
 
   const downloadPdf = () => {
     const blob = new Blob([Uint8Array.from(atob(result.pdfBase64), (c) => c.charCodeAt(0))], {
@@ -42,6 +43,11 @@ export function Confirmation({
         <div className="mt-4 rounded-xl bg-surface-2 px-4 py-2.5 font-mono text-base font-semibold text-fg">
           {result.referenceNumber}
         </div>
+        {tickets.map((ticket) => (
+          <p key={ticket} className="mt-2 text-sm text-fg-muted">
+            {tConf('ticket', { ticket })}
+          </p>
+        ))}
         <div className="mt-6 space-y-3">
           <Button className="w-full" onClick={downloadPdf}>
             {tConf('downloadPdf')}

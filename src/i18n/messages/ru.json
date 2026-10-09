@@ -64,12 +64,10 @@
     "title": "Ваше сообщение об инциденте успешно отправлено",
     "reference": "Номер обращения",
     "downloadPdf": "Скачать отчёт в PDF",
-    "deliveryStatus": "Статус доставки",
-    "channelSuccess": "{channel}: доставлено",
-    "channelFailed": "{channel}: не удалось доставить",
     "submitAnother": "Отправить ещё одно сообщение",
     "errorTitle": "Не удалось отправить",
-    "errorRetry": "Попробуйте ещё раз"
+    "errorRetry": "Попробуйте ещё раз",
+    "ticket": "Номер заявки: {ticket}"
   },
   "steps": {
     "reporter": {
