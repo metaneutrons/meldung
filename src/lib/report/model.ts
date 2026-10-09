@@ -52,6 +52,9 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
     .join(', ');
   const yn = (v: string) => (v ? t(`options.${v}`) : '');
   const opt = (group: string, v: string) => (v ? t(`impact.${group}.${v}`) : '');
+  // One answer per line: the answers are sentences that contain commas themselves.
+  const list = (group: string, values: readonly string[]) =>
+    values.map((v) => t(`impact.${group}.${v}`)).join('\n');
 
   const sections: ReportSection[] = [
     {
@@ -95,15 +98,12 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
     {
       title: tw('impact'),
       fields: [
-        { label: t('impact.functional'), value: opt('functionalOptions', data.functionalImpact) },
+        { label: t('impact.work'), value: opt('workOptions', data.workImpact) },
         {
           label: t('impact.information'),
-          value: opt('informationOptions', data.informationImpact),
+          value: list('informationOptions', data.affectedInformation),
         },
-        {
-          label: t('impact.recoverability'),
-          value: opt('recoverabilityOptions', data.recoverability),
-        },
+        { label: t('impact.effects'), value: list('effectOptions', data.informationEffects) },
         { label: t('impact.personalData'), value: yn(data.personalDataInvolved) },
       ],
     },

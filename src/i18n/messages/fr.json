@@ -130,29 +130,31 @@
       "otherPlaceholder": "Veuillez préciser"
     },
     "impact": {
-      "functional": "Impact fonctionnel",
-      "information": "Impact sur l'information",
-      "recoverability": "Capacité de récupération",
-      "personalData": "Cet incident implique-t-il des données personnelles ?",
-      "personalDataHint": "Une étape supplémentaire pour l'évaluation de la protection des données sera ajoutée.",
-      "functionalOptions": {
-        "none": "Aucun – Pas d'impact",
-        "low": "Faible – Impact minimal",
-        "medium": "Moyen – Impact significatif",
-        "high": "Élevé – Impact critique"
+      "work": "Pouvez-vous, vous et votre service, continuer à travailler ?",
+      "workOptions": {
+        "normal": "Oui, normalement",
+        "limited": "Seulement de façon limitée",
+        "stopped": "Non, le travail est à l'arrêt",
+        "unknown": "Je ne sais pas"
       },
+      "information": "Quelles informations sont concernées ?",
+      "multiple": "Plusieurs réponses possibles",
       "informationOptions": {
-        "none": "Aucun",
-        "privacy-breach": "Violation de la vie privée",
-        "proprietary-breach": "Violation d'informations confidentielles",
-        "integrity-loss": "Perte d'intégrité"
+        "personal": "Données personnelles, c'est-à-dire des informations sur des personnes, par exemple des employés, des clients ou des étudiants",
+        "confidential": "Informations confidentielles de l'organisation, par exemple des données de recherche, des contrats ou des documents internes",
+        "credentials": "Identifiants tels que mots de passe, clés ou certificats",
+        "none": "Aucune information concernée",
+        "unknown": "Je ne sais pas"
       },
-      "recoverabilityOptions": {
-        "regular": "Normal – ressources existantes suffisantes",
-        "supplemented": "Renforcé – ressources supplémentaires nécessaires",
-        "extended": "Étendu – temps/ressources importants nécessaires",
-        "not-recoverable": "Non récupérable"
-      }
+      "effects": "Qu'est-il arrivé aux informations ?",
+      "effectOptions": {
+        "disclosed": "Des personnes non autorisées ont pu les consulter ou les ont reçues",
+        "altered": "Elles ont été modifiées ou falsifiées",
+        "unavailable": "Elles ont été supprimées, chiffrées ou ne sont plus accessibles",
+        "unknown": "Je ne sais pas"
+      },
+      "personalData": "Cet incident implique-t-il des données personnelles ?",
+      "personalDataHint": "Une étape supplémentaire pour l'évaluation de la protection des données sera ajoutée."
     },
     "measures": {
       "measuresTaken": "Mesures déjà prises",

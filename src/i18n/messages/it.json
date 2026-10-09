@@ -130,29 +130,31 @@
       "otherPlaceholder": "Specificare"
     },
     "impact": {
-      "functional": "Impatto funzionale",
-      "information": "Impatto sulle informazioni",
-      "recoverability": "Recuperabilità",
-      "personalData": "Questo incidente coinvolge dati personali?",
-      "personalDataHint": "Verrà aggiunto un passaggio aggiuntivo per la valutazione della protezione dei dati.",
-      "functionalOptions": {
-        "none": "Nessuno – Nessun impatto",
-        "low": "Basso – Impatto minimo",
-        "medium": "Medio – Impatto significativo",
-        "high": "Alto – Impatto critico"
+      "work": "Lei e il suo reparto potete continuare a lavorare?",
+      "workOptions": {
+        "normal": "Sì, normalmente",
+        "limited": "Solo in parte",
+        "stopped": "No, il lavoro è fermo",
+        "unknown": "Non so"
       },
+      "information": "Quali informazioni sono coinvolte?",
+      "multiple": "Sono possibili più risposte",
       "informationOptions": {
-        "none": "Nessuno",
-        "privacy-breach": "Violazione della privacy",
-        "proprietary-breach": "Violazione di informazioni riservate",
-        "integrity-loss": "Perdita di integrità"
+        "personal": "Dati personali, cioè informazioni su singole persone, ad esempio dipendenti, clienti o studenti",
+        "confidential": "Informazioni riservate dell'organizzazione, ad esempio dati di ricerca, contratti o documenti interni",
+        "credentials": "Credenziali di accesso come password, chiavi o certificati",
+        "none": "Nessuna informazione coinvolta",
+        "unknown": "Non so"
       },
-      "recoverabilityOptions": {
-        "regular": "Regolare – risorse esistenti sufficienti",
-        "supplemented": "Integrato – risorse aggiuntive necessarie",
-        "extended": "Esteso – tempo/risorse significativi necessari",
-        "not-recoverable": "Non recuperabile"
-      }
+      "effects": "Che cosa è successo alle informazioni?",
+      "effectOptions": {
+        "disclosed": "Persone non autorizzate hanno potuto vederle o le hanno ricevute",
+        "altered": "Sono state modificate o falsificate",
+        "unavailable": "Sono state cancellate, cifrate o non sono più accessibili",
+        "unknown": "Non so"
+      },
+      "personalData": "Questo incidente coinvolge dati personali?",
+      "personalDataHint": "Verrà aggiunto un passaggio aggiuntivo per la valutazione della protezione dei dati."
     },
     "measures": {
       "measuresTaken": "Misure già adottate",

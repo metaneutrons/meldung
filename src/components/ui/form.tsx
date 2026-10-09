@@ -165,7 +165,9 @@ export function RadioGroup({
               name={name}
               value={opt.value}
               checked={value === opt.value}
-              onChange={() => { onChange(opt.value); }}
+              onChange={() => {
+                onChange(opt.value);
+              }}
               className={choiceBase}
             />
             {opt.label}
@@ -178,12 +180,15 @@ export function RadioGroup({
 
 export function CheckboxGroup({
   legend,
+  hint,
   options,
   values,
   onToggle,
   columns = true,
 }: {
   legend: string;
+  /** Shown under the legend, e.g. that several answers are possible. */
+  hint?: string;
   options: readonly ChoiceOption[];
   values: string[];
   onToggle: (value: string) => void;
@@ -192,6 +197,7 @@ export function CheckboxGroup({
   return (
     <fieldset>
       <legend className={labelClass}>{legend}</legend>
+      {hint && <p className="-mt-1 mb-2 text-xs text-fg-subtle">{hint}</p>}
       <div
         className={cn(
           'gap-3 rounded-xl border border-border bg-surface-2 p-4',
@@ -203,7 +209,9 @@ export function CheckboxGroup({
             <input
               type="checkbox"
               checked={values.includes(opt.value)}
-              onChange={() => { onToggle(opt.value); }}
+              onChange={() => {
+                onToggle(opt.value);
+              }}
               className={cn(choiceBase, 'rounded')}
             />
             <span>{opt.label}</span>
@@ -248,7 +256,9 @@ export function SegmentedControl({
               type="button"
               role="radio"
               aria-checked={active}
-              onClick={() => { onChange(opt.value); }}
+              onClick={() => {
+                onChange(opt.value);
+              }}
               className={cn(
                 'rounded-lg px-4 py-1.5 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand',
                 active ? 'bg-surface text-fg shadow-sm' : 'text-fg-muted hover:text-fg',
