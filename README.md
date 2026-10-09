@@ -247,9 +247,10 @@ delivery:
         - 'dpo@example.com'
 ```
 
-The confirmation to the reporter is sent in the language the report was filed in. Its subject and
-body are ordinary texts (`report.confirmationMail`, see [Texts](#texts)) with the placeholders
-`{reference}`, `{name}` and `{orgName}`.
+The confirmation to the reporter is sent in the language the report was filed in, after the
+helpdesk channels, so it can quote their ticket numbers. Its subject and body are ordinary texts
+(`report.confirmationMail`, see [Texts](#texts)) with the placeholders `{reference}`, `{name}`,
+`{orgName}` and, in the body, `{ticketLine}`.
 
 #### Znuny / OTRS & OTOBO
 
@@ -308,7 +309,7 @@ system that can receive an HTTP request.
 {
   "version": "1",
   "event": "incident.reported",
-  "referenceNumber": "INC-20260630-a3f2",
+  "referenceNumber": "INC-20260630-a3f29c",
   "locale": "de",
   "submittedAt": "2026-06-30T12:34:56.000Z",
   "data": {/* raw form fields — stable keys, machine-parseable */},
@@ -431,8 +432,13 @@ Set `AUTH_ENABLED=true` and `AUTH_SECRET` in the environment to activate it.
 
 ### Reference numbers
 
-Every report gets an identifier of the form `{prefix}-{YYYYMMDD}-{4 hex}`, e.g.
-`INC-20260630-a3f2`. Change the prefix with `referencePrefix: 'INC'`.
+Every report gets an identifier of the form `{prefix}-{YYYYMMDD}-{6 hex}`, e.g.
+`INC-20260630-a3f29c`. Change the prefix with `referencePrefix: 'INC'`. The number exists before any
+delivery, so it is the same in the PDF, every e-mail and every channel.
+
+When a helpdesk channel (Zammad, Znuny, OTOBO) creates a ticket, its ticket number is shown on the
+confirmation screen and quoted in the confirmation e-mail (`{ticketLine}` in
+`report.confirmationMail.body`), and it is kept with the delivery results in the audit trail.
 
 ## Environment variables
 

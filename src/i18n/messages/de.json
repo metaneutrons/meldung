@@ -64,12 +64,10 @@
     "title": "Ihr Sicherheitsvorfall wurde erfolgreich gemeldet",
     "reference": "Referenznummer",
     "downloadPdf": "PDF-Bericht herunterladen",
-    "deliveryStatus": "Zustellstatus",
-    "channelSuccess": "{channel}: Zugestellt",
-    "channelFailed": "{channel}: Fehlgeschlagen",
     "submitAnother": "Weitere Meldung erstellen",
     "errorTitle": "Übermittlung fehlgeschlagen",
-    "errorRetry": "Bitte versuchen Sie es erneut"
+    "errorRetry": "Bitte versuchen Sie es erneut",
+    "ticket": "Ticketnummer: {ticket}"
   },
   "steps": {
     "reporter": {
@@ -132,29 +130,31 @@
       "otherPlaceholder": "Bitte angeben"
     },
     "impact": {
-      "functional": "Funktionale Auswirkung",
-      "information": "Informationsbezogene Auswirkung",
-      "recoverability": "Wiederherstellbarkeit",
-      "personalData": "Sind personenbezogene Daten betroffen?",
-      "personalDataHint": "Ein zusätzlicher Schritt zur Datenschutzbewertung wird hinzugefügt.",
-      "functionalOptions": {
-        "none": "Keine – Kein Einfluss",
-        "low": "Gering – Minimale Auswirkung",
-        "medium": "Mittel – Erhebliche Auswirkung",
-        "high": "Hoch – Kritische Auswirkung"
+      "work": "Können Sie und Ihr Bereich weiterarbeiten?",
+      "workOptions": {
+        "normal": "Ja, normal",
+        "limited": "Nur eingeschränkt",
+        "stopped": "Nein, die Arbeit steht still",
+        "unknown": "Weiß nicht"
       },
+      "information": "Welche Informationen sind betroffen?",
+      "multiple": "Mehrere Antworten möglich",
       "informationOptions": {
-        "none": "Keine",
-        "privacy-breach": "Verletzung des Datenschutzes",
-        "proprietary-breach": "Verletzung vertraulicher Informationen",
-        "integrity-loss": "Integritätsverlust"
+        "personal": "Personenbezogene Daten, also Angaben zu einzelnen Menschen, etwa Beschäftigten, Kunden oder Studierenden",
+        "confidential": "Vertrauliche Informationen der Organisation, etwa Forschungsdaten, Verträge oder interne Unterlagen",
+        "credentials": "Zugangsdaten wie Passwörter, Schlüssel oder Zertifikate",
+        "none": "Keine Informationen betroffen",
+        "unknown": "Weiß nicht"
       },
-      "recoverabilityOptions": {
-        "regular": "Regulär – vorhandene Ressourcen ausreichend",
-        "supplemented": "Ergänzt – zusätzliche Ressourcen erforderlich",
-        "extended": "Erweitert – erheblicher Zeit-/Ressourcenaufwand",
-        "not-recoverable": "Nicht wiederherstellbar"
-      }
+      "effects": "Was ist mit den Informationen passiert?",
+      "effectOptions": {
+        "disclosed": "Unbefugte konnten sie einsehen oder haben sie erhalten",
+        "altered": "Sie wurden verändert oder verfälscht",
+        "unavailable": "Sie sind gelöscht, verschlüsselt oder nicht mehr erreichbar",
+        "unknown": "Weiß nicht"
+      },
+      "personalData": "Sind personenbezogene Daten betroffen?",
+      "personalDataHint": "Ein zusätzlicher Schritt zur Datenschutzbewertung wird hinzugefügt."
     },
     "measures": {
       "measuresTaken": "Bereits ergriffene Maßnahmen",

@@ -30,7 +30,9 @@ function FieldList({
           {onGo ? (
             <button
               type="button"
-              onClick={() => { onGo(item.step); }}
+              onClick={() => {
+                onGo(item.step);
+              }}
               className="underline underline-offset-2 hover:no-underline"
             >
               {item.label}
@@ -62,7 +64,8 @@ export function Summary() {
   if (!state.incidentCategory)
     missing.push({ label: tw('classification'), step: 'classification' });
   if (!state.description) missing.push({ label: tw('description'), step: 'description' });
-  if (!state.functionalImpact) missing.push({ label: tw('impact'), step: 'impact' });
+  if (!state.workImpact || state.affectedInformation.length === 0)
+    missing.push({ label: tw('impact'), step: 'impact' });
 
   const category = ENISA_RSIT_TAXONOMY.find((c) => c.value === state.incidentCategory);
   const subType = category?.entries.find((e) => e === state.incidentSubType);
@@ -137,23 +140,37 @@ export function Summary() {
         {state.affectedSystems.length > 0 && (
           <Row label={tw('systems')} value={state.affectedSystems.map(sysLabel).join(', ')} />
         )}
-        {state.functionalImpact && (
-          <Row label={t('impact.functional')} value={state.functionalImpact} />
+        {state.workImpact && (
+          <Row label={t('impact.work')} value={t(`impact.workOptions.${state.workImpact}`)} />
         )}
-        {state.informationImpact && (
-          <Row label={t('impact.information')} value={state.informationImpact} />
+        {state.affectedInformation.length > 0 && (
+          <Row
+            label={t('impact.information')}
+            value={state.affectedInformation
+              .map((v) => t(`impact.informationOptions.${v}`))
+              .join('\n')}
+          />
         )}
-        {state.recoverability && (
-          <Row label={t('impact.recoverability')} value={state.recoverability} />
+        {state.informationEffects.length > 0 && (
+          <Row
+            label={t('impact.effects')}
+            value={state.informationEffects.map((v) => t(`impact.effectOptions.${v}`)).join('\n')}
+          />
         )}
         {state.measuresTaken && (
           <Row label={t('measures.measuresTaken')} value={state.measuresTaken} />
         )}
         {state.personalDataInvolved && (
-          <Row label={t('impact.personalData')} value={state.personalDataInvolved} />
+          <Row
+            label={t('impact.personalData')}
+            value={t(`options.${state.personalDataInvolved}`)}
+          />
         )}
         {state.dataCategories.length > 0 && (
-          <Row label={t('gdpr.dataCategories')} value={state.dataCategories.join(', ')} />
+          <Row
+            label={t('gdpr.dataCategories')}
+            value={state.dataCategories.map((k) => t(`gdpr.dataCategoryOptions.${k}`)).join(', ')}
+          />
         )}
         {state.estimatedRecords && (
           <Row label={t('gdpr.estimatedRecords')} value={state.estimatedRecords} />
@@ -169,7 +186,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col gap-0.5 border-b border-border pb-2 sm:flex-row sm:gap-4">
       <span className="shrink-0 text-sm font-medium text-fg-muted sm:w-40">{label}</span>
-      <span className="text-sm text-fg">{value}</span>
+      <span className="whitespace-pre-line text-sm text-fg">{value}</span>
     </div>
   );
 }

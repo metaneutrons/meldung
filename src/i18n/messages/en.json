@@ -64,12 +64,10 @@
     "title": "Your incident report has been submitted successfully",
     "reference": "Reference Number",
     "downloadPdf": "Download PDF Report",
-    "deliveryStatus": "Delivery Status",
-    "channelSuccess": "{channel}: Delivered",
-    "channelFailed": "{channel}: Failed",
     "submitAnother": "Submit another report",
     "errorTitle": "Submission failed",
-    "errorRetry": "Please try again"
+    "errorRetry": "Please try again",
+    "ticket": "Ticket number: {ticket}"
   },
   "steps": {
     "reporter": {
@@ -132,29 +130,31 @@
       "otherPlaceholder": "Please specify"
     },
     "impact": {
-      "functional": "Functional Impact",
-      "information": "Information Impact",
-      "recoverability": "Recoverability",
-      "personalData": "Does this incident involve personal data?",
-      "personalDataHint": "An additional step for data protection assessment will be added.",
-      "functionalOptions": {
-        "none": "None - No impact",
-        "low": "Low - Minimal impact",
-        "medium": "Medium - Significant impact",
-        "high": "High - Critical impact"
+      "work": "Can you and your team keep working?",
+      "workOptions": {
+        "normal": "Yes, as usual",
+        "limited": "Only to a limited extent",
+        "stopped": "No, work has come to a halt",
+        "unknown": "Don't know"
       },
+      "information": "Which information is affected?",
+      "multiple": "Select all that apply",
       "informationOptions": {
-        "none": "None",
-        "privacy-breach": "Privacy Breach",
-        "proprietary-breach": "Proprietary Information Breach",
-        "integrity-loss": "Integrity Loss"
+        "personal": "Personal data, i.e. information about individuals such as staff, customers or students",
+        "confidential": "Confidential information of the organization, such as research data, contracts or internal documents",
+        "credentials": "Credentials such as passwords, keys or certificates",
+        "none": "No information affected",
+        "unknown": "Don't know"
       },
-      "recoverabilityOptions": {
-        "regular": "Regular - existing resources sufficient",
-        "supplemented": "Supplemented - additional resources needed",
-        "extended": "Extended - significant time/resources needed",
-        "not-recoverable": "Not Recoverable"
-      }
+      "effects": "What happened to the information?",
+      "effectOptions": {
+        "disclosed": "Unauthorized people could see it or have received it",
+        "altered": "It was changed or falsified",
+        "unavailable": "It was deleted, encrypted or can no longer be accessed",
+        "unknown": "Don't know"
+      },
+      "personalData": "Does this incident involve personal data?",
+      "personalDataHint": "An additional step for data protection assessment will be added."
     },
     "measures": {
       "measuresTaken": "Measures already taken",

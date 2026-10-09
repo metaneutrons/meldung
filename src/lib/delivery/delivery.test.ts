@@ -7,14 +7,12 @@ import type { ReportModel } from '@/lib/report/model';
 // buildReportModel needs the next-intl request scope, which isn't available in a
 // unit test — stub the report layer so the channels can be exercised in isolation.
 vi.mock('@/lib/report/model', () => ({
-  buildReportModel: vi.fn(
-    async (): Promise<ReportModel> => ({
-      title: 'Incident Report',
-      category: 'Phishing',
-      meta: { reference: 'INC', generated: 'now', page: 'page' },
-      sections: [{ title: 'Section', fields: [{ label: 'Label', value: 'Value' }] }],
-    }),
-  ),
+  buildReportModel: vi.fn(async (): Promise<ReportModel> => ({
+    title: 'Incident Report',
+    category: 'Phishing',
+    meta: { reference: 'INC', generated: 'now', page: 'page' },
+    sections: [{ title: 'Section', fields: [{ label: 'Label', value: 'Value' }] }],
+  })),
   formatReportText: vi.fn(() => 'PLAINTEXT BODY'),
 }));
 
@@ -138,7 +136,7 @@ describe('zammad channel', () => {
     global.fetch = fetchMock;
 
     const res = await deliverZammad(ctx, config);
-    expect(res).toEqual({ success: true, channel: 'zammad' });
+    expect(res).toEqual({ success: true, channel: 'zammad', ticketNumber: '67001' });
 
     const { url, init } = callOf(fetchMock);
     expect(url).toBe('https://zammad.example.com/api/v1/tickets');
@@ -214,12 +212,20 @@ describe('otrs channels (znuny + otobo)', () => {
 
   it('labels results with the znuny channel', async () => {
     mockOk();
-    expect(await deliverZnuny(ctx, config)).toEqual({ success: true, channel: 'znuny' });
+    expect(await deliverZnuny(ctx, config)).toEqual({
+      success: true,
+      channel: 'znuny',
+      ticketNumber: '2026063000001',
+    });
   });
 
   it('reuses the same connector for otobo', async () => {
     mockOk();
-    expect(await deliverOtobo(ctx, config)).toEqual({ success: true, channel: 'otobo' });
+    expect(await deliverOtobo(ctx, config)).toEqual({
+      success: true,
+      channel: 'otobo',
+      ticketNumber: '2026063000001',
+    });
   });
 
   it('surfaces an OTRS error payload', async () => {

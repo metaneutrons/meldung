@@ -52,6 +52,9 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
     .join(', ');
   const yn = (v: string) => (v ? t(`options.${v}`) : '');
   const opt = (group: string, v: string) => (v ? t(`impact.${group}.${v}`) : '');
+  // One answer per line: the answers are sentences that contain commas themselves.
+  const list = (group: string, values: readonly string[]) =>
+    values.map((v) => t(`impact.${group}.${v}`)).join('\n');
 
   const sections: ReportSection[] = [
     {
@@ -95,15 +98,12 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
     {
       title: tw('impact'),
       fields: [
-        { label: t('impact.functional'), value: opt('functionalOptions', data.functionalImpact) },
+        { label: t('impact.work'), value: opt('workOptions', data.workImpact) },
         {
           label: t('impact.information'),
-          value: opt('informationOptions', data.informationImpact),
+          value: list('informationOptions', data.affectedInformation),
         },
-        {
-          label: t('impact.recoverability'),
-          value: opt('recoverabilityOptions', data.recoverability),
-        },
+        { label: t('impact.effects'), value: list('effectOptions', data.informationEffects) },
         { label: t('impact.personalData'), value: yn(data.personalDataInvolved) },
       ],
     },
@@ -170,6 +170,7 @@ export async function buildConfirmationMail(
   referenceNumber: string,
   locale: string,
   values: { name: string; orgName: string },
+  ticketNumbers: readonly string[] = [],
 ): Promise<ConfirmationMail> {
   const tr = await getTranslations({ locale, namespace: 'report' });
   // raw(): the texts are templates with {placeholders}, not ICU messages.
@@ -178,7 +179,12 @@ export async function buildConfirmationMail(
     if (typeof text !== 'string') throw new Error(`report.${key} is missing for ${locale}`);
     return text;
   };
-  const fill = { reference: referenceNumber, ...values };
+  // {ticketLine} is one line per helpdesk ticket, or nothing at all, so the
+  // body reads the same whether or not a helpdesk is connected.
+  const ticketLine = ticketNumbers
+    .map((ticket) => `${fillTemplate(template('confirmationMail.ticketLine'), { ticket })}\n`)
+    .join('');
+  const fill = { reference: referenceNumber, ...values, ticketLine };
   return {
     // The subject is a mail header: no line break may reach it, neither from
     // the name field nor from a custom template.
