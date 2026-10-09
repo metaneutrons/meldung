@@ -64,12 +64,10 @@
     "title": "Votre signalement d'incident a été envoyé avec succès",
     "reference": "Numéro de référence",
     "downloadPdf": "Télécharger le rapport PDF",
-    "deliveryStatus": "Statut de livraison",
-    "channelSuccess": "{channel} : Livré",
-    "channelFailed": "{channel} : Échec",
     "submitAnother": "Soumettre un autre signalement",
     "errorTitle": "Échec de l'envoi",
-    "errorRetry": "Veuillez réessayer"
+    "errorRetry": "Veuillez réessayer",
+    "ticket": "Numéro de ticket : {ticket}"
   },
   "steps": {
     "reporter": {

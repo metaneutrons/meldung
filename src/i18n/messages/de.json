@@ -64,12 +64,10 @@
     "title": "Ihr Sicherheitsvorfall wurde erfolgreich gemeldet",
     "reference": "Referenznummer",
     "downloadPdf": "PDF-Bericht herunterladen",
-    "deliveryStatus": "Zustellstatus",
-    "channelSuccess": "{channel}: Zugestellt",
-    "channelFailed": "{channel}: Fehlgeschlagen",
     "submitAnother": "Weitere Meldung erstellen",
     "errorTitle": "Übermittlung fehlgeschlagen",
-    "errorRetry": "Bitte versuchen Sie es erneut"
+    "errorRetry": "Bitte versuchen Sie es erneut",
+    "ticket": "Ticketnummer: {ticket}"
   },
   "steps": {
     "reporter": {

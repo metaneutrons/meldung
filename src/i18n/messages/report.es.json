@@ -5,6 +5,7 @@
   "page": "Página",
   "confirmationMail": {
     "subject": "Confirmación de recepción de su informe {reference}",
-    "body": "Buenos días, {name}:\n\nHemos recibido su informe de incidente de seguridad informática.\n\nNúmero de referencia: {reference}\nIndique este número de referencia en cualquier comunicación posterior.\n\n{orgName}"
+    "body": "Buenos días, {name}:\n\nHemos recibido su informe de incidente de seguridad informática.\n\nNúmero de referencia: {reference}\n{ticketLine}Indique este número de referencia en cualquier comunicación posterior.\n\n{orgName}",
+    "ticketLine": "Número de ticket: {ticket}"
   }
 }

@@ -57,7 +57,11 @@ describe('confirmation mail defaults', () => {
       expect(subject).not.toMatch(/[\r\n]/);
       expect(body).toContain('{reference}');
       const used = [...(subject + body).matchAll(/\{(\w+)\}/g)].map((m) => m[1]);
-      expect(used.every((p) => ['reference', 'name', 'orgName'].includes(p ?? ''))).toBe(true);
+      expect(
+        used.every((p) =>
+          ['reference', 'name', 'orgName', 'ticketLine', 'ticket'].includes(p ?? ''),
+        ),
+      ).toBe(true);
     },
   );
 });
@@ -69,6 +73,18 @@ describe('buildConfirmationMail', () => {
     expect(mail.text).toContain('Guten Tag Ada Lovelace,');
     expect(mail.text).toContain('Referenznummer: INC-1');
     expect(mail.text.trimEnd().endsWith('ACME')).toBe(true);
+  });
+
+  it('quotes each helpdesk ticket on its own line, and leaves no gap without one', async () => {
+    const withTickets = await buildConfirmationMail('INC-1', 'de', values, [
+      '26002',
+      '2026100900001',
+    ]);
+    expect(withTickets.text).toContain(
+      'Referenznummer: INC-1\nTicketnummer: 26002\nTicketnummer: 2026100900001\nBitte',
+    );
+    const without = await buildConfirmationMail('INC-1', 'de', values);
+    expect(without.text).toContain('Referenznummer: INC-1\nBitte');
   });
 
   it('keeps a line break from the name field out of the subject', async () => {

@@ -170,6 +170,7 @@ export async function buildConfirmationMail(
   referenceNumber: string,
   locale: string,
   values: { name: string; orgName: string },
+  ticketNumbers: readonly string[] = [],
 ): Promise<ConfirmationMail> {
   const tr = await getTranslations({ locale, namespace: 'report' });
   // raw(): the texts are templates with {placeholders}, not ICU messages.
@@ -178,7 +179,12 @@ export async function buildConfirmationMail(
     if (typeof text !== 'string') throw new Error(`report.${key} is missing for ${locale}`);
     return text;
   };
-  const fill = { reference: referenceNumber, ...values };
+  // {ticketLine} is one line per helpdesk ticket, or nothing at all, so the
+  // body reads the same whether or not a helpdesk is connected.
+  const ticketLine = ticketNumbers
+    .map((ticket) => `${fillTemplate(template('confirmationMail.ticketLine'), { ticket })}\n`)
+    .join('');
+  const fill = { reference: referenceNumber, ...values, ticketLine };
   return {
     // The subject is a mail header: no line break may reach it, neither from
     // the name field nor from a custom template.

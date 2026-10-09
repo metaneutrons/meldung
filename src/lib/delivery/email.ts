@@ -37,12 +37,15 @@ export async function sendConfirmationEmail(
   smtp: SmtpConfig,
   reporterEmail: string,
   orgName: string,
+  ticketNumbers: readonly string[] = [],
 ): Promise<DeliveryResult> {
   try {
-    const mail = await buildConfirmationMail(ctx.referenceNumber, ctx.locale, {
-      name: ctx.data.reporterName,
-      orgName,
-    });
+    const mail = await buildConfirmationMail(
+      ctx.referenceNumber,
+      ctx.locale,
+      { name: ctx.data.reporterName, orgName },
+      ticketNumbers,
+    );
     await transport(smtp).sendMail({
       from: smtp.from,
       to: reporterEmail,
