@@ -44,7 +44,7 @@ taxonomy and includes a **GDPR Art. 33** personal-data-breach assessment.
 - **Guided multi-step wizard** with draft auto-save and resume (stored in the browser).
 - **Eight languages** — German, English, Spanish, French, Italian, Turkish, Russian, Ukrainian —
   covering the full UI, the ENISA taxonomy, and the generated report.
-- **ENISA RSIT classification** (overridable) and a **GDPR Art. 33** breach-assessment step.
+- **ENISA RSIT classification** (wording customizable) and a **GDPR Art. 33** breach-assessment step.
 - **Localized PDF report** with an automatic reference number.
 - **Multi-channel delivery**, run in parallel and best-effort: e-mail, Znuny/OTRS, OTOBO,
   Zammad, and a generic signed webhook.
@@ -81,8 +81,9 @@ outage never fails a submission. Each channel reports its own success/failure in
 docker compose up -d
 ```
 
-The portal is then available at `http://localhost:3000`. Edit `meldung.config.yaml` (mounted into
-the container) to configure delivery and branding.
+The portal is then available at `http://localhost:3000`. Edit `meldung.config.yaml` to configure
+delivery and branding, and put your own texts into `custom/` (see [Texts](#texts)). Both are
+mounted into the container.
 
 ## Development
 
@@ -91,32 +92,35 @@ Requires **Node.js 24+** and **pnpm**; the exact pnpm version is pinned in
 
 ```bash
 pnpm install
-cp meldung.config.example.yaml meldung.config.yaml
 pnpm dev                                # http://localhost:3000
 ```
 
+The checked-in `meldung.config.yaml` is the neutral demo configuration that also backs the public
+demo. [`meldung.config.example.yaml`](meldung.config.example.yaml) documents every key.
+
 ### Scripts
 
-| Command          | Purpose                          |
-| ---------------- | -------------------------------- |
-| `pnpm dev`       | Start the dev server (Turbopack) |
-| `pnpm build`     | Production build                 |
-| `pnpm start`     | Serve the production build       |
-| `pnpm typecheck` | Type-check (`tsc --noEmit`)      |
-| `pnpm lint`      | ESLint, warnings are errors      |
-| `pnpm format`    | Prettier                         |
-| `pnpm test`      | Run the test suite (Vitest)      |
+| Command          | Purpose                                                |
+| ---------------- | ------------------------------------------------------ |
+| `pnpm dev`       | Start the dev server (Turbopack)                       |
+| `pnpm build`     | Production build                                       |
+| `pnpm start`     | Serve the production build                             |
+| `pnpm typecheck` | Generate route types, then `tsc --noEmit`              |
+| `pnpm lint`      | Generate route types, then ESLint; warnings are errors |
+| `pnpm format`    | Prettier                                               |
+| `pnpm test`      | Run the test suite (Vitest)                            |
 
 ### Project structure
 
 ```
 src/
-  app/                 Next.js App Router — pages, /api/submit, /api/challenge
+  app/                 Next.js App Router — pages, /api/submit, /api/challenge, /api/health, /api/auth
   components/          UI primitives and wizard steps
   lib/
     form/schema.ts     Zod schema — single source of truth for the form
     delivery/          Delivery channels: email, otrs, webhook, zammad (+ shared http)
     report/model.ts    Localized report model (shared by PDF, e-mail, tickets)
+    texts.ts           Per-deployment text overrides (custom/)
     pdf/               PDF generation (@react-pdf/renderer)
     config/            YAML + environment configuration loader
     persistence/       Optional audit trail (JSONL / Postgres)
@@ -129,7 +133,7 @@ custom/                Per-deployment text overrides (git-ignored, see Texts)
 
 Configuration comes from two layers, with **environment variables always overriding the YAML**:
 
-1. **`meldung.config.yaml`** — non-secret settings (branding, channel options, taxonomy). Copy it
+1. **`meldung.config.yaml`** — non-secret settings (branding, channels, persistence, auth). Start
    from [`meldung.config.example.yaml`](meldung.config.example.yaml), which documents every key.
 2. **Environment variables** — secrets and deploy-specific values, so credentials never live in
    version-controlled YAML. See [`.env.example`](.env.example) and the
@@ -445,6 +449,7 @@ All variables override the YAML. Set them in your host or your Vercel project. F
 | Zammad         | `ZAMMAD_ENABLED`, `ZAMMAD_BASE_URL`, `ZAMMAD_TOKEN`                                                                |
 | Persistence    | `PERSISTENCE_ENABLED`, `PERSISTENCE_DRIVER`, `DATABASE_URL`                                                        |
 | Captcha        | `CAPTCHA_SECRET`                                                                                                   |
+| Texts          | `MELDUNG_CUSTOM_DIR`                                                                                               |
 
 `*_RECIPIENTS` is a comma-separated list. Boolean variables expect `true` / `false`. To enable a
 delivery channel via env, set its `*_ENABLED=true` **and** provide its connection details.
