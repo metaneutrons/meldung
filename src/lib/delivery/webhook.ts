@@ -17,6 +17,8 @@ export interface WebhookPayload {
   data: DeliveryContext['data'];
   /** Localized, human-readable report (titles + labels + values). */
   report: ReportModel;
+  /** Preliminary priority for the team (level, reasons, 72-hour orientation, rule version). */
+  triage: DeliveryContext['triage'];
   /** Base64-encoded PDF, only when `includePdf` is enabled. */
   pdfBase64?: string;
 }
@@ -34,6 +36,7 @@ export async function buildWebhookPayload(
     submittedAt: ctx.submittedAt,
     data: ctx.data,
     report,
+    triage: ctx.triage,
     ...(config.includePdf ? { pdfBase64: ctx.pdfBuffer.toString('base64') } : {}),
   };
 }

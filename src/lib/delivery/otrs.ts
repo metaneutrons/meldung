@@ -1,5 +1,10 @@
 import type { OtrsTicketConfig } from '@/lib/config/schema';
-import { buildReportModel, formatReportText, type ReportModel } from '@/lib/report/model';
+import {
+  buildReportModel,
+  formatReportText,
+  formatTriageText,
+  type ReportModel,
+} from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
 import { fetchWithTimeout, joinUrl } from './http';
 
@@ -51,13 +56,18 @@ async function authenticate(config: OtrsTicketConfig): Promise<string> {
   return body.SessionID;
 }
 
-function buildPayload(ctx: DeliveryContext, config: OtrsTicketConfig, model: ReportModel) {
-  const title = `[${ctx.referenceNumber}] ${model.category || ctx.data.incidentCategory}`;
+function buildPayload(
+  ctx: DeliveryContext,
+  config: OtrsTicketConfig,
+  model: ReportModel,
+  triageText: string,
+) {
+  const title = `[${ctx.triage.level}] [${ctx.referenceNumber}] ${model.category || ctx.data.incidentCategory}`;
   const ticket = {
     Title: title,
     Queue: config.queue,
     State: config.state,
-    Priority: config.priority,
+    Priority: config.priority ?? config.priorities[ctx.triage.level],
     CustomerUser: ctx.data.email || ctx.data.reporterName,
   };
 
@@ -74,7 +84,7 @@ function buildPayload(ctx: DeliveryContext, config: OtrsTicketConfig, model: Rep
       Ticket: ticket,
       Article: {
         ...baseArticle,
-        Body: `Incident report ${ctx.referenceNumber} — see attached JSON for full data.`,
+        Body: `${triageText}\n\nIncident report ${ctx.referenceNumber} — see attached JSON for full data.`,
       },
       Attachment: [
         {
@@ -88,7 +98,10 @@ function buildPayload(ctx: DeliveryContext, config: OtrsTicketConfig, model: Rep
 
   const payload: Record<string, unknown> = {
     Ticket: ticket,
-    Article: { ...baseArticle, Body: formatReportText(ctx.referenceNumber, model) },
+    Article: {
+      ...baseArticle,
+      Body: `${triageText}\n\n${formatReportText(ctx.referenceNumber, model)}`,
+    },
   };
 
   if (config.mappingMode === 'rich' && config.fieldMappings) {
@@ -122,7 +135,12 @@ async function deliverOtrs(
   try {
     const sessionId = await authenticate(config);
     const model = await buildReportModel(ctx.data, ctx.locale);
-    const payload = buildPayload(ctx, config, model);
+    const payload = buildPayload(
+      ctx,
+      config,
+      model,
+      await formatTriageText(ctx.triage, ctx.teamLocale),
+    );
 
     const res = await fetchWithTimeout(
       joinUrl(config.baseUrl, `/Ticket?SessionID=${encodeURIComponent(sessionId)}`),

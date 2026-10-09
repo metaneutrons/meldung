@@ -7,5 +7,29 @@
     "subject": "Confirmation of your incident report {reference}",
     "body": "Dear {name},\n\nYour IT security incident report has been received.\n\nReference number: {reference}\n{ticketLine}Please quote this reference number in any further correspondence.\n\n{orgName}",
     "ticketLine": "Ticket number: {ticket}"
+  },
+  "triage": {
+    "heading": "Preliminary priority: {level}",
+    "note": "Computed automatically from the reporter's answers; not a risk assessment under Art. 33 GDPR.",
+    "reasonsLabel": "Reasons",
+    "orientation": "Orientation: received plus 72 hours = {time}",
+    "levels": {
+      "P1": "immediate",
+      "P2": "high",
+      "P3": "normal",
+      "P4": "low"
+    },
+    "reasons": {
+      "attackOngoing": "Attack possibly in progress",
+      "standstill": "Work has stopped, security-related",
+      "severeDisclosure": "Disclosure of sensitive data, credentials or data on more than 100 people",
+      "attackOrBreach": "Attack or data incident",
+      "manyOrSensitive": "Personal data of many people or of sensitive categories",
+      "unencryptedLoss": "Device or storage medium lost, data not securely encrypted",
+      "personalData": "Personal data possibly affected, check the notification deadline",
+      "securityRelevant": "Security-related",
+      "personsUnknown": "Number of affected people unknown",
+      "noUrgency": "No signs of urgency"
+    }
   }
 }

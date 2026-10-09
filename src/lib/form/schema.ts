@@ -33,6 +33,10 @@ export const AFFECTED_INFORMATION = [
 ] as const;
 export const INFORMATION_EFFECTS = ['disclosed', 'altered', 'unavailable', 'unknown'] as const;
 export const EXCLUSIVE_ANSWERS: readonly string[] = ['none', 'unknown'];
+/** Signs of an attack a reporter can observe, beyond what happened to information. */
+export const ATTACK_SIGNS = ['ransom', 'foreignUse', 'lostDevice', 'none', 'unknown'] as const;
+/** How many people the affected personal data is about, in bands a reporter can estimate. */
+export const AFFECTED_PERSONS = ['1-10', '11-100', 'over-100', 'unknown'] as const;
 
 type Ternary = z.infer<typeof ternary>;
 
@@ -41,6 +45,17 @@ export function personalDataFrom(information: readonly string[]): Ternary {
   if (information.includes('personal')) return 'yes';
   if (information.includes('unknown')) return 'unknown';
   return information.length > 0 ? 'no' : '';
+}
+
+/**
+ * Whether to ask if the data was encrypted: only where it left the
+ * organisation's control, through a lost device or a disclosure.
+ */
+export function encryptionRelevant(
+  attackSigns: readonly string[],
+  informationEffects: readonly string[],
+): boolean {
+  return attackSigns.includes('lostDevice') || informationEffects.includes('disclosed');
 }
 
 /** Whether any information is (possibly) affected, so its fate is worth asking. */
@@ -99,6 +114,9 @@ export const formDataSchema = z.object({
   // Derived from affectedInformation (personalDataFrom). Kept as a field
   // because the GDPR step, the report and webhook consumers read it.
   personalDataInvolved: ternary.default(''),
+  attackSigns: z.array(z.enum(ATTACK_SIGNS)).max(ATTACK_SIGNS.length).default([]),
+  // Asked only when encryptionRelevant(); otherwise left empty.
+  dataEncrypted: ternary.default(''),
 
   // Measures
   measuresTaken: z.string().max(FREE).default(''),
@@ -108,7 +126,7 @@ export const formDataSchema = z.object({
   // GDPR (conditional)
   dataCategories: z.array(z.string().max(KEY)).max(100).default([]),
   personCategories: z.array(z.string().max(KEY)).max(100).default([]),
-  estimatedRecords: z.string().max(40).default(''),
+  affectedPersons: z.enum(['', ...AFFECTED_PERSONS]).default(''),
   dpoContact: z.string().max(SHORT).default(''),
   isGdprBreach: ternary.default(''),
 
@@ -139,4 +157,5 @@ export const submissionSchema = formDataSchema
     ...d,
     personalDataInvolved: personalDataFrom(d.affectedInformation),
     informationEffects: informationAtStake(d.affectedInformation) ? d.informationEffects : [],
+    dataEncrypted: encryptionRelevant(d.attackSigns, d.informationEffects) ? d.dataEncrypted : '',
   }));

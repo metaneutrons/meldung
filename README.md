@@ -31,6 +31,7 @@ taxonomy and includes a **GDPR Art. 33** personal-data-breach assessment.
   - [Anti-bot captcha](#anti-bot-captcha)
   - [Persistence (audit trail)](#persistence-audit-trail)
   - [Authentication (SSO)](#authentication-sso)
+  - [Preliminary priority](#preliminary-priority)
   - [Reference numbers](#reference-numbers)
 - [Environment variables](#environment-variables)
 - [Deployment](#deployment)
@@ -265,11 +266,16 @@ at once. OTOBO requires the standard REST web service to be imported (exactly as
 | `username`      | —          | API user (prefer `*_USERNAME` env)                 |
 | `password`      | —          | API password (prefer `*_PASSWORD` env)             |
 | `queue`         | `Security` | Target queue                                       |
-| `priority`      | `3 normal` | Ticket priority                                    |
+| `priority`      | —          | Fixed priority for every ticket (overrides below)  |
+| `priorities`    | see below  | Priority per triage level                          |
 | `state`         | `new`      | Initial state                                      |
 | `mappingMode`   | `minimal`  | `minimal` · `rich` · `json-attachment` (see below) |
 | `fieldMappings` | —          | Form field → Dynamic Field map (used by `rich`)    |
 | `timeoutMs`     | `10000`    | Request timeout                                    |
+
+Without a fixed `priority`, the triage level picks it: `5 very high` (P1), `4 high` (P2),
+`3 normal` (P3), `2 low` (P4). The title starts with the level, and the article starts with the
+reasons.
 
 **Mapping modes**
 
@@ -319,6 +325,7 @@ system that can receive an HTTP request.
     "meta": { "reference": "…", "generated": "…", "page": "…" },
     "sections": [{ "title": "…", "fields": [{ "label": "…", "value": "…" }] }],
   },
+  "triage": { "level": "P2", "reasons": ["attackOrBreach"], "orientation72h": null, "version": 1 },
   "pdfBase64": "…", // only when includePdf is true
 }
 ```
@@ -372,14 +379,20 @@ reporter's language, so it marks the article to skip that trigger. Set `autoRepl
 Zammad's reply go out as well. The marker needs the agent-level token; with a customer-level token
 Zammad drops it.
 
-| Key          | Default | Purpose                               |
-| ------------ | ------- | ------------------------------------- |
-| `baseUrl`    | —       | Zammad base URL                       |
-| `token`      | —       | API token (prefer `ZAMMAD_TOKEN` env) |
-| `group`      | `Users` | Target group                          |
-| `includePdf` | `true`  | Attach the PDF to the article         |
-| `timeoutMs`  | `10000` | Request timeout                       |
-| `autoReply`  | `false` | Let Zammad send its own auto reply    |
+The ticket title starts with the triage level (`[P1] [INC-…]`). `priorities` maps the levels to
+Zammad priority names; the defaults `3 high` (P1, P2), `2 normal` (P3) and `1 low` (P4) are those
+of a fresh installation. A name Zammad does not know fails the ticket with HTTP 422. The reasons go
+into an internal note on the ticket.
+
+| Key          | Default   | Purpose                               |
+| ------------ | --------- | ------------------------------------- |
+| `baseUrl`    | —         | Zammad base URL                       |
+| `token`      | —         | API token (prefer `ZAMMAD_TOKEN` env) |
+| `group`      | `Users`   | Target group                          |
+| `includePdf` | `true`    | Attach the PDF to the article         |
+| `timeoutMs`  | `10000`   | Request timeout                       |
+| `autoReply`  | `false`   | Let Zammad send its own auto reply    |
+| `priorities` | see above | Zammad priority per triage level      |
 
 ```yaml
 delivery:
@@ -436,6 +449,42 @@ auth:
 ```
 
 Set `AUTH_ENABLED=true` and `AUTH_SECRET` in the environment to activate it.
+
+### Preliminary priority
+
+Reporters are not asked how critical they think an incident is. They answer what they observed:
+whether it is still going on, whether work has stopped, which information is affected and what
+happened to it, signs of an attack, roughly how many people are affected and whether lost data was
+encrypted. Every question offers "don't know".
+
+From these answers meldung computes a preliminary priority for the team. The rules are applied
+top to bottom and every rule that matches adds its reason:
+
+| Level | When                                                                                                                      |
+| ----- | ------------------------------------------------------------------------------------------------------------------------- |
+| P1    | attack possibly in progress; work stopped with a security link; disclosure of sensitive data, credentials or > 100 people |
+| P2    | attack or data incident not in progress; personal data of many people or sensitive categories; unencrypted device lost    |
+| P3    | personal data possibly affected; any other security link                                                                  |
+| P4    | nothing of the above                                                                                                      |
+
+"Don't know" never lowers a report: it counts as ongoing, as possibly personal and as unencrypted.
+When personal data may be involved, the team also sees submission time plus 72 hours as an
+orientation. The legal deadline under Art. 33 GDPR runs from the controller's awareness and is the
+data protection officer's call.
+
+The priority goes to the team only: as `[P1 · INC-…]` at the start of the report e-mail with the
+reasons above the report, as the ticket priority and an internal note in Zammad, as the ticket
+priority and the top of the article in Znuny/OTOBO, as `triage` in the webhook payload and in the
+audit trail. The reporter never sees it. When an attack may be in progress or work has stopped, the
+summary step asks the reporter to stop working on the device and, if configured, to call:
+
+```yaml
+contact:
+  emergencyPhone: '+49 511 000000'
+```
+
+The team-facing texts are written in `defaultLocale` and can be reworded like any other text
+(`report.triage`, see [Texts](#texts)).
 
 ### Reference numbers
 

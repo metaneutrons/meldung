@@ -154,7 +154,16 @@
         "unknown": "Weiß nicht"
       },
       "personalData": "Sind personenbezogene Daten betroffen?",
-      "personalDataHint": "Ein zusätzlicher Schritt zur Datenschutzbewertung wird hinzugefügt."
+      "personalDataHint": "Ein zusätzlicher Schritt zur Datenschutzbewertung wird hinzugefügt.",
+      "signs": "Gibt es Anzeichen für einen Angriff?",
+      "signOptions": {
+        "ransom": "Lösegeldforderung",
+        "foreignUse": "Jemand anderes nutzt ein Konto oder System",
+        "lostDevice": "Gerät oder Datenträger verloren oder gestohlen",
+        "none": "Nichts davon",
+        "unknown": "Weiß nicht"
+      },
+      "encrypted": "Waren die Daten verschlüsselt, etwa auf einem verschlüsselten Laptop?"
     },
     "measures": {
       "measuresTaken": "Bereits ergriffene Maßnahmen",
@@ -166,7 +175,6 @@
       "infoText": "Verletzungen des Schutzes personenbezogener Daten müssen der Aufsichtsbehörde innerhalb von 72 Stunden gemeldet werden.",
       "dataCategories": "Betroffene Datenkategorien",
       "personCategories": "Betroffene Personenkategorien",
-      "estimatedRecords": "Geschätzte Anzahl betroffener Datensätze",
       "dpoContact": "Kontakt Datenschutzbeauftragte/r",
       "isBreach": "Handelt es sich um eine Verletzung personenbezogener Daten gemäß DSGVO?",
       "dataCategoryOptions": {
@@ -197,6 +205,13 @@
         "minors": "Minderjährige (unter 18)",
         "customers": "Kund:innen / Nutzende",
         "patients": "Patient:innen"
+      },
+      "affectedPersons": "Wie viele Personen sind ungefähr betroffen?",
+      "personsOptions": {
+        "1-10": "1 bis 10",
+        "11-100": "11 bis 100",
+        "over-100": "Mehr als 100",
+        "unknown": "Weiß nicht"
       }
     },
     "options": {
@@ -207,7 +222,10 @@
     "summary": {
       "missingFields": "Folgende empfohlene Angaben fehlen noch:",
       "timestamp": "Der Meldezeitpunkt wird automatisch beim Absenden erfasst.",
-      "requiredFields": "Die folgenden Pflichtfelder müssen ausgefüllt werden:"
+      "requiredFields": "Die folgenden Pflichtfelder müssen ausgefüllt werden:",
+      "emergencyTitle": "Möglicherweise läuft ein Angriff. Senden Sie diese Meldung ab.",
+      "emergencyCall": "Rufen Sie zusätzlich sofort an: {phone}",
+      "emergencyAdvice": "Arbeiten Sie am betroffenen Gerät nicht weiter und warten Sie auf Anweisungen."
     }
   },
   "meta": {

@@ -7,5 +7,29 @@
     "subject": "Olay bildiriminizin alındı onayı {reference}",
     "body": "Sayın {name},\n\nBT güvenlik olayı bildiriminiz alınmıştır.\n\nReferans numarası: {reference}\n{ticketLine}Lütfen sonraki tüm yazışmalarda bu referans numarasını belirtin.\n\n{orgName}",
     "ticketLine": "Talep numarası: {ticket}"
+  },
+  "triage": {
+    "heading": "Geçici öncelik: {level}",
+    "note": "Bildirenin yanıtlarından otomatik olarak hesaplanmıştır; AB Genel Veri Koruma Tüzüğü md. 33 kapsamında bir risk değerlendirmesi değildir.",
+    "reasonsLabel": "Gerekçeler",
+    "orientation": "Yön gösterici: alındı + 72 saat = {time}",
+    "levels": {
+      "P1": "hemen",
+      "P2": "yüksek",
+      "P3": "normal",
+      "P4": "düşük"
+    },
+    "reasons": {
+      "attackOngoing": "Saldırı muhtemelen sürüyor",
+      "standstill": "Çalışma durdu, güvenlikle ilgili",
+      "severeDisclosure": "Hassas verilerin, erişim bilgilerinin veya 100'den fazla kişiye ait verilerin ifşası",
+      "attackOrBreach": "Saldırı veya veri olayı",
+      "manyOrSensitive": "Çok sayıda kişiye veya hassas kategorilere ait kişisel veriler",
+      "unencryptedLoss": "Cihaz veya veri taşıyıcısı kayıp, veriler güvenli şekilde şifrelenmemiş",
+      "personalData": "Kişisel veriler etkilenmiş olabilir, bildirim süresini kontrol edin",
+      "securityRelevant": "Güvenlikle ilgili",
+      "personsUnknown": "Etkilenen kişi sayısı bilinmiyor",
+      "noUrgency": "Aciliyet belirtisi yok"
+    }
   }
 }

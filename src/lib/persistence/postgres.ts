@@ -29,16 +29,19 @@ export async function saveToPostgres(
         created_at timestamptz NOT NULL
       )
     `;
+    // Added after the first release; IF NOT EXISTS upgrades existing tables.
+    await sql`ALTER TABLE incidents ADD COLUMN IF NOT EXISTS triage jsonb`;
     tableReady = true;
   }
 
   await sql`
-    INSERT INTO incidents (id, reference_number, form_data, delivery_results, created_at)
+    INSERT INTO incidents (id, reference_number, form_data, delivery_results, triage, created_at)
     VALUES (
       ${record.id},
       ${record.referenceNumber},
       ${sql.json(record.formData)},
       ${sql.json(record.deliveryResults as unknown as Parameters<typeof sql.json>[0])},
+      ${sql.json(record.triage as unknown as Parameters<typeof sql.json>[0])},
       ${record.createdAt}
     )
   `;

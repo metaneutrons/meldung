@@ -13,6 +13,7 @@ import { verifySolution } from '@/lib/captcha';
 import { routing } from '@/i18n/routing';
 import type { DeliveryResult } from '@/lib/delivery/types';
 import { generateReferenceNumber } from '@/lib/reference';
+import { triage } from '@/lib/triage';
 
 function clientIp(request: Request): string {
   const fwd = request.headers.get('x-forwarded-for');
@@ -66,7 +67,15 @@ export async function POST(request: Request) {
     const pdfBuffer = await generatePdf(data, referenceNumber, locale);
     const submittedAt = new Date().toISOString();
 
-    const ctx = { data, referenceNumber, pdfBuffer, locale, submittedAt };
+    const ctx = {
+      data,
+      referenceNumber,
+      pdfBuffer,
+      locale,
+      submittedAt,
+      triage: triage(data, new Date(submittedAt)),
+      teamLocale: config.defaultLocale,
+    };
     const deliveryPromises: Promise<DeliveryResult>[] = [];
 
     const smtp = config.delivery.email.enabled ? config.delivery.email.smtp : undefined;
@@ -126,6 +135,7 @@ export async function POST(request: Request) {
         referenceNumber,
         formData: data,
         deliveryResults,
+        triage: ctx.triage,
         createdAt: submittedAt,
       });
     } catch (persistErr) {

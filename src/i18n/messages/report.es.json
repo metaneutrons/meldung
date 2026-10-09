@@ -7,5 +7,29 @@
     "subject": "Confirmación de recepción de su informe {reference}",
     "body": "Buenos días, {name}:\n\nHemos recibido su informe de incidente de seguridad informática.\n\nNúmero de referencia: {reference}\n{ticketLine}Indique este número de referencia en cualquier comunicación posterior.\n\n{orgName}",
     "ticketLine": "Número de ticket: {ticket}"
+  },
+  "triage": {
+    "heading": "Prioridad provisional: {level}",
+    "note": "Calculada automáticamente a partir de las respuestas de quien notifica; no es una evaluación de riesgos según el art. 33 RGPD.",
+    "reasonsLabel": "Motivos",
+    "orientation": "Orientación: recepción más 72 horas = {time}",
+    "levels": {
+      "P1": "inmediata",
+      "P2": "alta",
+      "P3": "normal",
+      "P4": "baja"
+    },
+    "reasons": {
+      "attackOngoing": "Posible ataque en curso",
+      "standstill": "Trabajo paralizado, con relevancia para la seguridad",
+      "severeDisclosure": "Divulgación de datos sensibles, credenciales o datos de más de 100 personas",
+      "attackOrBreach": "Ataque o incidente de datos",
+      "manyOrSensitive": "Datos personales de muchas personas o de categorías sensibles",
+      "unencryptedLoss": "Dispositivo o soporte perdido, datos sin cifrado seguro",
+      "personalData": "Posiblemente afectados datos personales, revisar el plazo de notificación",
+      "securityRelevant": "Relevante para la seguridad",
+      "personsUnknown": "Número de personas afectadas desconocido",
+      "noUrgency": "Sin indicios de urgencia"
+    }
   }
 }

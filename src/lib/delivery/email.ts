@@ -1,6 +1,11 @@
 import nodemailer from 'nodemailer';
 import type { SmtpConfig } from '@/lib/config/schema';
-import { buildConfirmationMail, buildReportModel, formatReportText } from '@/lib/report/model';
+import {
+  buildConfirmationMail,
+  buildReportModel,
+  formatReportText,
+  formatTriageText,
+} from '@/lib/report/model';
 import type { DeliveryContext, DeliveryResult } from './types';
 
 function transport(smtp: SmtpConfig) {
@@ -21,8 +26,9 @@ export async function deliverEmail(
     await transport(smtp).sendMail({
       from: smtp.from,
       to: smtp.recipients,
-      subject: `[${ctx.referenceNumber}] ${model.title}`,
-      text: formatReportText(ctx.referenceNumber, model),
+      // The level leads the subject so the team can sort the inbox by it.
+      subject: `[${ctx.triage.level} · ${ctx.referenceNumber}] ${model.title}`,
+      text: `${await formatTriageText(ctx.triage, ctx.teamLocale)}\n\n${formatReportText(ctx.referenceNumber, model)}`,
       attachments: [{ filename: `${ctx.referenceNumber}.pdf`, content: ctx.pdfBuffer }],
     });
     return { success: true, channel: 'email' };

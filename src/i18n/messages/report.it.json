@@ -7,5 +7,29 @@
     "subject": "Conferma di ricezione della segnalazione {reference}",
     "body": "Gentile {name},\n\nabbiamo ricevuto la sua segnalazione di incidente di sicurezza informatica.\n\nNumero di riferimento: {reference}\n{ticketLine}La preghiamo di indicare questo numero di riferimento in ogni comunicazione successiva.\n\n{orgName}",
     "ticketLine": "Numero di ticket: {ticket}"
+  },
+  "triage": {
+    "heading": "Priorità provvisoria: {level}",
+    "note": "Calcolata automaticamente dalle risposte del segnalante; non è una valutazione del rischio ai sensi dell'art. 33 GDPR.",
+    "reasonsLabel": "Motivi",
+    "orientation": "Riferimento: ricezione più 72 ore = {time}",
+    "levels": {
+      "P1": "immediata",
+      "P2": "alta",
+      "P3": "normale",
+      "P4": "bassa"
+    },
+    "reasons": {
+      "attackOngoing": "Attacco forse in corso",
+      "standstill": "Lavoro fermo, con rilevanza per la sicurezza",
+      "severeDisclosure": "Divulgazione di dati sensibili, credenziali o dati di oltre 100 persone",
+      "attackOrBreach": "Attacco o incidente sui dati",
+      "manyOrSensitive": "Dati personali di molte persone o di categorie sensibili",
+      "unencryptedLoss": "Dispositivo o supporto perso, dati non cifrati in modo sicuro",
+      "personalData": "Dati personali forse coinvolti, verificare il termine di notifica",
+      "securityRelevant": "Rilevante per la sicurezza",
+      "personsUnknown": "Numero di persone coinvolte sconosciuto",
+      "noUrgency": "Nessun segnale di urgenza"
+    }
   }
 }

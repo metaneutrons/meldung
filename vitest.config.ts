@@ -12,15 +12,15 @@ export default defineConfig({
       include: ['src/lib/**/*.ts', 'src/i18n/**/*.ts'],
       exclude: ['**/*.test.ts', '**/*.d.ts'],
       // A hard floor, not a dashboard. The run fails below it. Measured on
-      // 2026-09-06: 43.15 lines, 42.03 statements, 36.84 functions, 40.48
-      // branches. The floor sits just under that, so a regression fails while
+      // 2026-10-10: 59.67 statements, 57.97 branches, 59.84 functions, 60.12
+      // lines. The floor sits just under that, so a regression fails while
       // the current state passes. Raise it when coverage rises; never lower it
       // to make a run pass.
       thresholds: {
-        lines: 40,
-        functions: 35,
-        statements: 40,
-        branches: 35,
+        lines: 58,
+        functions: 58,
+        statements: 58,
+        branches: 56,
       },
     },
   },
