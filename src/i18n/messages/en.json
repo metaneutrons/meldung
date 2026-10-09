@@ -154,7 +154,16 @@
         "unknown": "Don't know"
       },
       "personalData": "Does this incident involve personal data?",
-      "personalDataHint": "An additional step for data protection assessment will be added."
+      "personalDataHint": "An additional step for data protection assessment will be added.",
+      "signs": "Are there signs of an attack?",
+      "signOptions": {
+        "ransom": "A ransom demand",
+        "foreignUse": "Someone else is using an account or system",
+        "lostDevice": "A device or storage medium was lost or stolen",
+        "none": "None of these",
+        "unknown": "Don't know"
+      },
+      "encrypted": "Was the data encrypted, for example on an encrypted laptop?"
     },
     "measures": {
       "measuresTaken": "Measures already taken",
@@ -166,7 +175,6 @@
       "infoText": "Personal data breaches must be reported to the supervisory authority within 72 hours.",
       "dataCategories": "Affected data categories",
       "personCategories": "Affected person categories",
-      "estimatedRecords": "Estimated number of affected records",
       "dpoContact": "Data Protection Officer contact",
       "isBreach": "Is this a personal data breach under GDPR?",
       "dataCategoryOptions": {
@@ -197,6 +205,13 @@
         "minors": "Minors (under 18)",
         "customers": "Customers / Service users",
         "patients": "Patients"
+      },
+      "affectedPersons": "Roughly how many people are affected?",
+      "personsOptions": {
+        "1-10": "1 to 10",
+        "11-100": "11 to 100",
+        "over-100": "More than 100",
+        "unknown": "Don't know"
       }
     },
     "options": {
@@ -207,7 +222,10 @@
     "summary": {
       "missingFields": "The following recommended fields are still empty:",
       "timestamp": "The report timestamp will be recorded automatically upon submission.",
-      "requiredFields": "The following required fields must be filled in:"
+      "requiredFields": "The following required fields must be filled in:",
+      "emergencyTitle": "An attack may be in progress. Please submit this report.",
+      "emergencyCall": "Also call right away: {phone}",
+      "emergencyAdvice": "Stop working on the affected device and wait for instructions."
     }
   },
   "meta": {

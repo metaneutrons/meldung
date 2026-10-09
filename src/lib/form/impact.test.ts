@@ -55,6 +55,17 @@ describe('impact answers', () => {
   });
 });
 
+describe('encryption question', () => {
+  it('is dropped on the server when it was not asked', () => {
+    const base = { reporterName: 'A', email: 'a@example.com', phone: '1' };
+    expect(submissionSchema.parse({ ...base, dataEncrypted: 'yes' }).dataEncrypted).toBe('');
+    expect(
+      submissionSchema.parse({ ...base, attackSigns: ['lostDevice'], dataEncrypted: 'yes' })
+        .dataEncrypted,
+    ).toBe('yes');
+  });
+});
+
 describe('draft migration', () => {
   it('carries the old personal-data answer over and drops the retired questions', () => {
     const migrated = migrateDraft(
@@ -72,6 +83,13 @@ describe('draft migration', () => {
     expect(migrated.workImpact).toBe('');
     expect(migrated).not.toHaveProperty('functionalImpact');
     expect(migrated).not.toHaveProperty('informationImpact');
+  });
+
+  it('turns the old free-text record count into a band', () => {
+    expect(migrateDraft({ estimatedRecords: '42' }, 1).affectedPersons).toBe('11-100');
+    expect(migrateDraft({ estimatedRecords: 'ca. 1.500' }, 1).affectedPersons).toBe('over-100');
+    expect(migrateDraft({ estimatedRecords: '' }, 1).affectedPersons).toBe('');
+    expect(migrateDraft({ estimatedRecords: '7' }, 1)).not.toHaveProperty('estimatedRecords');
   });
 
   it('keeps the readable fields of a damaged draft', () => {

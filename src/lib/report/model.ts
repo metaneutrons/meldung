@@ -3,6 +3,7 @@ import { TAXONOMY_CATEGORY_VALUES, TAXONOMY_ENTRY_VALUES } from '@/lib/taxonomy/
 import { SYSTEM_KEYS } from '@/lib/systems';
 import type { FormData } from '@/lib/form/schema';
 import { fillTemplate } from '@/lib/mail-template';
+import type { Triage } from '@/lib/triage';
 
 export interface ReportField {
   label: string;
@@ -104,6 +105,8 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
           value: list('informationOptions', data.affectedInformation),
         },
         { label: t('impact.effects'), value: list('effectOptions', data.informationEffects) },
+        { label: t('impact.signs'), value: list('signOptions', data.attackSigns) },
+        { label: t('impact.encrypted'), value: yn(data.dataEncrypted) },
         { label: t('impact.personalData'), value: yn(data.personalDataInvolved) },
       ],
     },
@@ -129,7 +132,10 @@ export async function buildReportModel(data: FormData, locale: string): Promise<
           label: t('gdpr.personCategories'),
           value: data.personCategories.map((k) => t(`gdpr.personCategoryOptions.${k}`)).join(', '),
         },
-        { label: t('gdpr.estimatedRecords'), value: data.estimatedRecords },
+        {
+          label: t('gdpr.affectedPersons'),
+          value: data.affectedPersons ? t(`gdpr.personsOptions.${data.affectedPersons}`) : '',
+        },
         { label: t('gdpr.dpoContact'), value: data.dpoContact },
         { label: t('gdpr.isBreach'), value: yn(data.isGdprBreach) },
       ],
@@ -191,4 +197,29 @@ export async function buildConfirmationMail(
     subject: fillTemplate(template('confirmationMail.subject'), fill).replace(/\s+/g, ' ').trim(),
     text: fillTemplate(template('confirmationMail.body'), fill),
   };
+}
+
+/** "2026-10-13T08:00:00.000Z" as "2026-10-13 08:00 UTC": unambiguous for any team. */
+function utcMinutes(iso: string): string {
+  return `${iso.slice(0, 16).replace('T', ' ')} UTC`;
+}
+
+/**
+ * The preliminary priority as a short text block for the team: in the e-mail
+ * to the team, as an internal ticket note and at the top of OTRS articles.
+ * Written in the team's language, not the reporter's.
+ */
+export async function formatTriageText(triage: Triage, teamLocale: string): Promise<string> {
+  const t = await getTranslations({ locale: teamLocale, namespace: 'report.triage' });
+  const lines = [
+    t('heading', { level: `${triage.level} (${t(`levels.${triage.level}`)})` }),
+    t('note'),
+    '',
+    `${t('reasonsLabel')}:`,
+    ...triage.reasons.map((reason) => `- ${t(`reasons.${reason}`)}`),
+  ];
+  if (triage.orientation72h) {
+    lines.push('', t('orientation', { time: utcMinutes(triage.orientation72h) }));
+  }
+  return lines.join('\n');
 }

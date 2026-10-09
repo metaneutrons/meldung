@@ -14,6 +14,7 @@ vi.mock('@/lib/report/model', () => ({
     sections: [{ title: 'Section', fields: [{ label: 'Label', value: 'Value' }] }],
   })),
   formatReportText: vi.fn(() => 'PLAINTEXT BODY'),
+  formatTriageText: vi.fn(async () => 'TRIAGE NOTE'),
 }));
 
 import { buildWebhookPayload, deliverWebhook } from './webhook';
@@ -31,6 +32,13 @@ const ctx: DeliveryContext = {
   pdfBuffer: Buffer.from('PDFDATA'),
   locale: 'de',
   submittedAt: '2026-06-30T00:00:00.000Z',
+  triage: {
+    level: 'P2',
+    reasons: ['attackOrBreach', 'personalData'],
+    orientation72h: '2026-07-03T00:00:00.000Z',
+    version: 1,
+  },
+  teamLocale: 'de',
 };
 
 const okJson = (body: unknown): Response =>
@@ -59,6 +67,7 @@ describe('webhook channel', () => {
       submittedAt: '2026-06-30T00:00:00.000Z',
     });
     expect(p.report.category).toBe('Phishing');
+    expect(p.triage).toEqual(ctx.triage);
     expect(p.pdfBase64).toBeUndefined();
   });
 
@@ -105,6 +114,7 @@ describe('zammad channel', () => {
     group: 'IT-Security',
     includePdf: true,
     timeoutMs: 10000,
+    priorities: { P1: '3 high', P2: '3 high', P3: '2 normal', P4: '1 low' },
   };
 
   const model: ReportModel = {
@@ -117,8 +127,9 @@ describe('zammad channel', () => {
   it('builds a ticket with the report article and a PDF attachment', () => {
     const ticket = buildZammadTicket(ctx, config, model);
     expect(ticket).toMatchObject({
-      title: '[INC-20260630-aaaa] Phishing',
+      title: '[P2] [INC-20260630-aaaa] Phishing',
       group: 'IT-Security',
+      priority: '3 high',
       customer_id: 'guess:reporter@example.de',
     });
     expect(ticket).not.toHaveProperty('customer');
@@ -141,6 +152,39 @@ describe('zammad channel', () => {
     const { url, init } = callOf(fetchMock);
     expect(url).toBe('https://zammad.example.com/api/v1/tickets');
     expect((init.headers as Record<string, string>).Authorization).toBe('Token token=tok');
+  });
+
+  it('adds the triage reasons as an internal note on the new ticket', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(okJson({ id: 42, number: '67001' }));
+    global.fetch = fetchMock;
+    await deliverZammad(ctx, config);
+    const [url, init] = fetchMock.mock.calls[1] as [string, RequestInit];
+    expect(url).toBe('https://zammad.example.com/api/v1/ticket_articles');
+    expect(JSON.parse(init.body as string)).toEqual({
+      ticket_id: 42,
+      body: 'TRIAGE NOTE',
+      type: 'note',
+      sender: 'Agent',
+      internal: true,
+      content_type: 'text/plain',
+    });
+  });
+
+  it('still counts the ticket as delivered when the note fails', async () => {
+    global.fetch = vi
+      .fn()
+      .mockResolvedValueOnce(okJson({ id: 42, number: '67001' }))
+      .mockResolvedValueOnce({ ok: false, status: 403, json: async () => ({}) });
+    const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    expect(await deliverZammad(ctx, config)).toEqual({
+      success: true,
+      channel: 'zammad',
+      ticketNumber: '67001',
+    });
+    expect(error).toHaveBeenCalledWith(
+      expect.stringContaining('triage note on ticket 42 failed: HTTP 403'),
+    );
+    error.mockRestore();
   });
 
   it('does not double the slash when baseUrl ends with one', async () => {
@@ -193,7 +237,7 @@ describe('otrs channels (znuny + otobo)', () => {
     username: 'u',
     password: 'p',
     queue: 'Security',
-    priority: '3 normal',
+    priorities: { P1: '5 very high', P2: '4 high', P3: '3 normal', P4: '2 low' },
     state: 'new',
     mappingMode: 'minimal',
     timeoutMs: 10000,
@@ -209,6 +253,28 @@ describe('otrs channels (znuny + otobo)', () => {
             : okJson({ TicketID: '123', TicketNumber: '2026063000001' }),
         ),
       ) as unknown as typeof fetch);
+
+  const ticketPayload = (mock: ReturnType<typeof vi.fn>) =>
+    JSON.parse((mock.mock.calls[1]?.[1] as RequestInit).body as string) as {
+      Ticket: Record<string, string>;
+      Article: Record<string, string>;
+    };
+
+  it('maps the triage level to a priority and leads with the reasons', async () => {
+    mockOk();
+    await deliverZnuny(ctx, config);
+    const payload = ticketPayload(global.fetch as unknown as ReturnType<typeof vi.fn>);
+    expect(payload.Ticket.Priority).toBe('4 high');
+    expect(payload.Ticket.Title).toBe('[P2] [INC-20260630-aaaa] Phishing');
+    expect(payload.Article.Body).toBe('TRIAGE NOTE\n\nPLAINTEXT BODY');
+  });
+
+  it('keeps a fixed priority when one is configured', async () => {
+    mockOk();
+    await deliverZnuny(ctx, { ...config, priority: '3 normal' });
+    const payload = ticketPayload(global.fetch as unknown as ReturnType<typeof vi.fn>);
+    expect(payload.Ticket.Priority).toBe('3 normal');
+  });
 
   it('labels results with the znuny channel', async () => {
     mockOk();

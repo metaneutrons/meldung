@@ -15,6 +15,7 @@ import { Confirmation } from '@/components/wizard/confirmation';
 import { StepNav } from '@/components/wizard/step-nav';
 import { WizardProgress } from '@/components/wizard/wizard-progress';
 import { WizardNavProvider } from '@/components/wizard/wizard-nav';
+import { DeploymentProvider } from '@/components/wizard/deployment-context';
 import { Button, Card } from '@/components/ui';
 import {
   ReporterInfo,
@@ -41,6 +42,7 @@ interface IncidentFormProps {
   logoDarkUrl?: string | undefined;
   welcomeContent: string;
   footerContent: string;
+  emergencyPhone?: string | undefined;
 }
 
 const errorBox =
@@ -52,9 +54,11 @@ export function IncidentForm({
   logoDarkUrl,
   welcomeContent,
   footerContent,
+  emergencyPhone,
 }: IncidentFormProps) {
   const t = useTranslations('wizard');
   const tc = useTranslations('common');
+  const deployment = useMemo(() => ({ emergencyPhone }), [emergencyPhone]);
   const store = useFormStore;
   const personalDataInvolved = useFormStore((s) => s.personalDataInvolved);
   const reporterName = useFormStore((s) => s.reporterName);
@@ -94,7 +98,9 @@ export function IncidentForm({
       if (s.reporterName || s.description) e.preventDefault();
     };
     window.addEventListener('beforeunload', handler);
-    return () => { window.removeEventListener('beforeunload', handler); };
+    return () => {
+      window.removeEventListener('beforeunload', handler);
+    };
   }, [submitted, showWelcome, store]);
 
   const steps: StepDef[] = useMemo(() => {
@@ -191,7 +197,9 @@ export function IncidentForm({
           orgName={orgName}
           logoUrl={logoUrl}
           logoDarkUrl={logoDarkUrl}
-          onLogoClick={() => { setUserView('welcome'); }}
+          onLogoClick={() => {
+            setUserView('welcome');
+          }}
         />
         <WelcomePage
           content={welcomeContent}
@@ -211,7 +219,9 @@ export function IncidentForm({
         orgName={orgName}
         logoUrl={logoUrl}
         logoDarkUrl={logoDarkUrl}
-        onLogoClick={() => { setUserView('welcome'); }}
+        onLogoClick={() => {
+          setUserView('welcome');
+        }}
       >
         <WizardProgress step={safeStep} total={steps.length} />
       </AppHeader>
@@ -252,19 +262,21 @@ export function IncidentForm({
           />
           <Card id={`step-panel-${currentStepDef.id}`} className="p-5 sm:p-6">
             <WizardNavProvider value={goToStepById}>
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={currentStepDef.id}
-                  initial={reduce ? { opacity: 0 } : { opacity: 0, x: direction * 24 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={reduce ? { opacity: 0 } : { opacity: 0, x: direction * -24 }}
-                  transition={
-                    reduce ? { duration: 0.12 } : { duration: 0.22, ease: [0.32, 0.72, 0, 1] }
-                  }
-                >
-                  <StepComponent />
-                </motion.div>
-              </AnimatePresence>
+              <DeploymentProvider value={deployment}>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={currentStepDef.id}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, x: direction * 24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={reduce ? { opacity: 0 } : { opacity: 0, x: direction * -24 }}
+                    transition={
+                      reduce ? { duration: 0.12 } : { duration: 0.22, ease: [0.32, 0.72, 0, 1] }
+                    }
+                  >
+                    <StepComponent />
+                  </motion.div>
+                </AnimatePresence>
+              </DeploymentProvider>
             </WizardNavProvider>
           </Card>
 

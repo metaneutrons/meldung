@@ -4,18 +4,27 @@ import { useTranslations } from 'next-intl';
 import { useFormStore } from '@/lib/store/form-store';
 import {
   AFFECTED_INFORMATION,
+  ATTACK_SIGNS,
   INFORMATION_EFFECTS,
   WORK_IMPACT,
+  encryptionRelevant,
   informationAtStake,
   personalDataFrom,
   toggleChoice,
 } from '@/lib/form/schema';
-import { CheckboxGroup, RadioGroup } from '@/components/ui';
+import { CheckboxGroup, RadioGroup, SegmentedControl } from '@/components/ui';
 
 export function ImpactAssessment() {
   const t = useTranslations('steps');
-  const { workImpact, affectedInformation, informationEffects, personalDataInvolved, update } =
-    useFormStore();
+  const {
+    workImpact,
+    affectedInformation,
+    informationEffects,
+    personalDataInvolved,
+    attackSigns,
+    dataEncrypted,
+    update,
+  } = useFormStore();
 
   const workOptions = WORK_IMPACT.map((v) => ({ value: v, label: t(`impact.workOptions.${v}`) }));
   const informationOptions = AFFECTED_INFORMATION.map((v) => ({
@@ -27,13 +36,28 @@ export function ImpactAssessment() {
     label: t(`impact.effectOptions.${v}`),
   }));
 
+  const signOptions = ATTACK_SIGNS.map((v) => ({
+    value: v,
+    label: t(`impact.signOptions.${v}`),
+  }));
+  const encryptedOptions = (['yes', 'no', 'unknown'] as const).map((v) => ({
+    value: v,
+    label: t(`options.${v}`),
+  }));
+  // Dropping an answer that no longer applies keeps the draft and the report
+  // free of a stale "encrypted" from a question that has disappeared.
+  const clearEncryption = (signs: readonly string[], effects: readonly string[]) =>
+    encryptionRelevant(signs, effects) ? {} : { dataEncrypted: '' as const };
+
   const toggleInformation = (value: string) => {
     const next = toggleChoice(affectedInformation, value) as typeof affectedInformation;
     update({
       affectedInformation: next,
       personalDataInvolved: personalDataFrom(next),
       // Nothing at stake, nothing to describe: drop answers that no longer apply.
-      ...(informationAtStake(next) ? {} : { informationEffects: [] }),
+      ...(informationAtStake(next)
+        ? {}
+        : { informationEffects: [], ...clearEncryption(attackSigns, []) }),
     });
   };
 
@@ -64,11 +88,31 @@ export function ImpactAssessment() {
           options={effectOptions}
           values={informationEffects}
           onToggle={(v) => {
-            update({
-              informationEffects: toggleChoice(informationEffects, v) as typeof informationEffects,
-            });
+            const next = toggleChoice(informationEffects, v) as typeof informationEffects;
+            update({ informationEffects: next, ...clearEncryption(attackSigns, next) });
           }}
           columns={false}
+        />
+      )}
+      <CheckboxGroup
+        legend={t('impact.signs')}
+        hint={t('impact.multiple')}
+        options={signOptions}
+        values={attackSigns}
+        onToggle={(v) => {
+          const next = toggleChoice(attackSigns, v) as typeof attackSigns;
+          update({ attackSigns: next, ...clearEncryption(next, informationEffects) });
+        }}
+        columns={false}
+      />
+      {encryptionRelevant(attackSigns, informationEffects) && (
+        <SegmentedControl
+          legend={t('impact.encrypted')}
+          options={encryptedOptions}
+          value={dataEncrypted}
+          onChange={(v) => {
+            update({ dataEncrypted: v as typeof dataEncrypted });
+          }}
         />
       )}
       {(personalDataInvolved === 'yes' || personalDataInvolved === 'unknown') && (

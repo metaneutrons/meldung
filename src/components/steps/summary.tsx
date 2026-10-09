@@ -1,12 +1,14 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, PhoneCall } from 'lucide-react';
 import { useFormStore } from '@/lib/store/form-store';
 import { ENISA_RSIT_TAXONOMY } from '@/lib/taxonomy/enisa-rsit';
 import { SYSTEM_KEYS } from '@/lib/systems';
 import { EMAIL_RE } from '@/lib/form/schema';
 import { useWizardNav } from '@/components/wizard/wizard-nav';
+import { useDeployment } from '@/components/wizard/deployment-context';
+import { isEmergency, triage } from '@/lib/triage';
 
 interface FieldRef {
   label: string;
@@ -52,6 +54,8 @@ export function Summary() {
   const tax = useTranslations('taxonomy');
   const state = useFormStore();
   const goTo = useWizardNav();
+  const { emergencyPhone } = useDeployment();
+  const emergency = isEmergency(triage(state));
 
   const required: FieldRef[] = [];
   if (!state.reporterName.trim()) required.push({ label: t('reporter.name'), step: 'reporter' });
@@ -78,6 +82,7 @@ export function Summary() {
 
   return (
     <div className="space-y-5">
+      {emergency && <EmergencyHint phone={emergencyPhone} />}
       {required.length > 0 && (
         <div className="rounded-xl border border-danger-border bg-danger-bg p-4">
           <div className="flex items-start gap-3">
@@ -157,6 +162,15 @@ export function Summary() {
             value={state.informationEffects.map((v) => t(`impact.effectOptions.${v}`)).join('\n')}
           />
         )}
+        {state.attackSigns.length > 0 && (
+          <Row
+            label={t('impact.signs')}
+            value={state.attackSigns.map((v) => t(`impact.signOptions.${v}`)).join('\n')}
+          />
+        )}
+        {state.dataEncrypted && (
+          <Row label={t('impact.encrypted')} value={t(`options.${state.dataEncrypted}`)} />
+        )}
         {state.measuresTaken && (
           <Row label={t('measures.measuresTaken')} value={state.measuresTaken} />
         )}
@@ -172,8 +186,11 @@ export function Summary() {
             value={state.dataCategories.map((k) => t(`gdpr.dataCategoryOptions.${k}`)).join(', ')}
           />
         )}
-        {state.estimatedRecords && (
-          <Row label={t('gdpr.estimatedRecords')} value={state.estimatedRecords} />
+        {state.affectedPersons && (
+          <Row
+            label={t('gdpr.affectedPersons')}
+            value={t(`gdpr.personsOptions.${state.affectedPersons}`)}
+          />
         )}
       </div>
 
@@ -197,4 +214,25 @@ function formatDate(iso: string): string {
   } catch {
     return iso;
   }
+}
+
+/**
+ * Shown before submitting when an attack may be running or work has stopped.
+ * The priority itself stays with the team; the reporter only learns that this
+ * is urgent enough to stop working and, where a number is configured, to call.
+ */
+export function EmergencyHint({ phone }: { phone?: string | undefined }) {
+  const t = useTranslations('steps');
+  return (
+    <div role="alert" className="rounded-xl border border-danger-border bg-danger-bg p-4">
+      <div className="flex items-start gap-3">
+        <PhoneCall className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
+        <div className="space-y-1 text-sm text-danger">
+          <p className="font-semibold">{t('summary.emergencyTitle')}</p>
+          {phone && <p>{t('summary.emergencyCall', { phone })}</p>}
+          <p>{t('summary.emergencyAdvice')}</p>
+        </div>
+      </div>
+    </div>
+  );
 }

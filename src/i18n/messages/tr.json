@@ -154,7 +154,16 @@
         "unknown": "Bilmiyorum"
       },
       "personalData": "Bu olay kişisel verileri içeriyor mu?",
-      "personalDataHint": "Veri koruma değerlendirmesi için ek bir adım eklenecektir."
+      "personalDataHint": "Veri koruma değerlendirmesi için ek bir adım eklenecektir.",
+      "signs": "Bir saldırı belirtisi var mı?",
+      "signOptions": {
+        "ransom": "Fidye talebi",
+        "foreignUse": "Başka biri bir hesabı veya sistemi kullanıyor",
+        "lostDevice": "Bir cihaz veya veri taşıyıcısı kayboldu ya da çalındı",
+        "none": "Hiçbiri",
+        "unknown": "Bilmiyorum"
+      },
+      "encrypted": "Veriler şifreli miydi, örneğin şifrelenmiş bir dizüstü bilgisayarda?"
     },
     "measures": {
       "measuresTaken": "Alınmış önlemler",
@@ -166,7 +175,6 @@
       "infoText": "Kişisel veri ihlalleri 72 saat içinde Kişisel Verileri Koruma Kurumu'na bildirilmelidir.",
       "dataCategories": "Etkilenen veri kategorileri",
       "personCategories": "Etkilenen kişi kategorileri",
-      "estimatedRecords": "Tahmini etkilenen kayıt sayısı",
       "dpoContact": "Veri Koruma Görevlisi iletişim bilgisi",
       "isBreach": "Bu, KVKK kapsamında bir kişisel veri ihlali midir?",
       "dataCategoryOptions": {
@@ -197,6 +205,13 @@
         "minors": "Reşit olmayanlar (18 yaş altı)",
         "customers": "Müşteriler / Hizmet kullanıcıları",
         "patients": "Hastalar"
+      },
+      "affectedPersons": "Yaklaşık kaç kişi etkilendi?",
+      "personsOptions": {
+        "1-10": "1 ile 10 arası",
+        "11-100": "11 ile 100 arası",
+        "over-100": "100'den fazla",
+        "unknown": "Bilmiyorum"
       }
     },
     "options": {
@@ -207,7 +222,10 @@
     "summary": {
       "missingFields": "Aşağıdaki önerilen alanlar hâlâ boş:",
       "timestamp": "Zaman damgası gönderim sırasında otomatik olarak kaydedilecektir.",
-      "requiredFields": "Aşağıdaki zorunlu alanlar doldurulmalıdır:"
+      "requiredFields": "Aşağıdaki zorunlu alanlar doldurulmalıdır:",
+      "emergencyTitle": "Bir saldırı devam ediyor olabilir. Lütfen bu bildirimi gönderin.",
+      "emergencyCall": "Ayrıca hemen arayın: {phone}",
+      "emergencyAdvice": "Etkilenen cihazda çalışmayı bırakın ve talimatları bekleyin."
     }
   },
   "meta": {

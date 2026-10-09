@@ -61,7 +61,7 @@ delivery:
       username: 'api-user'
       password: 'your-api-password'
       queue: 'IT-Security'
-      priority: '3 normal'
+      # priority: '3 normal'   # fixed priority; without it the triage level decides
       state: 'new'
 
       # Mapping mode determines how form data is sent to Znuny:
@@ -161,3 +161,12 @@ captcha:
 # Prefix for generated incident reference numbers.
 # Format: {prefix}-{YYYYMMDD}-{4 hex chars}, e.g. INC-20260511-a3f2
 referencePrefix: 'INC'
+
+# -----------------------------------------------------------------------------
+# Contact (optional)
+# -----------------------------------------------------------------------------
+# Number the reporter is asked to call when an attack may be in progress or
+# work has stopped. Without it, the hint only asks them to stop working on the
+# device and wait for instructions.
+# contact:
+#   emergencyPhone: '+49 511 000000'

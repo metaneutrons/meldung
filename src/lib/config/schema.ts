@@ -46,7 +46,17 @@ const OtrsTicketSchema = z.object({
   username: z.string(),
   password: z.string(),
   queue: z.string().default('Security'),
-  priority: z.string().default('3 normal'),
+  // A fixed priority for every ticket, as before. When unset, the priority
+  // follows the preliminary triage level through `priorities`.
+  priority: z.string().optional(),
+  priorities: z
+    .object({
+      P1: z.string().default('5 very high'),
+      P2: z.string().default('4 high'),
+      P3: z.string().default('3 normal'),
+      P4: z.string().default('2 low'),
+    })
+    .prefault({}),
   state: z.string().default('new'),
   mappingMode: ZnunyMappingSchema.default('minimal'),
   fieldMappings: z.record(z.string(), z.string()).optional(),
@@ -73,6 +83,17 @@ const ZammadSchema = z.object({
   group: z.string().default('Users'),
   includePdf: z.boolean().default(true),
   timeoutMs: z.number().int().min(1000).max(30000).default(10000),
+  // Zammad priority names per triage level; the defaults are the priorities
+  // of a fresh Zammad installation. A name Zammad does not know fails the
+  // ticket with HTTP 422.
+  priorities: z
+    .object({
+      P1: z.string().default('3 high'),
+      P2: z.string().default('3 high'),
+      P3: z.string().default('2 normal'),
+      P4: z.string().default('1 low'),
+    })
+    .prefault({}),
 });
 
 // Each channel is an enabled flag plus its optional channel-specific config.
@@ -127,6 +148,14 @@ export const AppConfigSchema = z.object({
   auth: AuthSchema.prefault({}),
   captcha: CaptchaSchema.prefault({}),
   referencePrefix: z.string().default('INC'),
+  contact: z
+    .object({
+      // Shown to the reporter before submitting when an attack may be in
+      // progress or work has stopped: "call us as well". Without it the hint
+      // asks them to stop working on the device and wait for instructions.
+      emergencyPhone: z.string().trim().min(1).optional(),
+    })
+    .prefault({}),
 });
 
 export type AppConfig = z.infer<typeof AppConfigSchema>;

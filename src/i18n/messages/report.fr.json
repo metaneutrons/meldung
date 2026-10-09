@@ -7,5 +7,29 @@
     "subject": "Accusé de réception de votre signalement {reference}",
     "body": "Bonjour {name},\n\nNous avons bien reçu votre signalement d'incident de sécurité informatique.\n\nNuméro de référence : {reference}\n{ticketLine}Veuillez indiquer ce numéro de référence dans toute correspondance ultérieure.\n\n{orgName}",
     "ticketLine": "Numéro de ticket : {ticket}"
+  },
+  "triage": {
+    "heading": "Priorité provisoire : {level}",
+    "note": "Calculée automatiquement à partir des réponses du déclarant ; ce n'est pas une évaluation des risques au sens de l'art. 33 RGPD.",
+    "reasonsLabel": "Motifs",
+    "orientation": "Repère : réception plus 72 heures = {time}",
+    "levels": {
+      "P1": "immédiate",
+      "P2": "haute",
+      "P3": "normale",
+      "P4": "basse"
+    },
+    "reasons": {
+      "attackOngoing": "Attaque possiblement en cours",
+      "standstill": "Travail à l'arrêt, lié à la sécurité",
+      "severeDisclosure": "Divulgation de données sensibles, d'identifiants ou de données sur plus de 100 personnes",
+      "attackOrBreach": "Attaque ou incident de données",
+      "manyOrSensitive": "Données personnelles de nombreuses personnes ou de catégories sensibles",
+      "unencryptedLoss": "Appareil ou support perdu, données non chiffrées de façon sûre",
+      "personalData": "Données personnelles possiblement concernées, vérifier le délai de notification",
+      "securityRelevant": "Lié à la sécurité",
+      "personsUnknown": "Nombre de personnes concernées inconnu",
+      "noUrgency": "Aucun signe d'urgence"
+    }
   }
 }

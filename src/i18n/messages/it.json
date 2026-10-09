@@ -154,7 +154,16 @@
         "unknown": "Non so"
       },
       "personalData": "Questo incidente coinvolge dati personali?",
-      "personalDataHint": "Verrà aggiunto un passaggio aggiuntivo per la valutazione della protezione dei dati."
+      "personalDataHint": "Verrà aggiunto un passaggio aggiuntivo per la valutazione della protezione dei dati.",
+      "signs": "Ci sono segnali di un attacco?",
+      "signOptions": {
+        "ransom": "Una richiesta di riscatto",
+        "foreignUse": "Qualcun altro usa un account o un sistema",
+        "lostDevice": "Un dispositivo o supporto di memoria è stato perso o rubato",
+        "none": "Nessuno di questi",
+        "unknown": "Non so"
+      },
+      "encrypted": "I dati erano cifrati, ad esempio su un laptop cifrato?"
     },
     "measures": {
       "measuresTaken": "Misure già adottate",
@@ -166,7 +175,6 @@
       "infoText": "Le violazioni dei dati personali devono essere notificate all'autorità di controllo entro 72 ore.",
       "dataCategories": "Categorie di dati interessate",
       "personCategories": "Categorie di persone interessate",
-      "estimatedRecords": "Numero stimato di record interessati",
       "dpoContact": "Contatto del Responsabile della Protezione dei Dati",
       "isBreach": "Si tratta di una violazione dei dati personali ai sensi del GDPR?",
       "dataCategoryOptions": {
@@ -197,6 +205,13 @@
         "minors": "Minori (sotto i 18 anni)",
         "customers": "Clienti / Utenti del servizio",
         "patients": "Pazienti"
+      },
+      "affectedPersons": "Quante persone sono coinvolte, all'incirca?",
+      "personsOptions": {
+        "1-10": "Da 1 a 10",
+        "11-100": "Da 11 a 100",
+        "over-100": "Più di 100",
+        "unknown": "Non so"
       }
     },
     "options": {
@@ -207,7 +222,10 @@
     "summary": {
       "missingFields": "I seguenti campi consigliati sono ancora vuoti:",
       "timestamp": "Il timestamp verrà registrato automaticamente all invio.",
-      "requiredFields": "I seguenti campi obbligatori devono essere compilati:"
+      "requiredFields": "I seguenti campi obbligatori devono essere compilati:",
+      "emergencyTitle": "Potrebbe essere in corso un attacco. Invii questa segnalazione.",
+      "emergencyCall": "Chiami inoltre subito: {phone}",
+      "emergencyAdvice": "Smetta di lavorare sul dispositivo interessato e attenda istruzioni."
     }
   },
   "meta": {

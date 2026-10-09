@@ -154,7 +154,16 @@
         "unknown": "Je ne sais pas"
       },
       "personalData": "Cet incident implique-t-il des données personnelles ?",
-      "personalDataHint": "Une étape supplémentaire pour l'évaluation de la protection des données sera ajoutée."
+      "personalDataHint": "Une étape supplémentaire pour l'évaluation de la protection des données sera ajoutée.",
+      "signs": "Y a-t-il des signes d'une attaque ?",
+      "signOptions": {
+        "ransom": "Une demande de rançon",
+        "foreignUse": "Quelqu'un d'autre utilise un compte ou un système",
+        "lostDevice": "Un appareil ou un support de données a été perdu ou volé",
+        "none": "Rien de tout cela",
+        "unknown": "Je ne sais pas"
+      },
+      "encrypted": "Les données étaient-elles chiffrées, par exemple sur un ordinateur portable chiffré ?"
     },
     "measures": {
       "measuresTaken": "Mesures déjà prises",
@@ -166,7 +175,6 @@
       "infoText": "Les violations de données personnelles doivent être signalées à l'autorité de contrôle dans un délai de 72 heures.",
       "dataCategories": "Catégories de données concernées",
       "personCategories": "Catégories de personnes concernées",
-      "estimatedRecords": "Nombre estimé d'enregistrements affectés",
       "dpoContact": "Contact du Délégué à la Protection des Données",
       "isBreach": "S'agit-il d'une violation de données personnelles au sens du RGPD ?",
       "dataCategoryOptions": {
@@ -197,6 +205,13 @@
         "minors": "Mineurs (moins de 18 ans)",
         "customers": "Clients / Usagers",
         "patients": "Patients"
+      },
+      "affectedPersons": "Combien de personnes sont concernées, approximativement ?",
+      "personsOptions": {
+        "1-10": "De 1 à 10",
+        "11-100": "De 11 à 100",
+        "over-100": "Plus de 100",
+        "unknown": "Je ne sais pas"
       }
     },
     "options": {
@@ -207,7 +222,10 @@
     "summary": {
       "missingFields": "Les champs recommandés suivants sont encore vides :",
       "timestamp": "L horodatage sera enregistré automatiquement lors de l envoi.",
-      "requiredFields": "Les champs obligatoires suivants doivent être remplis :"
+      "requiredFields": "Les champs obligatoires suivants doivent être remplis :",
+      "emergencyTitle": "Une attaque est peut-être en cours. Envoyez ce signalement.",
+      "emergencyCall": "Appelez aussi immédiatement : {phone}",
+      "emergencyAdvice": "Cessez de travailler sur l'appareil concerné et attendez les instructions."
     }
   },
   "meta": {

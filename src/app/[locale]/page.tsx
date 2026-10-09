@@ -19,6 +19,7 @@ export default async function HomePage() {
           logoUrl={config.branding.logoUrl}
           logoDarkUrl={config.branding.logoDarkUrl}
           welcomeContent={welcomeContent}
+          emergencyPhone={config.contact.emergencyPhone}
           footerContent={footerContent}
         />
       </div>

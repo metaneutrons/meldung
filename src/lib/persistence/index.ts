@@ -1,12 +1,14 @@
 import { getConfig } from '@/lib/config';
 import type { FormData } from '@/lib/pdf/types';
 import type { DeliveryResult } from '@/lib/delivery/types';
+import type { Triage } from '@/lib/triage';
 
 export interface IncidentRecord {
   id: string;
   referenceNumber: string;
   formData: FormData;
   deliveryResults: DeliveryResult[];
+  triage: Triage;
   createdAt: string;
 }
 

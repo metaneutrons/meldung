@@ -7,5 +7,29 @@
     "subject": "Eingangsbestätigung Ihrer Meldung {reference}",
     "body": "Guten Tag {name},\n\nIhre Meldung eines IT-Sicherheitsvorfalls ist bei uns eingegangen.\n\nReferenznummer: {reference}\n{ticketLine}Bitte geben Sie diese Referenznummer bei allen Rückfragen an.\n\n{orgName}",
     "ticketLine": "Ticketnummer: {ticket}"
+  },
+  "triage": {
+    "heading": "Vorläufige Priorität: {level}",
+    "note": "Automatisch aus den Angaben des Melders berechnet, keine Risikobewertung nach Art. 33 DSGVO.",
+    "reasonsLabel": "Gründe",
+    "orientation": "Orientierung: Eingang plus 72 Stunden = {time}",
+    "levels": {
+      "P1": "sofort",
+      "P2": "hoch",
+      "P3": "normal",
+      "P4": "niedrig"
+    },
+    "reasons": {
+      "attackOngoing": "Angriff möglicherweise im Gange",
+      "standstill": "Arbeit steht still, mit Sicherheitsbezug",
+      "severeDisclosure": "Offenlegung heikler Daten, von Zugangsdaten oder von Daten zu mehr als 100 Personen",
+      "attackOrBreach": "Angriff oder Datenvorfall",
+      "manyOrSensitive": "Personenbezogene Daten vieler Personen oder heikler Kategorien",
+      "unencryptedLoss": "Gerät oder Datenträger verloren, Daten nicht sicher verschlüsselt",
+      "personalData": "Personenbezogene Daten möglicherweise betroffen, Meldefrist prüfen",
+      "securityRelevant": "Sicherheitsbezug",
+      "personsUnknown": "Anzahl betroffener Personen unbekannt",
+      "noUrgency": "Keine Dringlichkeitsmerkmale"
+    }
   }
 }
