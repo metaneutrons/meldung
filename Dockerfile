@@ -4,7 +4,7 @@
 # Pulled from Docker's official-image mirror on AWS ECR Public: the digest
 # names the same bytes as on Docker Hub, but CI runners no longer hit Docker
 # Hub's anonymous pull limit (HTTP 429), which had failed image builds.
-FROM public.ecr.aws/docker/library/node:24-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 AS base
+FROM public.ecr.aws/docker/library/node:24-slim@sha256:a5f4366e834695d5f363b920c104953a535d3a9864d1bdf74566a0ebe01daee5 AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
