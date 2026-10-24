@@ -1,10 +1,11 @@
 # syntax=docker/dockerfile:1
 # Pinned by digest, not by tag: a tag moves and would silently change the
 # base of a reproducible build. node:24-slim as of 2026-09-06.
-# Pulled from Docker's official-image mirror on AWS ECR Public: the digest
-# names the same bytes as on Docker Hub, but CI runners no longer hit Docker
-# Hub's anonymous pull limit (HTTP 429), which had failed image builds.
-FROM public.ecr.aws/docker/library/node:24-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 AS base
+# Pulled from Google's anonymous mirror of Docker Hub: the digest names the
+# same bytes as on Docker Hub, but CI runners hit neither Docker Hub's
+# anonymous pull limit (HTTP 429, September 2026) nor the data limit that AWS
+# ECR Public applied to shared runner addresses from October 2026.
+FROM mirror.gcr.io/library/node:24-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
