@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1](https://github.com/metaneutrons/meldung/compare/v0.4.0...v0.4.1) (2026-10-24)
+
+
+### Bug Fixes
+
+* **deps:** update nodemailer to 10.2.1 for three address parser advisories ([#61](https://github.com/metaneutrons/meldung/issues/61)) ([cb118e0](https://github.com/metaneutrons/meldung/commit/cb118e04afb30fca7cabb837c478852eb9a0973b))
+* **docker:** pull the base image from mirror.gcr.io ([#64](https://github.com/metaneutrons/meldung/issues/64)) ([30a1f48](https://github.com/metaneutrons/meldung/commit/30a1f48f0c4f6cb9025d36055a337796c690119d))
+
 ## [0.4.0](https://github.com/metaneutrons/meldung/compare/v0.3.0...v0.4.0) (2026-10-09)
 
 
