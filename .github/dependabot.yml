@@ -42,8 +42,11 @@ updates:
       # semver-major-days is not permitted for docker either; see above.
     ignore:
       # For an image on another registry the name is the repository path
-      # without the host: public.ecr.aws/docker/library/node.
-      - dependency-name: docker/library/node
+      # without the host: mirror.gcr.io/library/node. The bare name covers a
+      # return to Docker Hub itself.
+      - dependency-name: library/node
+        update-types: ['version-update:semver-major']
+      - dependency-name: node
         update-types: ['version-update:semver-major']
 
   - package-ecosystem: npm
