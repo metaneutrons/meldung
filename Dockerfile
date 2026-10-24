@@ -5,7 +5,7 @@
 # same bytes as on Docker Hub, but CI runners hit neither Docker Hub's
 # anonymous pull limit (HTTP 429, September 2026) nor the data limit that AWS
 # ECR Public applied to shared runner addresses from October 2026.
-FROM mirror.gcr.io/library/node:24-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20 AS base
+FROM mirror.gcr.io/library/node:24-slim@sha256:55fb5f5a527ea2c5c4a95f963e48ef90aa38c7b346054fdc8ee9957a2b55d205 AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
@@ -14,7 +14,7 @@ WORKDIR /app
 # no longer part of the distribution. The version tracks packageManager in
 # package.json; both have to move together. Installed in the builder only, so
 # the runtime image does not carry a package manager it never uses.
-RUN npm install -g pnpm@12.3.4
+RUN npm install -g pnpm@11.28.8
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 # The prepare lifecycle script runs during install and lives here. Without it
 # the install aborts before a single dependency is linked.
