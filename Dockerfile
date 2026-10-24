@@ -13,7 +13,7 @@ WORKDIR /app
 # no longer part of the distribution. The version tracks packageManager in
 # package.json; both have to move together. Installed in the builder only, so
 # the runtime image does not carry a package manager it never uses.
-RUN npm install -g pnpm@12.3.4
+RUN npm install -g pnpm@11.28.8
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 # The prepare lifecycle script runs during install and lives here. Without it
 # the install aborts before a single dependency is linked.
