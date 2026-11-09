@@ -5,7 +5,7 @@
 # same bytes as on Docker Hub, but CI runners hit neither Docker Hub's
 # anonymous pull limit (HTTP 429, September 2026) nor the data limit that AWS
 # ECR Public applied to shared runner addresses from October 2026.
-FROM mirror.gcr.io/library/node:24-slim@sha256:c86ecead9e55a5210ac1727de38a4ca840bf03dcaf34dc9749addbf383b1920c AS base
+FROM mirror.gcr.io/library/node:24-slim@sha256:01d566e8d94d8c619591d78652babfccd3c6992a3dffa9ed5ab39e11cf6c70e9 AS base
 ENV NEXT_TELEMETRY_DISABLED=1
 
 FROM base AS builder
