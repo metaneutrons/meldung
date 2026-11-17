@@ -28,7 +28,7 @@
     "framer-motion": "^14.8.0",
     "js-sha256": "^1.0.0",
     "lucide-react": "1.64.0",
-    "next": "16.4.3",
+    "next": "16.4.5",
     "next-auth": "^5.0.0-beta.32",
     "next-intl": "4.14.9",
     "nodemailer": "^10.3.1",
