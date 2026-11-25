@@ -40,8 +40,8 @@ export async function saveToPostgres(
       ${record.id},
       ${record.referenceNumber},
       ${sql.json(record.formData)},
-      ${sql.json(record.deliveryResults as unknown as Parameters<typeof sql.json>[0])},
-      ${sql.json(record.triage as unknown as Parameters<typeof sql.json>[0])},
+      ${sql.json(record.deliveryResults)},
+      ${sql.json(record.triage)},
       ${record.createdAt}
     )
   `;
