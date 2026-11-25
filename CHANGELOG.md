@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/metaneutrons/meldung/compare/v0.4.1...v0.4.2) (2026-11-25)
+
+
+### Bug Fixes
+
+* **deps:** update Postgres.js to 4.1.1 ([#77](https://github.com/metaneutrons/meldung/issues/77)) ([fb56351](https://github.com/metaneutrons/meldung/commit/fb56351b6a425dc480fcd9fa5bd5964c99bab9dd))
+
 ## [0.4.1](https://github.com/metaneutrons/meldung/compare/v0.4.0...v0.4.1) (2026-10-24)
 
 
